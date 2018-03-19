@@ -23,30 +23,31 @@ router.get("/login",function(req,res){
  res.send("login");
 });
 
-router.get("/login/GooglePlusLogin",function(req,resp){
+router.get("/login/GooglePlusLogin",function(req,res){
   // Generate Login URL
   var url = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes,
-
   });
-
-  resp.send("<a href='"+url+"'>Login With Google</a>");
+  res.send("<a href='"+url+"'>Login With Google</a>");
+  //retrieve url in json obj
+   //res.send({"G+_url":url});
 });
 
 
-router.get('/login/Gmailcallback',function(req,resp){
+router.get('/login/Gmailcallback',function(req,res){
 
   console.log("login with call back");
   var code= req.query.code;
   oauth2Client.getToken(code, function (err, tokens) {
     if (!err) {
        oauth2Client.setCredentials(tokens);
+       //add to db instead
        fs.writeFileSync(__dirname+"/access_token.txt",JSON.stringify(tokens));
-       resp.send(tokens);
+       res.json(tokens);
     }
     else{
-      resp.send("error while try login with gmail");
+      res.json({"error":"error while try login with gmail"});
     }
   });
 
@@ -57,23 +58,22 @@ router.get("/profile",function(req,resp){
 
    var tokens=JSON.parse(fs.readFileSync(__dirname+"/access_token.txt"));
 
+    var client={};
     oauth2Client.setCredentials(tokens);
     plus.people.get({
       userId: 'me',
       auth: oauth2Client
      }, function (err, response) {
        if(!err){
-         console.log(response.data.emails);
-         tag="<img src="+response.data.image.url+">";
-         name="<p>"+response.data.displayName+"</p>";
-         gender="<p>"+response.data.gender+"</p>";
-         email="<p>"+response.data.emails[0].value+"</p>";
-
-         resp.send(tag+name+gender+email);
+         client.name=response.data.displayName;
+         client.email=response.data.emails[0].value;
+         client.gender=response.data.gender;
+         client.image=response.data.image.url;
+         client.tokens=tokens;
+         resp.json(client);
        }
         else {
-          //console.log(err);
-          resp.send(err);
+          resp.json({'error':error});
         }
     });
 
@@ -84,9 +84,4 @@ router.get("/profile",function(req,resp){
 //   // store these new tokens in a safe place (e.g. database)
 // });
 
-
-router.get("/forgetPw/:email",function(req,resp){
-
- resp.send("forget password")
-});
 module.exports = router;
