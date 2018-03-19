@@ -42,9 +42,8 @@ router.get('/login/Gmailcallback',function(req,res){
   oauth2Client.getToken(code, function (err, tokens) {
     if (!err) {
        oauth2Client.setCredentials(tokens);
-       //add to db instead
-       fs.writeFileSync(__dirname+"/access_token.txt",JSON.stringify(tokens));
-       res.json(tokens);
+       req.session.tokens = tokens;
+       res.redirect("/auth/profile");
     }
     else{
       res.json({"error":"error while try login with gmail"});
@@ -54,10 +53,9 @@ router.get('/login/Gmailcallback',function(req,res){
 });
 
 
-router.get("/profile",function(req,resp){
+router.get("/profile",function(req,res){
 
-   var tokens=JSON.parse(fs.readFileSync(__dirname+"/access_token.txt"));
-
+    var tokens= req.session.tokens;
     var client={};
     oauth2Client.setCredentials(tokens);
     plus.people.get({
@@ -70,10 +68,15 @@ router.get("/profile",function(req,resp){
          client.gender=response.data.gender;
          client.image=response.data.image.url;
          client.tokens=tokens;
-         resp.json(client);
+         //after save user in db add it to server session
+
+         req.session.username= client.name;
+         req.session.image= client.image;
+         req.session.logged=true;
+         res.json(client);
        }
         else {
-          resp.json({'error':error});
+          res.json({'error':error});
         }
     });
 

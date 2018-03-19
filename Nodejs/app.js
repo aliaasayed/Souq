@@ -4,6 +4,9 @@ var fs = require("fs");
 var server = express();
 var path = require('path');
 
+var session = require('express-session');
+server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/Souq_com");
 
@@ -18,10 +21,19 @@ server.set("views","./views");
 
 var authRouter = require("./controllers/Auth");
 server.use("/auth",authRouter);
-// Auth Mid
-// server.use(function(req,resp,next){
-//     resp.redirect("/auth/login");
-// });
+//Auth Mid
+server.use(function(req,res,next){
+  if(req.session.logged){
+    res.locals={
+      username:req.session.username,
+      userimage:req.session.image
+    }
+    res.json(res.locals)
+  }
+  else
+  res.redirect("/auth/login/GooglePlusLogin");
+});
+
 
 var forgPwRouter = require("./controllers/forgetPw");
 server.use("/forgetPw",forgPwRouter);
