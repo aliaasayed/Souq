@@ -2,9 +2,16 @@ const GOOGLE_CREDENTIALS = require("./GOOGLE_CREDENTIALS");
 const FACEBOOK_CREDENTIALS = require("./FACEBOOK_CREDENTIALS");
 var express = require("express");
 var fs = require("fs");
+var multer  = require("multer");
+var mongoose = require("mongoose");
+var fileUploadMid = multer({dest:"./public/images"});
+var UserModel = mongoose.model("users");
+
 var graph = require('fbgraph');
+
 var {google} = require('googleapis');
 var plus = google.plus('v1');
+
 var router = express.Router();
 
 //google+ information
@@ -20,10 +27,64 @@ var scopes = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ];
 
+/*****User Login******/
 router.get("/login",function(req,res){
- res.send("login");
+ res.send("<a href='/auth/facebook/login'>Login With facebook</a><br>"+
+ "<a href='/auth/login/GooglePlusLogin'>Login With Google</a><br>"+
+ "<a href='/auth/login'>Login</a>");
 });
 
+/*****User Register******/
+router.get("/register",function(req,resp){
+  resp.render("auth/register");
+});
+
+router.post("/register",fileUploadMid.single('image'),function(req,resp){
+
+  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    image:req.file.originalname,
+  });
+  user.save(function(err,doc){
+    if(!err)
+     resp.json(req.body);
+    else
+      resp.json(err);
+  });
+});
+
+/*****Seller Register******/
+
+router.get("/sellerRegister",function(req,resp){
+  resp.render("auth/sellerRegister");
+});
+
+router.post("/sellerRegister",fileUploadMid.single('image'),function(req,resp){
+  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    image:req.file.originalname,
+    nationalID:req.body.ID,
+    tokens:{ 'access_token':'asdajsnfjnajfn','expires_date':'12/5/2020' }
+  });
+
+  user.save(function(err,doc){
+    if(!err)
+     resp.json(req.body);
+    else
+      resp.json(err);
+  });
+
+});
+
+/*****Login with Google******/
 router.get("/login/GooglePlusLogin",function(req,res){
   // Generate Login URL
   var url = oauth2Client.generateAuthUrl({
@@ -42,8 +103,25 @@ router.get('/login/Gmailcallback',function(req,res){
   oauth2Client.getToken(code, function (err, tokens) {
     if (!err) {
        oauth2Client.setCredentials(tokens);
-       req.session.tokens = tokens;
-       res.redirect("/auth/profile");
+       plus.people.get({
+         userId: 'me',
+         auth: oauth2Client
+        }, function (err, response) {
+          if(!err){
+
+            SaveProfile(response,tokens,function(addRes){
+              console.log(addRes);
+              if(addRes==true)
+                res.redirect("/auth/SaveProfile");
+                else
+                 res.json({"error":"error while adding in db"});
+             });
+          }
+          else{
+                // res.json(err);
+               res.json({"error":"error while trying get personal info  gmail"});
+          }
+        });
     }
     else{
       res.json({"error":"error while try login with gmail"});
@@ -52,44 +130,36 @@ router.get('/login/Gmailcallback',function(req,res){
 
 });
 
+function SaveProfile(response,token,cb){
 
-router.get("/profile",function(req,res){
+      var user=new UserModel({
+        name:response.data.displayName,
+        email:response.data.emails[0].value,
+        image:response.data.image.url,
+        tokens:{'access_token':token.access_token,'refresh_token':token.refresh_token,'expires_date':token.expiry_date}
+      });
+      user.save(function(err,doc){
+        if(!err)
+          cb(true);
+        else
+          cb(false);
+      });
+}
 
-  var tokens= req.session.tokens;
-  var client={};
-  oauth2Client.setCredentials(tokens);
-  //regresh token
-  oauth2Client.refreshAccessToken(function(err,tokens) {
-    // your access_token is now refreshed and stored in oauth2Client
-    // store these new tokens in a safe place (e.g. database)
-  });
-
-    plus.people.get({
-      userId: 'me',
-      auth: oauth2Client
-     }, function (err, response) {
-       if(!err){
-         client.name=response.data.displayName;
-         client.email=response.data.emails[0].value;
-         client.gender=response.data.gender;
-         client.image=response.data.image.url;
-         client.tokens=tokens;
-         //after save user in db add it to server session
-
-         req.session.username= client.name;
-         req.session.image= client.image;
-         req.session.logged=true;
-         res.json(client);
-       }
-        else {
-          res.json({'error':err});
-        }
-    });
-
+// function refreshTokenGmail(tokens){
+//   oauth2Client.setCredentials(tokens);
+//   //regresh token
+//   oauth2Client.refreshAccessToken(function(err,tokens) {
+//     // your access_token is now refreshed and stored in oauth2Client
+//     // store these new tokens in a safe place (e.g. database)
+//   });
+// }
+//
+router.get("/SaveProfile",function(req,res){
+   res.send("add");
 });
 
-
-
+/*****Login with Facebook******/
 router.get("/facebook/login",function(req,resp){
   // Generate Login URL
   var url = graph.getOauthUrl({
@@ -97,7 +167,6 @@ router.get("/facebook/login",function(req,resp){
     redirect_uri: FACEBOOK_CREDENTIALS.web_redirect_uris[0],
     scope:['public_profile']
   });
-
   resp.send("<a href='"+url+"'>Login With Facebook</a>");
 });
 
