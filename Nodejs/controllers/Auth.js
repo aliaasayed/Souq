@@ -1,6 +1,8 @@
 const GOOGLE_CREDENTIALS = require("./GOOGLE_CREDENTIALS");
+const FACEBOOK_CREDENTIALS = require("./FACEBOOK_CREDENTIALS");
 var express = require("express");
 var fs = require("fs");
+var graph = require('fbgraph');
 var {google} = require('googleapis');
 var plus = google.plus('v1');
 var router = express.Router();
@@ -79,6 +81,45 @@ router.get("/profile",function(req,res){
     });
 
 });
+
+
+
+router.get("/facebook/login",function(req,resp){
+  // Generate Login URL
+  var url = graph.getOauthUrl({
+    client_id: FACEBOOK_CREDENTIALS.web_client_id,
+    redirect_uri: FACEBOOK_CREDENTIALS.web_redirect_uris[0],
+    scope:['public_profile']
+  });
+
+  resp.send("<a href='"+url+"'>Login With Facebook</a>");
+});
+
+
+router.get('/facebook/callback',function(req,resp){
+  // get Code from QueryString and send new request to get AccessToken
+  console.log("callback");
+  graph.authorize({
+        "client_id":      FACEBOOK_CREDENTIALS.web_client_id,
+        "redirect_uri":   FACEBOOK_CREDENTIALS.web_redirect_uris[0],
+        "client_secret":  FACEBOOK_CREDENTIALS.web_client_secret,
+        "code":           req.query.code
+    },function (err, facebookRes) {
+      fs.writeFileSync(__dirname+"/access_token.txt",facebookRes.access_token);
+      resp.json(facebookRes);
+    });
+});
+
+router.get("/facebook/profile",function(req,resp){
+  // Set Access Token
+  graph.setAccessToken(fs.readFileSync(__dirname+"/access_token.txt"));
+  // GET User Profile Data -- URI /user_id
+  graph.get("/me?fields=id,name,picture.width(300),email",function(err,result){
+    resp.send(`<img src='${result.picture.data.url}' />`);
+    //resp.json(result);
+  });
+});
+
 
 // oauth2Client.refreshAccessToken(function(err, tokens) {
 //   // your access_token is now refreshed and stored in oauth2Client
