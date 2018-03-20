@@ -9,16 +9,6 @@ var UserModel = mongoose.model("users");
 var fs = require('fs');
 
 
-router.get("/login",function(req,resp){
-  var message = req.flash('msg');
-  resp.render("auth/login",{ msg : message });
-});
-
-router.post("/login",urlEncodedMid,function(req,resp){
-
-
-});
-
 
 router.get("/register",function(req,resp){
   resp.render("auth/register");

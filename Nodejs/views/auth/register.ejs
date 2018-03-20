@@ -1,6 +1,6 @@
 <%include ../layout/header.ejs %>
 
-<form class="" action="/auth/register" method="post" enctype="multipart/form-data">
+<form class="" action="/signUp/register" method="post" enctype="multipart/form-data">
  Username <input type="text" name="username" value=""><br>
  Email <input type="text" name="email" value=""><br>
  Password <input type="password" name="password" value=""><br>
@@ -8,5 +8,5 @@
  Image <input type="file" name="image" multiple="multiple" value=""><br>
   <input type="submit" name="" value="Add User">
 </form>
-<a href="/auth/sellerRegister">Sign Up as a Seller</a>
+<a href="/signUp/sellerRegister">Sign Up as a Seller</a>
 <%include ../layout/footer.ejs %>
