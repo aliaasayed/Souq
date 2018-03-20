@@ -6,7 +6,7 @@ var server = express();
 var path = require('path');
 var flash = require("connect-flash");
 var mongoose = require("mongoose");
-//mongoose.connect("mongodb://localhost:27017/Souq");
+mongoose.connect("mongodb://localhost:27017/Souq");
 
 var options = {
   key: fs.readFileSync(__dirname+"/httpslicense/server.key"),
@@ -32,13 +32,8 @@ server.use(express.static('public')); // JS && CSS && Images ...
 
 server.use(flash());
 
-var signUpRouter = require("./controllers/auth");
 var userRouter = require("./controllers/users");
-
-
-
 server.use("/users",userRouter);
-
 
 server.set("view engine","ejs");
 server.set("views","./views");
