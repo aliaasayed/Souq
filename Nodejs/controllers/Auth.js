@@ -55,9 +55,15 @@ router.get('/login/Gmailcallback',function(req,res){
 
 router.get("/profile",function(req,res){
 
-    var tokens= req.session.tokens;
-    var client={};
-    oauth2Client.setCredentials(tokens);
+  var tokens= req.session.tokens;
+  var client={};
+  oauth2Client.setCredentials(tokens);
+  //regresh token
+  oauth2Client.refreshAccessToken(function(err,tokens) {
+    // your access_token is now refreshed and stored in oauth2Client
+    // store these new tokens in a safe place (e.g. database)
+  });
+
     plus.people.get({
       userId: 'me',
       auth: oauth2Client
@@ -120,10 +126,5 @@ router.get("/facebook/profile",function(req,resp){
   });
 });
 
-
-// oauth2Client.refreshAccessToken(function(err, tokens) {
-//   // your access_token is now refreshed and stored in oauth2Client
-//   // store these new tokens in a safe place (e.g. database)
-// });
 
 module.exports = router;

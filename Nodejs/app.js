@@ -26,7 +26,6 @@ fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
     require('./models/'+filename);
 });
 
-server.use(express.static('public')); // JS && CSS && Images ...
 // // var apiRouter = require("./controllers/api");
 // // server.use("/api/users",apiRouter);
 
@@ -70,7 +69,6 @@ server.use("/auth",authRouter);
 //   else
 //   res.redirect("/auth/login/GooglePlusLogin");
 // });
-
 
 
 httpsServer.listen(9090,function(){
