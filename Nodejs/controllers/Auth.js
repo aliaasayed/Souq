@@ -2,9 +2,16 @@ const GOOGLE_CREDENTIALS = require("./GOOGLE_CREDENTIALS");
 const FACEBOOK_CREDENTIALS = require("./FACEBOOK_CREDENTIALS");
 var express = require("express");
 var fs = require("fs");
+var multer  = require("multer");
+var mongoose = require("mongoose");
+var fileUploadMid = multer({dest:"./public/images"});
+var UserModel = mongoose.model("users");
+
 var graph = require('fbgraph');
+
 var {google} = require('googleapis');
 var plus = google.plus('v1');
+
 var router = express.Router();
 
 //google+ information
@@ -20,10 +27,69 @@ var scopes = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ];
 
+
+
+
+
+
+/*****User Login******/
 router.get("/login",function(req,res){
- res.send("login");
+ res.send("<a href='/auth/facebook/login'>Login With facebook</a><br>"+
+ "<a href='/auth/login/GooglePlusLogin'>Login With Google</a><br>"+
+ "<a href='/auth/login'>Login</a>");
 });
 
+/*****User Register******/
+router.get("/register",function(req,resp){
+  resp.render("auth/register");
+});
+
+router.post("/register",fileUploadMid.single('image'),function(req,resp){
+
+  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    image:req.file.originalname,
+  });
+  user.save(function(err,doc){
+    if(!err)
+     resp.json(req.body);
+    else
+      resp.json(err);
+  });
+});
+
+/*****Seller Register******/
+
+router.get("/sellerRegister",function(req,resp){
+  resp.render("auth/sellerRegister");
+});
+
+router.post("/sellerRegister",fileUploadMid.single('image'),function(req,resp){
+  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    image:req.file.originalname,
+    nationalID:req.body.ID,
+    tokens:{ 'access_token':'asdajsnfjnajfn','expires_date':'12/5/2020' }
+  });
+
+  user.save(function(err,doc){
+    if(!err)
+     resp.json(req.body);
+    else
+      resp.json(err);
+  });
+
+});
+
+/*****Login with Google******/
 router.get("/login/GooglePlusLogin",function(req,res){
   // Generate Login URL
   var url = oauth2Client.generateAuthUrl({
@@ -82,8 +148,7 @@ router.get("/profile",function(req,res){
 
 });
 
-
-
+/*****Login with Facebook******/
 router.get("/facebook/login",function(req,resp){
   // Generate Login URL
   var url = graph.getOauthUrl({
@@ -91,7 +156,6 @@ router.get("/facebook/login",function(req,resp){
     redirect_uri: FACEBOOK_CREDENTIALS.web_redirect_uris[0],
     scope:['public_profile']
   });
-
   resp.send("<a href='"+url+"'>Login With Facebook</a>");
 });
 
@@ -120,10 +184,5 @@ router.get("/facebook/profile",function(req,resp){
   });
 });
 
-
-// oauth2Client.refreshAccessToken(function(err, tokens) {
-//   // your access_token is now refreshed and stored in oauth2Client
-//   // store these new tokens in a safe place (e.g. database)
-// });
 
 module.exports = router;
