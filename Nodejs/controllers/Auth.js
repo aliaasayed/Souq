@@ -165,14 +165,13 @@ router.get("/facebook/login",function(req,resp){
   var url = graph.getOauthUrl({
     client_id: FACEBOOK_CREDENTIALS.web_client_id,
     redirect_uri: FACEBOOK_CREDENTIALS.web_redirect_uris[0],
-    scope:['public_profile']
+    scope:['public_profile','email']
   });
   resp.send("<a href='"+url+"'>Login With Facebook</a>");
 });
 
 
 router.get('/facebook/callback',function(req,resp){
-  // get Code from QueryString and send new request to get AccessToken
   console.log("callback");
   graph.authorize({
         "client_id":      FACEBOOK_CREDENTIALS.web_client_id,
@@ -180,20 +179,21 @@ router.get('/facebook/callback',function(req,resp){
         "client_secret":  FACEBOOK_CREDENTIALS.web_client_secret,
         "code":           req.query.code
     },function (err, facebookRes) {
-      fs.writeFileSync(__dirname+"/access_token.txt",facebookRes.access_token);
-      resp.json(facebookRes);
+      graph.setAccessToken(facebookRes.access_token)
+      graph.get("/me?fields=id,name,picture.width(300),email",function(err,result){
+        var user = new UserModel({
+          name:result.name,
+          email:result.email,
+          image:result.picture.data.url,
+          tokens:{'access_token':facebookRes.access_token,'expires_date':facebookRes.expires_in}
+        });
+        user.save(function(err,doc){
+          if(!err)
+           resp.json(result);
+          else
+            resp.json(err);
+        });
+      });
     });
 });
-
-router.get("/facebook/profile",function(req,resp){
-  // Set Access Token
-  graph.setAccessToken(fs.readFileSync(__dirname+"/access_token.txt"));
-  // GET User Profile Data -- URI /user_id
-  graph.get("/me?fields=id,name,picture.width(300),email",function(err,result){
-    resp.send(`<img src='${result.picture.data.url}' />`);
-    //resp.json(result);
-  });
-});
-
-
 module.exports = router;

@@ -31,7 +31,6 @@ var userRouter = require("./controllers/users");
 
 server.use("/users",userRouter);
 
-
 server.set("view engine","ejs");
 server.set("views","./views");
 
