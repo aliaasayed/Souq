@@ -7,7 +7,7 @@ var path = require('path');
 var flash = require("connect-flash");
 var mongoose = require("mongoose");
 //mongodb://admin:123456@localhost:27017/Souq --> AuthMod
-mongoose.connect("mongodb://localhost:27017/Souq");
+//mongoose.connect("mongodb://localhost:27017/Souq");
 
 var options = {
   key: fs.readFileSync(__dirname+"/httpslicense/server.key"),
@@ -31,10 +31,10 @@ server.use(express.static('public')); // JS && CSS && Images ...
 // // server.use("/api/users",apiRouter);
 
 // request.session
-server.use(session({
-  secret:"!@#$#@%#$^%!@#$%" ,
-  cookie:{maxAge: 60 * 60 * 24 * 7 * 1000 }
-}));
+// server.use(session({
+//   secret:"!@#$#@%#$^%!@#$%" ,
+//   cookie:{maxAge: 60 * 60 * 24 * 7 * 1000 }
+// }));
 
 server.use(flash());
 // request.flash('key','value')
