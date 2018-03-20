@@ -18,10 +18,10 @@ var transporter = nodemailer.createTransport({
  });
 
 router.post("/sendPw",urlEncodedMid,function(req,res){
-  
+
   var mailOptions = {
     from: 'souqCaret@gmail.com',
-    to: req.body.email,//email,'selvia.gamal@gmail.com',
+    to: req.body.email,
     subject: 'souqCaret forget password helper ',
     text: 'souqCaret password '
   };

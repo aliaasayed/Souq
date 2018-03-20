@@ -16,7 +16,6 @@ var scopes = [
   'https://www.googleapis.com/auth/plus.me',
   'https://www.googleapis.com/auth/userinfo.email',
   'https://www.googleapis.com/auth/userinfo.profile',
-  // 'https://www.googleapis.com/auth/gmail.readonly'
 ];
 
 router.get("/login",function(req,res){
@@ -33,7 +32,6 @@ router.get("/login/GooglePlusLogin",function(req,res){
   //retrieve url in json obj
    //res.send({"G+_url":url});
 });
-
 
 router.get('/login/Gmailcallback',function(req,res){
 
@@ -76,7 +74,7 @@ router.get("/profile",function(req,res){
          res.json(client);
        }
         else {
-          res.json({'error':error});
+          res.json({'error':err});
         }
     });
 

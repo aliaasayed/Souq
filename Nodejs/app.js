@@ -18,6 +18,8 @@ fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
 server.set("view engine","ejs");
 server.set("views","./views");
 
+var forgPwRouter = require("./controllers/forgetPw");
+server.use("/forgetPw",forgPwRouter);
 
 var authRouter = require("./controllers/Auth");
 server.use("/auth",authRouter);
@@ -25,6 +27,7 @@ server.use("/auth",authRouter);
 server.use(function(req,res,next){
   if(req.session.logged){
     res.locals={
+      //save suer id
       username:req.session.username,
       userimage:req.session.image
     }
@@ -35,8 +38,7 @@ server.use(function(req,res,next){
 });
 
 
-var forgPwRouter = require("./controllers/forgetPw");
-server.use("/forgetPw",forgPwRouter);
+
 server.listen(9090,function(){
   console.log("Starting listen...");
 });
