@@ -9,6 +9,7 @@ var UserModel = mongoose.model("users");
 var bodyParser = require("body-parser");
 var urlEncodedMid = bodyParser.urlencoded({extended:true});
 
+var jwt=require("jsonwebtoken");
 var graph = require('fbgraph');
 
 var {google} = require('googleapis');
@@ -48,21 +49,47 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
   UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
    if(data != null && !err)
    {
-    req.session.email = req.body.email;
-    req.session.logged = true;
-    var arr=[];
-    arr.push(data);
-    resp.render("users/list",{users:arr});
-   }
+     const token=jwt.sign({info:data.email},'myscret Key');
+     resp.json(token);
+  }
   else
   {
     req.flash('msg',"invalid username & password ...");
     resp.redirect("/userlogin");
   }
-
   });
-
 });
+
+//////////jwt//////////////////////////////////////////
+router.get('/api/protected',verifyJWToken,function(req,res){
+  jwt.verify(req.token,'myscret Key',function(err,data){
+    if(!err)
+     res.json({
+        text:'this is proteced ',
+        data:'data'
+      });
+
+    else
+    res.sendStatus(403);
+  });
+});
+
+///// jwt Mw verifyJWToken
+function verifyJWToken(req,res,next){
+
+  const authHeader=req.header['autherization'];
+  if( typeof authHeader!=="undefined"){
+
+     const authH=authHeader.split(" ");
+     const authToken=authH[1];
+     req.token=authToken;
+     next();
+  }
+  else
+    res.sendStatus(403);
+}
+
+///////////////////////////////////////////////////
 /*****User Logout******/
 router.get("/logout",function(req,resp){
   req.session.destroy();
@@ -82,8 +109,8 @@ function isUserExist(Useremail,cb){
 
     });
 }
-/*****User Register******/
 
+/*****User Register******/
 router.get("/register",function(req,resp){
   resp.render("auth/register");
 });

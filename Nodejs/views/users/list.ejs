@@ -4,7 +4,7 @@
   <tr>
     <th>user ID</th>
     <th>user name</th>
-  
+
     <th>Actions</th>
   </tr>
 
@@ -12,7 +12,9 @@
   <tr>
     <td><%= user._id %></td>
     <td><%= user.name %></td>
-    <td><img src='/images/<%= user.image %>'> </td>
+    <td><%= user.email %></td>
+      <td><%= user.password %></td>
+    <td><img src= <%= user.image %> > </td>
     <td>
       <a href="/users/delete/<%= user._id %>">Delete</a>
       <a href="/users/edit/<%= user._id %>">Edit</a>
