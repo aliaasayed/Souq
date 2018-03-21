@@ -34,6 +34,20 @@ router.get("/login",function(req,res){
  "<a href='/auth/login'>Login</a>");
 });
 
+///////////////////////////
+function isUserExist(Useremail,cb){
+  UserModel.findOne({email:Useremail},function(err,data){
+    if(!err)
+      if(data==null)
+         cb(false);
+      else
+        cb(true);
+
+    else
+      cb({"error":err});
+
+    });
+}
 /*****User Register******/
 router.get("/register",function(req,resp){
   resp.render("auth/register");
@@ -49,11 +63,8 @@ router.post("/register",fileUploadMid.single('image'),function(req,resp){
     address:req.body.address,
     image:req.file.originalname,
   });
-  user.save(function(err,doc){
-    if(!err)
-     resp.json(req.body);
-    else
-      resp.json(err);
+  saveProfile(user,function(DBRes){
+      resp.json(DBRes);
   });
 });
 
@@ -71,17 +82,12 @@ router.post("/sellerRegister",fileUploadMid.single('image'),function(req,resp){
     email:req.body.email,
     address:req.body.address,
     image:req.file.originalname,
-    nationalID:req.body.ID,
-    tokens:{ 'access_token':'asdajsnfjnajfn','expires_date':'12/5/2020' }
+    nationalID:req.body.ID
   });
 
-  user.save(function(err,doc){
-    if(!err)
-     resp.json(req.body);
-    else
-      resp.json(err);
+  saveProfile(user,function(DBRes){
+      resp.json(DBRes);
   });
-
 });
 
 /*****Login with Google******/
@@ -108,29 +114,41 @@ router.get('/login/Gmailcallback',function(req,res){
          auth: oauth2Client
         }, function (err, response) {
           if(!err){
-
-            SaveProfile(response,tokens,function(addRes){
-              console.log(addRes);
+            CreateProfile(response,tokens,function(addRes){
               if(addRes==true)
                 res.redirect("/auth/SaveProfile");
-                else
-                 res.json({"error":"error while adding in db"});
+              else
+                 res.json({"error":addRes});
              });
           }
-          else{
-                // res.json(err);
-               res.json({"error":"error while trying get personal info  gmail"});
-          }
+          else
+               res.json({"error":err});
         });
     }
-    else{
-      res.json({"error":"error while try login with gmail"});
-    }
+    else
+       res.json({"error":"error while try login with gmail"});
   });
-
 });
 
-function SaveProfile(response,token,cb){
+
+function saveProfile(user,cb){
+
+  isUserExist(user.email,function(Udata){
+    console.log(Udata)
+    if(!Udata.error&&Udata==false){
+      user.save(function(err,doc){
+        if(!err)
+          cb(true);
+        else
+          cb(false);
+      });
+    }
+    else
+      cb("user email exist");
+  });
+
+}
+function CreateProfile(response,token,cb){//gmail
 
       var user=new UserModel({
         name:response.data.displayName,
@@ -138,12 +156,9 @@ function SaveProfile(response,token,cb){
         image:response.data.image.url,
         tokens:{'access_token':token.access_token,'refresh_token':token.refresh_token,'expires_date':token.expiry_date}
       });
-      user.save(function(err,doc){
-        if(!err)
-          cb(true);
-        else
-          cb(false);
-      });
+    saveProfile(user,function(DBRes){
+        cb(DBRes);
+    });
 }
 
 // function refreshTokenGmail(tokens){
@@ -187,13 +202,12 @@ router.get('/facebook/callback',function(req,resp){
           image:result.picture.data.url,
           tokens:{'access_token':facebookRes.access_token,'expires_date':facebookRes.expires_in}
         });
-        user.save(function(err,doc){
-          if(!err)
-           resp.json(result);
-          else
-            resp.json(err);
+
+       saveProfile(user,function(DBRes){
+          resp.json(DBRes)
         });
+
       });
-    });
+  });
 });
 module.exports = router;
