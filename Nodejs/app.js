@@ -22,6 +22,10 @@ fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
     require('./models/'+filename);
 });
 
+
+var itemRouter = require("./controllers/items");
+server.use("/items",itemRouter);
+
 server.use(express.static('public'));
 
 server.use(flash());
