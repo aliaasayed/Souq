@@ -54,7 +54,18 @@ server.use("/signUp",authRouter);
 //   else
 //   res.redirect("/auth/login/GooglePlusLogin");
 // });
+// Auth Mid
+server.use(function(req,resp,next){
+  if(req.session.logged){
+    resp.locals={
+      email:req.session.email
+    }
+    next();
+  }
 
+  else
+    resp.redirect("/auth/userlogin");
+});
 
 httpsServer.listen(9090,function(){
   console.log("Starting listen...");

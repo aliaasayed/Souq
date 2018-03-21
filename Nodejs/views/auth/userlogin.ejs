@@ -12,10 +12,10 @@
   <% }%>
 </h1>
 
-<form class="" action="/auth/login" method="post">
-  Username<input type="text" name="username" value=""><br>
+<form class="" action="/auth/userlogin" method="post">
+  Email<input type="text" name="email" value=""><br>
   Password<input type="password" name="password" value=""><br>
-  <input type="submit"  value="Login">
+  <input type="submit"  value="Sign in">
   <a href="/auth/register">Register</a>
 </form>
 <%include ../layout/footer.ejs %>

@@ -6,6 +6,8 @@ var multer  = require("multer");
 var mongoose = require("mongoose");
 var fileUploadMid = multer({dest:"./public/images"});
 var UserModel = mongoose.model("users");
+var bodyParser = require("body-parser");
+var urlEncodedMid = bodyParser.urlencoded({extended:true});
 
 var graph = require('fbgraph');
 
@@ -31,7 +33,39 @@ var scopes = [
 router.get("/login",function(req,res){
  res.send("<a href='/auth/facebook/login'>Login With facebook</a><br>"+
  "<a href='/auth/login/GooglePlusLogin'>Login With Google</a><br>"+
- "<a href='/auth/login'>Login</a>");
+ "<a href='/auth/userlogin'>Login</a>");
+});
+
+router.get("/userlogin",function(req,resp){
+  var message = req.flash('msg');
+  resp.render("auth/userlogin",{ msg : message });
+});
+
+router.post("/userlogin",urlEncodedMid,function(req,resp){
+
+  UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
+   if(data != null && !err)
+   {
+    req.session.email = req.body.email;
+    req.session.logged = true;
+    var arr=[];
+    arr.push(data);
+    resp.render("users/list",{users:arr});
+    //resp.json(data);
+   }
+  else
+  {
+    req.flash('msg',"invalid username & password ...");
+    resp.redirect("/userlogin");
+  }
+    
+  });
+
+});
+/*****User Logout******/
+router.get("/logout",function(req,resp){
+  req.session.destroy();
+  resp.redirect("/auth/login");
 });
 
 ///////////////////////////
