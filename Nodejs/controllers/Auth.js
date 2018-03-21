@@ -36,11 +36,13 @@ router.get("/login",function(req,res){
  "<a href='/auth/userlogin'>Login</a>");
 });
 
+////////////////////////////////////////////////////////////////////////////////////
+
 router.get("/userlogin",function(req,resp){
   var message = req.flash('msg');
   resp.render("auth/userlogin",{ msg : message });
 });
-
+/////////////////////////////////////////////////////////////////
 router.post("/userlogin",urlEncodedMid,function(req,resp){
 
   UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
@@ -51,14 +53,13 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
     var arr=[];
     arr.push(data);
     resp.render("users/list",{users:arr});
-    //resp.json(data);
    }
   else
   {
     req.flash('msg',"invalid username & password ...");
     resp.redirect("/userlogin");
   }
-    
+
   });
 
 });
@@ -68,7 +69,7 @@ router.get("/logout",function(req,resp){
   resp.redirect("/auth/login");
 });
 
-///////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 function isUserExist(Useremail,cb){
   UserModel.findOne({email:Useremail},function(err,data){
     if(!err)
@@ -76,13 +77,13 @@ function isUserExist(Useremail,cb){
          cb(false);
       else
         cb(true);
-
     else
       cb({"error":err});
 
     });
 }
 /*****User Register******/
+
 router.get("/register",function(req,resp){
   resp.render("auth/register");
 });
