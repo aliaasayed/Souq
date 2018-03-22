@@ -15,6 +15,13 @@ var options = {
 
 var httpsServer = https.createServer(options,server);
 
+server.use(function(req,resp,next){
+  resp.header("Access-Control-Allow-Origin","*");
+  resp.header("Access-Control-Allow-Headers","Content-Type");
+  resp.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
+  next();
+});
+
 server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
 
 
