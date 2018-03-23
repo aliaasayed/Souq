@@ -6,6 +6,16 @@ var server = express();
 var path = require('path');
 var flash = require("connect-flash");
 var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var cors = require('cors')
+
+var corsOptions = {
+  "Access-Control-Allow-Origin":"*",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+server.use(cors(corsOptions))
+
 mongoose.connect("mongodb://localhost:27017/Souq");
 
 var options = {
@@ -22,8 +32,11 @@ server.use(function(req,resp,next){
   next();
 });
 
-server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
-
+// server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+server.use(bodyParser.json()); // to support JSON-encoded bodies
+// app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+//     extended: true
+// }))
 
 fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
     require('./models/'+filename);
@@ -66,17 +79,17 @@ server.use("/signUp",authRouter);
 //   res.redirect("/auth/login/GooglePlusLogin");
 // });
 // Auth Mid
-server.use(function(req,resp,next){
-  if(req.session.logged){
-    resp.locals={
-      email:req.session.email
-    }
-    next();
-  }
-
-  else
-    resp.redirect("/auth/userlogin");
-});
+// server.use(function(req,resp,next){
+//   if(req.session.logged){
+//     resp.locals={
+//       email:req.session.email
+//     }
+//     next();
+//   }
+//
+//   else
+//     resp.redirect("/auth/userlogin");
+// });
 
 httpsServer.listen(9090,function(){
   console.log("Starting listen...");

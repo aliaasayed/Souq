@@ -1,0 +1,24 @@
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginSouqComponent }   from './login-souq/login-souq.component';
+import { SignupSouqComponent }   from './signup-souq/signup-souq.component';
+import { SouqhomeComponent }   from './souqhome/souqhome.component';
+import { SellerHomeComponent }   from './seller-home/seller-home.component';
+
+
+const routes: Routes = [
+  { path: 'souq/login', component: LoginSouqComponent },
+  { path: 'souq/signup', component: SignupSouqComponent },
+  { path: 'souq/home', component: SouqhomeComponent},
+  { path: 'souq/seller/home', component: SellerHomeComponent}
+];
+
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
+})
+
+export class AppRoutingModule {
+
+
+}
