@@ -159,7 +159,7 @@ router.get("/login/GooglePlusLogin",function(req,res){
     access_type: 'offline',
     scope: scopes,
   });
-  res.send("<a href='"+url+"'>Login With Google</a>");
+  res.json(url);
   //retrieve url in json obj
    //res.send({"G+_url":url});
 });
@@ -191,8 +191,6 @@ router.get('/login/Gmailcallback',function(req,res){
        res.json({"error":"error while try login with gmail"});
   });
 });
-
-
 function saveProfile(user,cb){
 
   isUserExist(user.email,function(Udata){
@@ -244,7 +242,7 @@ router.get("/facebook/login",function(req,resp){
     redirect_uri: FACEBOOK_CREDENTIALS.web_redirect_uris[0],
     scope:['public_profile','email']
   });
-  resp.send("<a href='"+url+"'>Login With Facebook</a>");
+  resp.json(url);
 });
 
 
@@ -264,7 +262,6 @@ router.get('/facebook/callback',function(req,resp){
           image:result.picture.data.url,
           tokens:{'access_token':facebookRes.access_token,'expires_date':facebookRes.expires_in}
         });
-
        saveProfile(user,function(DBRes){
           resp.json(DBRes)
         });

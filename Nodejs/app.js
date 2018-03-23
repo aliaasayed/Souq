@@ -15,6 +15,13 @@ var options = {
 
 var httpsServer = https.createServer(options,server);
 
+server.use(function(req,resp,next){
+  resp.header("Access-Control-Allow-Origin","*");
+  resp.header("Access-Control-Allow-Headers","Content-Type");
+  resp.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
+  next();
+});
+
 server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
 
 
@@ -25,6 +32,9 @@ fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
 
 var itemRouter = require("./controllers/items");
 server.use("/items",itemRouter);
+
+var catRouter = require("./controllers/categories");
+server.use("/categories",catRouter);
 
 server.use(express.static('public'));
 
