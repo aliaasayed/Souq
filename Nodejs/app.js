@@ -36,7 +36,8 @@ server.use("/items",itemRouter);
 var catRouter = require("./controllers/categories");
 server.use("/categories",catRouter);
 
-
+var productsRouterMid  = require("./controllers/products");
+server.use("/products" , productsRouterMid);
 
 server.use(express.static('public'));
 
