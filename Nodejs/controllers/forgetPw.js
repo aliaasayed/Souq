@@ -5,6 +5,7 @@ var urlEncodedMid = bodyParser.urlencoded({extended:true});//to use qs instead o
 var router = express.Router();
 var mongoose = require("mongoose")
 var UserModel = mongoose.model("users");
+var randomstring = require("randomstring");
 
 var transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -25,12 +26,15 @@ router.post("/sendPw",urlEncodedMid,function(req,res){
 
    if(data != null){//email exist in data base
 
-     var newPw="112";
+    randomstring.generate();
+     var newPw= randomstring.generate(8);
+
+    //update exist Pw with sended one
      var mailOptions = {
        from: 'souqCaret@gmail.com',
        to: req.body.email,
        subject: 'souqCaret forget password helper ',
-       text: 'souqCaret password <br> Newpassword is '+newPw
+       text: 'souqCaret Newpassword is :'+newPw
      };
        transporter.sendMail(mailOptions, function(error, info){
          if (error)

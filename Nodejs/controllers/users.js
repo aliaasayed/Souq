@@ -5,13 +5,39 @@ var router = express.Router();
 var multer = require("multer");
 var fs = require("fs");
 var mongoose = require("mongoose");
+var jwt=require("jsonwebtoken");
 
 var UserModel = mongoose.model("users");
 var fileUploadMid = multer({dest:"./public/images"});
 
+
+function verifyJWToken(req,res,next){
+  const authHeader=req.headers['authorization'];
+  if( typeof authHeader!=="undefined"){
+    jwt.verify(authHeader,'myscret',(err,data)=>{
+      if(!err){
+        req.data=data;
+        next();
+      }
+      else
+        res.json({"error":"not verified"})
+      });
+  }
+  else
+    res.json({"error":"no token exist"})
+}
+
+
 router.get("/list",function(req,resp){
   UserModel.find({},function(err,result){
     resp.render("users/list",{users:result});
+  });
+});
+
+
+router.get("/profile",verifyJWToken,function(req,resp){
+  UserModel.findOne({email:req.data.email},function(err,data){
+    resp.json({user:data});
   });
 });
 
@@ -30,7 +56,7 @@ router.post("/edit/:id",fileUploadMid.single('image'),function(req,resp){
     else
     {
       resp.send("error");
-    }  
+    }
   })
 });
 module.exports = router;

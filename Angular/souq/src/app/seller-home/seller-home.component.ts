@@ -20,6 +20,8 @@ displaySellerHome=false;
         }
       });
     }
+    else
+      window.location.href = 'http://localhost:4200/souq/login';
   }
 
   ngOnInit() {

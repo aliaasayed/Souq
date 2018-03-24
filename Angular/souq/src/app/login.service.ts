@@ -7,23 +7,22 @@ export class LoginService {
 
   constructor(private http:HttpClient) { }
 
- getGmailURL(): Observable<any> {
+getGmailURL():Observable<any> {
    return this.http.get<any>("https://localhost:9090/auth/login/GooglePlusLogin");
  }
 
- getFacebookURL(): Observable<any> {
+getFacebookURL(): Observable<any> {
     return this.http.get<any>('https://localhost:9090/auth/facebook/login');
   }
 
-  getUserLoginToken(email:String,password:String):Observable<any>{
+getUserLoginToken(email:String,password:String):Observable<any>{
 
       var body = {"email": email,"password": password};
       return this.http
      .post<any>('https://localhost:9090/auth/userlogin', body);
     }
 
-
-    accessProtected(){
+  accessProtected(){
       const headers = new HttpHeaders()
           .set('authorization', localStorage.getItem('SouqtokenKey'))
           .set('Content-Type', 'application/json');
@@ -31,7 +30,7 @@ export class LoginService {
         return this.http.get('https://localhost:9090/auth/api/protected', {
           headers: headers
         })
-    }
+  }
 
     verifyToken(){
       const headers = new HttpHeaders()
@@ -46,8 +45,4 @@ export class LoginService {
         var body = {"email": Email};
        return this.http.post<any>('https://localhost:9090/forgetPw/sendPw',body);
      }
-
-
-
-
 }

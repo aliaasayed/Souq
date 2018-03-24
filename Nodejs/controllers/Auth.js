@@ -8,6 +8,7 @@ var fileUploadMid = multer({dest:"./public/images"});
 var UserModel = mongoose.model("users");
 var bodyParser = require("body-parser");
 var urlEncodedMid = bodyParser.urlencoded({extended:true});
+var curl = require('curlrequest');
 
 var jwt=require("jsonwebtoken");
 var graph = require('fbgraph');
@@ -82,9 +83,8 @@ function verifyJWToken(req,res,next){
      req.token=authHeader;
      next();
   }
-  else{
+  else
     res.json({"error":"not verified"})
-  }
 }
 
 ///////////////////////////////////////////////////
@@ -153,11 +153,12 @@ router.post("/sellerRegister",fileUploadMid.single('image'),function(req,resp){
 /*****Login with Google******/
 router.get("/login/GooglePlusLogin",function(req,res){
   // Generate Login URL
-  var url = oauth2Client.generateAuthUrl({
+  var urlG = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: scopes,
   });
-  res.json(url);
+
+  res.json(urlG);
 });
 
 
