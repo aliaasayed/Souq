@@ -7,6 +7,7 @@ var mongoose = require("mongoose");
 var fileUploadMid = multer({dest:"./public/images"});
 var UserModel = mongoose.model("users");
 var bodyParser = require("body-parser");
+bodyParser.json();
 var urlEncodedMid = bodyParser.urlencoded({extended:true});
 
 var jwt=require("jsonwebtoken");
@@ -115,15 +116,15 @@ router.get("/register",function(req,resp){
   resp.render("auth/register");
 });
 
-router.post("/register",fileUploadMid.single('image'),function(req,resp){
-
-  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+router.post("/register",bodyParser.json(),function(req,resp){
+console.log(req.body);
+  //fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
   var user = new UserModel({
     name:req.body.username,
     password:req.body.password,
     email:req.body.email,
     address:req.body.address,
-    image:req.file.originalname,
+    //image:req.body.imag,
   });
   saveProfile(user,function(DBRes){
       resp.json(DBRes);
@@ -231,7 +232,7 @@ function CreateProfile(response,token,cb){//gmail
 // }
 //
 router.get("/SaveProfile",function(req,res){
-   res.send("add");
+   res.json("add");
 });
 
 /*****Login with Facebook******/

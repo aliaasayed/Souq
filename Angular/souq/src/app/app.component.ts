@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
     console.log("const");
     this.url= this.loginService.getGmailURL().subscribe((res)=>{
       console.log(res);
-      this.url=res;
+      //this.url=res;
     });
     this.url= this.loginService.getFacebookURL().subscribe((res)=>{
       console.log(res);
@@ -23,5 +23,10 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
     console.log("init")
+  }
+  fun(cb)
+  {
+    cb(true);
+    console.log("gvhb")
   }
 }
