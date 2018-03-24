@@ -14,15 +14,17 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginSouqComponent } from './login-souq/login-souq.component';
+
+import { LoginService } from './login.service';
+import { UsersProfileService } from './users-profile.service';
 import { UserRegisterComponent } from './user-register/user-register.component';
+import { LoginSouqComponent } from './login-souq/login-souq.component';
 import { SellerRegisterComponent } from './seller-register/seller-register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-
-import { LoginService } from './login.service';
+import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
 import { EditInfoComponent } from './edit-info/edit-info.component';
 
 export function getAuthServiceConfigs() {
@@ -51,6 +53,7 @@ export function getAuthServiceConfigs() {
     ForgetPasswordComponent,
     SellerRegisterComponent,
     EditInfoComponent,
+    UserProfileDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ export function getAuthServiceConfigs() {
   providers: [
     {provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs},
-      LoginService
+      LoginService,
+      UsersProfileService
   ],
   bootstrap: [AppComponent]
 })

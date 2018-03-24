@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./souqhome.component.css']
 })
 export class SouqhomeComponent implements OnInit {
-  
-  constructor() { }
+
+  constructor() {
+    
+  }
 
   ngOnInit() {
   }

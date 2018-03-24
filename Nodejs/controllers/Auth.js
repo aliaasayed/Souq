@@ -75,10 +75,117 @@ function verifyJWToken(req,res,next){
      req.token=authHeader;
      next();
   }
-  else{
+  else
     res.json({"error":"not verified"})
-  }
 }
+<<<<<<< HEAD
+=======
+
+///////////////////////////////////////////////////
+/*****User Logout******/
+router.get("/logout",function(req,resp){
+  req.session.destroy();
+  resp.redirect("/auth/login");
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+function isUserExist(Useremail,cb){
+  UserModel.findOne({email:Useremail},function(err,data){
+    if(!err)
+      if(data==null)
+         cb(false);
+      else
+        cb(true);
+    else
+      cb({"error":err});
+
+    });
+}
+
+/*****User Register******/
+router.get("/register",function(req,resp){
+  resp.render("auth/register");
+});
+
+router.post("/register",bodyParser.json(),function(req,resp){
+console.log(req.body);
+  //fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    //image:req.body.imag,
+  });
+  saveProfile(user,function(DBRes){
+      resp.json(DBRes);
+  });
+});
+
+/*****Seller Register******/
+
+router.get("/sellerRegister",function(req,resp){
+  resp.render("auth/sellerRegister");
+});
+
+router.post("/sellerRegister",fileUploadMid.single('image'),function(req,resp){
+  fs.renameSync("./public/images/"+req.file.filename,"./public/images/"+req.file.originalname)
+  var user = new UserModel({
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    image:req.file.originalname,
+    nationalID:req.body.ID
+  });
+
+  saveProfile(user,function(DBRes){
+      resp.json(DBRes);
+  });
+});
+
+/*****Login with Google******/
+router.get("/login/GooglePlusLogin",function(req,res){
+  // Generate Login URL
+  var urlG = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: scopes,
+  });
+
+  res.json(urlG);
+});
+
+
+router.get('/login/Gmailcallback',function(req,res){
+
+  console.log("login with call back");
+  var code= req.query.code;
+  oauth2Client.getToken(code, function (err, tokens) {
+    if (!err) {
+       oauth2Client.setCredentials(tokens);
+       plus.people.get({
+         userId: 'me',
+         auth: oauth2Client
+        }, function (err, response) {
+          if(!err){
+            CreateProfile(response,tokens,function(addRes){
+              if(addRes==true)
+                res.redirect("/auth/SaveProfile");
+              else
+                 res.json({"error":addRes});
+             });
+          }
+          else
+               res.json({"error":err});
+        });
+    }
+    else
+       res.json({"error":"error while try login with gmail"});
+  });
+});
+
+
+>>>>>>> 946ecb84fe0be0c0aa60653245480cebf038a315
 function saveProfile(user,cb){
   isUserExist(user.email,function(Udata){
     console.log(Udata)

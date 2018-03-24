@@ -54,7 +54,7 @@
         <li *ngIf="!configData.login"><a href="/souq/signup"><span class="glyphicon glyphicon-user"  ></span> Sign Up</a></li>
         <li *ngIf="!configData.login"><a href="/souq/login"><span class="glyphicon glyphicon-log-in" ></span> Login</a></li>
           <li *ngIf="configData.login"><img  class="img-responsive img-circle" src={{logedUser.image}} width="70"></li>
-        <li *ngIf="configData.login"><a href="#"><span class="glyphicon glyphicon-user"></span>{{logedUser.name}}</a></li>
+        <li *ngIf="configData.login"><a href="/souq/home/profile"><span class="glyphicon glyphicon-user"></span>{{logedUser.name}}</a></li>
         <li *ngIf="!logedUser.nationalID && configData.login"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>
        </a> </li>
         <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-in" ></span> logout</a></li>

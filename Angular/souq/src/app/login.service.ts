@@ -47,7 +47,6 @@ export class LoginService {
 
        return this.http.post('https://localhost:9090/auth/register',register ,{
          headers: headers
-       })
-
+       });
   }
   }
