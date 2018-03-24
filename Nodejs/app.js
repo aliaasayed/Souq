@@ -46,6 +46,12 @@ fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
 var itemRouter = require("./controllers/items");
 server.use("/items",itemRouter);
 
+var catRouter = require("./controllers/categories");
+server.use("/categories",catRouter);
+
+var productsRouterMid  = require("./controllers/products");
+server.use("/products" , productsRouterMid);
+
 server.use(express.static('public'));
 
 server.use(flash());

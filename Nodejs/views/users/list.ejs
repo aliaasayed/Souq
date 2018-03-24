@@ -10,13 +10,12 @@
 
   <% users.forEach(function(user){ %>
   <tr>
-    <td><%= user._id %></td>
+    <!-- <td><%= user._id %></td> -->
     <td><%= user.name %></td>
     <td><%= user.email %></td>
       <td><%= user.password %></td>
     <td><img src= <%= user.image %> > </td>
     <td>
-      <a href="/users/delete/<%= user._id %>">Delete</a>
       <a href="/users/edit/<%= user._id %>">Edit</a>
      </td>
   </tr>
