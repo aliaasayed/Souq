@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SignupSouqComponent } from './signup-souq/signup-souq.component';
 import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SellerHomeComponent } from './seller-home/seller-home.component';
     SignupSouqComponent,
     SouqhomeComponent,
     SellerHomeComponent,
+    ForgetPasswordComponent,
   ],
   imports: [
     BrowserModule,

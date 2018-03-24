@@ -17,9 +17,9 @@ export class LoginService {
 
   getUserLoginToken(email:String,password:String):Observable<any>{
 
-    var body = {"email": email,"password": password};
-    return this.http
-   .post<any>('https://localhost:9090/auth/userlogin', body);
+      var body = {"email": email,"password": password};
+      return this.http
+     .post<any>('https://localhost:9090/auth/userlogin', body);
     }
 
 
@@ -42,6 +42,12 @@ export class LoginService {
           headers: headers
         });
     }
+    forgetPassword(Email:String): Observable<any> {
+        var body = {"email": Email};
+       return this.http.post<any>('https://localhost:9090/forgetPw/sendPw',body);
+     }
+
+
 
 
 }
