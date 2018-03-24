@@ -8,8 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
 import { UsersProfileService } from './users-profile.service';
-import { UserRegisterComponent } from './user-register/user-register.component';27
+import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
+import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupSouqComponent } from './signup-souq/signup-souq.component';
 import { SouqhomeComponent } from './souqhome/souqhome.component';
@@ -25,6 +26,7 @@ import { UserProfileDetailComponent } from './user-profile-detail/user-profile-d
     SignupSouqComponent,
     SouqhomeComponent,
     SellerHomeComponent,
+    LoginComponent,
     ForgetPasswordComponent,
     UserProfileDetailComponent,
   ],

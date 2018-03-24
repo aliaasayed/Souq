@@ -13,18 +13,7 @@ export class AppComponent implements OnInit{
   url;
   configData=config;
   logedUser={};
-  constructor(private loginService: LoginService){
-    console.log("const");
-    this.url= this.loginService.getGmailURL().subscribe((res)=>{
-      console.log(res);
-      //this.url=res;
-    });
-    this.url= this.loginService.getFacebookURL().subscribe((res)=>{
-      console.log(res);
-      this.url=res;
-    });
-
-
+  constructor(){
     this.configData.login=localStorage.getItem('Souqlogin');
     let logU = JSON.parse(localStorage.getItem('SouqloginUser'));
     if(logU!=null)
