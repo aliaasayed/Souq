@@ -1,0 +1,9 @@
+<form (ngSubmit)="submitIt(loginForm)" #loginForm="ngForm">
+  <input type="text" name="username" ngModel required><br>
+  <input type="password" name="password" ngModel required ><br>
+  <input type="email" name="email" ngModel required ><br>
+  <input type="text" name="address" ngModel required ><br>
+  <input type="file" #fileupload ngModel name="myFile" (change)="fileUpload(fileupload.files)"
+   base-sixty-four-input/>
+  <input type="submit">
+</form>

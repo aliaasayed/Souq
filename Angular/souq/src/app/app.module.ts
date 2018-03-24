@@ -2,11 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
 import { UsersProfileService } from './users-profile.service';
+import { UserRegisterComponent } from './user-register/user-register.component';27
 import { LoginSouqComponent } from './login-souq/login-souq.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SignupSouqComponent } from './signup-souq/signup-souq.component';
@@ -18,6 +20,7 @@ import { UserProfileDetailComponent } from './user-profile-detail/user-profile-d
 @NgModule({
   declarations: [
     AppComponent,
+    UserRegisterComponent,
     LoginSouqComponent,
     SignupSouqComponent,
     SouqhomeComponent,

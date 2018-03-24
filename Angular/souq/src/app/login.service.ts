@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { Headers,RequestOptions } from '@angular/http';
 
 @Injectable()
 export class LoginService {
 
   constructor(private http:HttpClient) { }
 
-getGmailURL():Observable<any> {
+ getGmailURL(): Observable<any> {
    return this.http.get<any>("https://localhost:9090/auth/login/GooglePlusLogin");
  }
 
@@ -45,4 +47,15 @@ getUserLoginToken(email:String,password:String):Observable<any>{
         var body = {"email": Email};
        return this.http.post<any>('https://localhost:9090/forgetPw/sendPw',body);
      }
+
+     register(register):Observable<any>
+     {
+       console.log(register)
+       const headers = new HttpHeaders()
+             .set('Content-Type', 'application/json');
+
+           return this.http.post('https://localhost:9090/auth/register',register ,{
+             headers: headers
+           });
+      }
 }
