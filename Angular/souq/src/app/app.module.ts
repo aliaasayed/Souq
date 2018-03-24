@@ -1,29 +1,56 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
+import {
+    SocialLoginModule,
+    AuthServiceConfig,
+    GoogleLoginProvider,
+    FacebookLoginProvider,
+} from "angular5-social-login";
+
+import { FormsModule } from '@angular/forms';
+
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginService } from './login.service';
-import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
+import { UserRegisterComponent } from './user-register/user-register.component';
+import { SellerRegisterComponent } from './seller-register/seller-register.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SignupSouqComponent } from './signup-souq/signup-souq.component';
 import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+
+import { LoginService } from './login.service';
+import { EditInfoComponent } from './edit-info/edit-info.component';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("1714698738591209")
+        },
+        // {
+        //   id: GoogleLoginProvider.PROVIDER_ID,
+        //   provider: new GoogleLoginProvider("294559565518-b4o6oi3a57782msinnbpvsjenquhjc0g.apps.googleusercontent.com")
+        // },
+      ]
+  );
+  return config;
+}
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegisterComponent,
     LoginSouqComponent,
-    SignupSouqComponent,
     SouqhomeComponent,
     SellerHomeComponent,
     ForgetPasswordComponent,
+    SellerRegisterComponent,
+    EditInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,8 +58,13 @@ import { ForgetPasswordComponent } from './forget-password/forget-password.compo
     HttpModule,
     HttpClientModule,
     AppRoutingModule,
+    SocialLoginModule,
   ],
-  providers: [LoginService],
+  providers: [
+    {provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs},
+      LoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

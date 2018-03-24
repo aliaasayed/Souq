@@ -15,13 +15,14 @@
 			</div>
 			<div class="panel-body panel-pad">
 				<div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div>
+				<div class="col-sm-12 controls">
+					<button id="btn-fblogin" href="#" class="btn btn-facebook" (click)="socialSignIn('facebook')">Login with Facebook</button>
+					<button id="btn-googlelogin" href="#" class="btn btn-google" (click)="socialSignIn('google')">Login with Google+</button>
+					</div>
 					<form id="loginform" class="form-horizontal" role="form">
 						<div class="form-group">
 						<!-- Button -->
-							<div class="col-sm-12 controls">
-								<a id="btn-fblogin" href="#" class="btn btn-facebook">Login with Facebook</a>
-								<a id="btn-googlelogin" href="#" class="btn btn-google">Login with Google+</a>
-								</div>
+
 						</div>
 						<div class="input-group margT25">
 							<span class="input-group-addon">

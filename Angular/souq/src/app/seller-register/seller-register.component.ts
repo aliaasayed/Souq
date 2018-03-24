@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import {NgForm} from '@angular/forms';
-
 @Component({
-  selector: 'app-user-register',
-  templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.css']
+  selector: 'app-seller-register',
+  templateUrl: './seller-register.component.html',
+  styleUrls: ['./seller-register.component.css']
 })
-
-export class UserRegisterComponent implements OnInit {
+export class SellerRegisterComponent implements OnInit {
   image; /* property of File type */
   constructor(private loginService: LoginService) {}
   submitIt(form) {
