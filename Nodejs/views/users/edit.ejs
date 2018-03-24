@@ -1,0 +1,13 @@
+<%include ../layout/header.ejs %>
+
+<form class="" action="/users/edit/<%= user.id %>" method="post" enctype="multipart/form-data">
+ Username <input type="text" name="username" value="<%= user.name %>"><br>
+ Email <input type="text" name="email" value="<%= user.email %>"><br>
+ Password <input type="password" name="password" value="<%= user.password %>"><br>
+ Address <input type="text" name="address" value="<%= user.address %>"><br>
+ Image <input type="file" name="image" multiple="multiple" value="">
+ <img src="/images/<%= user.image %>">
+ <br>
+  <input type="submit" name="" value="Edit User">
+</form>
+<%include ../layout/footer.ejs %>

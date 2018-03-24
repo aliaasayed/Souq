@@ -31,63 +31,61 @@ var scopes = [
   'https://www.googleapis.com/auth/userinfo.profile',
 ];
 
-/*****User Login******/
-router.get("/login",function(req,res){
- res.send("<a href='/auth/facebook/login'>Login With facebook</a><br>"+
- "<a href='/auth/login/GooglePlusLogin'>Login With Google</a><br>"+
- "<a href='/auth/userlogin'>Login</a>");
-});
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-router.get("/userlogin",function(req,resp){
-  var message = req.flash('msg');
-  resp.render("auth/userlogin",{ msg : message });
-});
-/////////////////////////////////////////////////////////////////
 router.post("/userlogin",urlEncodedMid,function(req,resp){
 
   UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
    if(data != null && !err)
    {
-     const token=jwt.sign({info:data.email},'myscret Key');
-     resp.json(token);
+     const payload = {email: data.email};
+     const token=jwt.sign(payload,'myscret');
+     resp.json({
+          success: true,
+          message: 'Enjoy your token!',
+          token: token,
+          user:data
+        });
   }
   else
   {
-    req.flash('msg',"invalid username & password ...");
-    resp.redirect("/userlogin");
+    resp.json({"error":"invalid Username or password"});
   }
   });
 });
 
 //////////jwt//////////////////////////////////////////
-router.get('/api/protected',verifyJWToken,function(req,res){
-  jwt.verify(req.token,'myscret Key',function(err,data){
-    if(!err)
-     res.json({
-        text:'this is proteced ',
-        data:'data'
-      });
 
+router.get('/verify',verifyJWToken,function(req,res){
+  jwt.verify(req.token,'myscret',(err,data)=>{
+    if(!err)
+      res.json({"success":"valid"});
     else
-    res.sendStatus(403);
+    res.json({"error":"invalid"})
+  });
+});
+
+///////////////////////////////////////////////
+router.get('/api/protected',verifyJWToken,function(req,res){
+  jwt.verify(req.token,'myscret',(err,data)=>{
+    if(!err)
+      res.json({"success":data.email});
+    else
+    res.json({"error":err})
   });
 });
 
 ///// jwt Mw verifyJWToken
 function verifyJWToken(req,res,next){
-
-  const authHeader=req.header['autherization'];
+  const authHeader=req.headers['authorization'];
   if( typeof authHeader!=="undefined"){
-
-     const authH=authHeader.split(" ");
-     const authToken=authH[1];
-     req.token=authToken;
+     req.token=authHeader;
      next();
   }
-  else
-    res.sendStatus(403);
+  else{
+    res.json({"error":"not verified"})
+  }
 }
 
 ///////////////////////////////////////////////////
@@ -161,9 +159,8 @@ router.get("/login/GooglePlusLogin",function(req,res){
     scope: scopes,
   });
   res.json(url);
-  //retrieve url in json obj
-   //res.send({"G+_url":url});
 });
+
 
 router.get('/login/Gmailcallback',function(req,res){
 
@@ -192,6 +189,8 @@ router.get('/login/Gmailcallback',function(req,res){
        res.json({"error":"error while try login with gmail"});
   });
 });
+
+
 function saveProfile(user,cb){
 
   isUserExist(user.email,function(Udata){
