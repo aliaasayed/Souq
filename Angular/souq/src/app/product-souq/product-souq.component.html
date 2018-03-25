@@ -1,0 +1,71 @@
+
+<div class="SuccessAddToCart"*ngIf="IsAdded" >
+
+  <h1>{{selectedItem.name}} is added to your cart</h1>
+  <input class="btn" type="button" (click)="HidsAll()" name="OKey" value="Okay" >
+
+</div>
+
+ <div *ngIf="showDetail" class="overlay">
+   <div id="info" >
+     <div class="imagLogo">
+     <img id="product" class="proSelectedImage"  src={{selectedItem.image}}/>
+   </div>
+     <div id="price">
+       <h2>$ {{selectedItem.price}} </h2>
+     </div>
+   </div>
+   <br><br>
+   <h1>{{selectedItem.name}} </h1><br>
+
+   <p>product offer:{{selectedItem.offer}} </p>
+   <div>
+
+       <h3><b>Quantity Avialable:</b>{{selectedItem.stock}} </h3><br>
+        <h3>product Description:</h3><br>
+        <p>{{selectedItem.description}} </p><br>
+        <h3>product subcategory: </h3>
+        <p>{{selectedItem.subcategory}} </p><br>
+
+        <!-- <p>{{selectedItem.specifications}} </p> -->
+
+       <input class="btn" type="button"(click)="addTocart()" name="AddToCart" value="AddToCart" >
+         <p class="alert" *ngIf="alert" >You must login first</p>
+   </div>
+ </div>
+
+ <div (click)="viewDetail($event,selectedItem)">
+  <div id="container" *ngFor="let item of productsData.docs" >
+
+    <div id="info" >
+      <img id="product" class="producImage" src={{item.image}}/>
+      <div id="price">
+        <h2>$ {{item.price}} </h2>
+      </div>
+    </div>
+
+    <div id="payment">
+
+      <form id="checkout">
+
+
+        <h3> {{item.name}} </h3>
+
+        <input class="btn" type="button" name="viewDetail" value="viewDetail" (click)="viewDetail($event,item)">
+        <input class="btn" type="button" name="AddToCart" value="AddToCart" >
+
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="divCenter">
+    <div class="pagination" *ngFor="let page of pages;let i = index">
+         <a *ngIf="i==0" href="#">&laquo;</a>
+         <a (click)="getProductPage(i+1)">{{i+1}}</a>
+        <a *ngIf="i==productsData.pages-1" href="#">&raquo;</a>
+    </div>
+</div>

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Headers,RequestOptions } from '@angular/http';
 
 @Injectable()
 export class LoginService {
-
+  user:any;
   constructor(private http:HttpClient) { }
   getUserLoginToken(email:String,password:String):Observable<any>{
 
   var body = {"email": email,"password": password};
-  return this.http.post<any>('https://localhost:9090/auth/userlogin', body);
-  }
+   this.user=this.http.post<any>('https://localhost:9090/auth/userlogin', body);
+   console.log("service",this.user)
+   return this.user;
 
+  }
 
   accessProtected(){
   const headers = new HttpHeaders()
@@ -40,13 +41,13 @@ export class LoginService {
   }
 
   register(register):Observable<any>
-  {
-   console.log(register)
-   const headers = new HttpHeaders()
-         .set('Content-Type', 'application/json');
+      {
+       console.log(register)
+       const headers = new HttpHeaders()
+             .set('Content-Type', 'application/json');
 
-       return this.http.post('https://localhost:9090/auth/register',register ,{
-         headers: headers
-       });
-  }
+           return this.http.post('https://localhost:9090/auth/register',register ,{
+             headers: headers
+           });
+      }
   }

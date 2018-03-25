@@ -6,13 +6,45 @@ var router = express.Router();
 var fs = require("fs");
 var mongoose = require("mongoose");
 var ProductsModel = mongoose.model("products");
-//var fileUploadMid = multer({dest:"./public/images"});
 
 
+///////////////////////////////////////////////////////
+// router.get("/pro",function(request,response)
+// {
+//     var product = new ProductsModel({
+//
+//          _id: new mongoose.Types.ObjectId,
+//         name:"Shoexpress Lace Up Boots For Women - Black",
+//         price:32.00,
+//         offer:20,
+//         stock:8,
+//         description:'The advertised prices for products '+ 'displayed at Souq.com are inclusive of any VAT.'
+//       +'However, your final price will be reflected at checkout, once the order information is completed.'+
+//       +'If your order contains items from a FBS (Fulfilled by Souq) '+'not issue a Tax Invoice and charge VAT on their sales.',
+//
+//         category:'ObjectId("5ab6b32942be84332f54aa7a")',
+//         subcategory:"shoes",
+//         DateOfEntry: new Date(),
+//         specifications:{color:"black",size:"40"},
+//         SellerID:'ObjectId("5ab6b684ed2ce9385f478652")',
+//         image:"https://cf1.s3.souqcdn.com/item/2018/02/11/28/78/46/23/item_XXL_28784623_110320606.jpg",
+//         rating:{1:0, 2:0, 3:5, 4:2, 5:5}
+//       });
+//     product.save(function(err,doc){
+//     if(!err)
+//     {
+//         console.log("entry success");
+//         response.send("added");
+//     }
+//     else
+//         response.json(err);
+//     });
+// });
+/////////////////////////////////////////////////////////////////////////
 router.post("/add",urlEncodedMid,function(request,response)
 {
     var product = new ProductsModel({
-     
+
          _id: new mongoose.Types.ObjectId,
         name:request.body.name,
         price:request.body.price,
@@ -26,7 +58,6 @@ router.post("/add",urlEncodedMid,function(request,response)
         SellerID:request.body.SellerID,
         image:request.body.image,
         rating:{1:0, 2:0, 3:0, 4:0, 5:0}
-
       });
     product.save(function(err,doc){
     if(!err)
@@ -42,12 +73,12 @@ router.post("/add",urlEncodedMid,function(request,response)
 router.post("/update",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product){
-        if (err) 
+        if (err)
         {
            var error = console.log("error here");
            return error;
         }
-    
+
         product.name = request.body.name,
         product.price = request.body.price,
         product.offer = request.body.offer,
@@ -57,9 +88,9 @@ router.post("/update",urlEncodedMid,function(request,response)
         product.subcategory = request.body.subcategory,
         product.specifications = request.body.specifications,
         product.image = request.body.image;
-   
+
     product.save(function(err, updatedProduct){
-          if (err) 
+          if (err)
           {
             console.log("error here2");
             response.json(err);
@@ -88,42 +119,43 @@ router.post("/delete",urlEncodedMid,function(request,response)
             console.log("success");
             response.send("delete success");
         }
-          
+
         else
           response.json(err);
       });
 });
 
 
-router.get("",function(request,response)
-{
-    ProductsModel.find({},function(err,data){
-        // response.product = data;
-        response.send(data)
-});
+router.get("/Plist/:page?",function(req,res){
+  var page = req.params.page ? req.params.page:1;
+   // res.json("kk");
+  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
+  res.json({productsData:result});
+  });
+
 });
 
 router.post("/rate",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product) {
-        if (err) 
+        if (err)
         {
            var error = console.log("error here");
            return error;
         }
-        
-      
+
+
 
         var myrate = request.body.myRating
-        
+
         console.log(product.rating[myrate]);
 
        product.rating.myrate = product.rating[myrate]++
-        
+
 
 
         product.save(function (err, updatedProduct) {
-          if (err) 
+          if (err)
           {
             console.log("error here2");
             // return error2;
@@ -144,6 +176,5 @@ module.exports = router;
 
 // router.get("/products/add",function(request,response)
 // {
-    
-// });
 
+// });

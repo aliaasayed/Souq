@@ -10,6 +10,7 @@ export class SellerHomeComponent implements OnInit {
 
 displaySellerHome=false;
   constructor(private loginService: LoginService) {
+    
     if(localStorage.getItem('Souqlogin')){//there token exist in localS
       this.loginService.verifyToken().subscribe((res)=>{
         if(res['success']&&localStorage.getItem('Souqlogin')=="true"){

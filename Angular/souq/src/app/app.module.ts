@@ -26,6 +26,8 @@ import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
 import { EditInfoComponent } from './edit-info/edit-info.component';
+import { ProductService } from './product.service';
+import { ProductSouqComponent } from './product-souq/product-souq.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -54,6 +56,7 @@ export function getAuthServiceConfigs() {
     SellerRegisterComponent,
     EditInfoComponent,
     UserProfileDetailComponent,
+    ProductSouqComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ export function getAuthServiceConfigs() {
     {provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs},
       LoginService,
-      UsersProfileService
+      UsersProfileService,
+      ProductService
   ],
   bootstrap: [AppComponent]
 })
