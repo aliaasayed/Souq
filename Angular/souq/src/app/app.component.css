@@ -1,0 +1,119 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+div {
+    font-family:"Poppins", "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width:0px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #6d7fc1;
+    overflow-x: hidden;
+    transition: all .5s;
+    padding-top: 70px;
+}
+#content {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.3em;
+    color: white;
+    display: block;
+    transition: all 0.3s;
+}
+
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+    background: none;
+    border: none;
+    color: #f1f1f1;
+    outline: none !important;
+}
+.sidenav .closebtn:hover
+{
+    color:white;
+}
+.sidenav a:hover {
+    background-color: #f1f1f1;
+    color:#6d7fc1;
+}
+.fa-bars:hover{
+    color: #868383;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.fa-shopping-cart
+{
+    color:#899ce2;
+   
+}
+.fa-shopping-cart:hover
+{
+    color:#a2b4f3;
+   
+}
+.fab
+{
+    color:rgb(84, 188, 223);
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 0;
+}
+.header
+{
+    transition: all .5s;
+}
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+}
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+#catSubmenu a {
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.icon
+{
+    
+   color: #6d7fc1;
+   outline: none;
+    
+}
+.breadcrumb
+{
+    background-color: white;
+}
+.navbar-btn
+{
+    outline: none;
+    border: none;
+    background: none;
+}

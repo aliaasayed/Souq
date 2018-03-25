@@ -1,19 +1,65 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+    <div class="container-fluid">
+    
+            <div class="row">
+                    <div class="header">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                      <ul class="nav navbar-nav">
+  
+                        <li><button (click)="showSideMenu()" class="btn btn-default navbar-btn">
+             
+                            <i class="fas fa-bars fa-lg"></i>
+                            </button></li>
+                        <li> <a class="navbar-brand" href="#"> My Cart <i class="fab fa-opencart"></i></a></li>
+                      </ul>
+
+                  
+                      <ul class="nav navbar-nav navbar-right">
+                          <li>
+                                <form class="navbar-form " method="POST" action="">
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" placeholder="Search for product" name="Query">
+                                          <div class="input-group-btn">
+                                            <button class="btn btn-default search" type="submit">
+                                              <i class="glyphicon glyphicon-search icon"></i>
+                                          </button>
+                                          </div>
+                                        </div>
+                                      </form>
+                          </li>
+                          <li><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
+                      </ul>
+                    </div>
+                  </nav>
+                  
+                  <ol class="breadcrumb" style="text-align:center">
+                        <li><a href="#">All Categories</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li class="active">Data</li>
+                  </ol>
+                </div>
+                <div id="mySidenav" class="sidenav">
+                  <button class="closebtn" (click)="HideSideMenu()">&times;</button>
+                  <a href="#">Home</a>
+                  <a href="#">My Account</a>
+                  <a href="#">My Orders</a>
+                    <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
+                    <ul class="collapse list-unstyled" id="catSubmenu">
+                        <li><a href="#">Home 1</a></li>
+                        <li><a href="#">Home 2</a></li>
+                        <li><a href="#">Home 3</a></li>
+                    </ul>
+               
+                </div>
+                
+            </div>
+            <div class="row" id="content">
+                   <app-user-home></app-user-home>
+            </div>
+            
+        
+    </div>
+
+
+

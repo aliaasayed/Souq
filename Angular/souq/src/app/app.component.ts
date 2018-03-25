@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { OnInit } from '@angular/core';
+declare var jquery:any;
+declare var $ :any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +11,7 @@ import { OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
 
   title = 'app';
+  isHidden=true;
   url;
   constructor(private loginService: LoginService){
     console.log("const");
@@ -21,7 +24,20 @@ export class AppComponent implements OnInit{
       this.url=res;
     });
   }
+  showSideMenu(){
+    $('.sidenav').css('width',"250px");  
+    $('.header').css('margin-left',"250px");
+    $('#content').css('margin-left',"250px");
+  }
+
+  HideSideMenu(){
+    $('.sidenav').css('width',"0px"); 
+    $('.header').css('margin-left',"0px");
+    $('#content').css('margin-left',"0px");
+    
+  }
   ngOnInit(): void {
     console.log("init")
   }
+
 }
