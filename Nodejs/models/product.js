@@ -22,7 +22,8 @@ var products = new Schema({
     2: {type:Number},
     3: {type:Number},
     4: {type:Number},
-    5: {type:Number}
+    5: {type:Number},
+    T: {type:Number}
   },
   description:{
     type:String
