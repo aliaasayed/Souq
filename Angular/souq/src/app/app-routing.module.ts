@@ -9,19 +9,21 @@ import { SouqhomeComponent }   from './souqhome/souqhome.component';
 import { SellerHomeComponent }   from './seller-home/seller-home.component';
 import { ForgetPasswordComponent }   from './forget-password/forget-password.component';
 import { UserProfileDetailComponent }   from './user-profile-detail/user-profile-detail.component';
-
+import { EditInfoComponent } from './edit-info/edit-info.component'
 
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },
+  { path: 'souq/forgetPw', component: ForgetPasswordComponent},
+
   { path: 'souq/userRegister', component: UserRegisterComponent },
   { path: 'souq/sellerRegister', component: SellerRegisterComponent },
+
   { path: 'souq/home', component: SouqhomeComponent},
   { path: 'souq/seller/home', component: SellerHomeComponent},
-
-  { path: 'souq/forgetPw', component: ForgetPasswordComponent},
   { path: 'souq/home/profile', component: UserProfileDetailComponent},
+  
+  {path: "edit-info", component: EditInfoComponent},
 
-  {path: "userRegister", component: UserRegisterComponent},
 ];
 
 @NgModule({

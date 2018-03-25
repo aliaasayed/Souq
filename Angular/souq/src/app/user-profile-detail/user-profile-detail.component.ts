@@ -7,7 +7,8 @@ import { UsersProfileService } from '../users-profile.service';
   styleUrls: ['./user-profile-detail.component.css']
 })
 export class UserProfileDetailComponent implements OnInit {
-
+  formhidden = true;
+  infohidden = false;
  user={};
   constructor(private usersProfileService:UsersProfileService) {
 
@@ -18,7 +19,14 @@ export class UserProfileDetailComponent implements OnInit {
       });
     }
   }
-
+  edit()
+  {
+    this.formhidden=false;
+    this.infohidden=true;
+  }
+  submitIt(loginForm){
+    console.log(loginForm.value)
+  }
   ngOnInit() {
   }
 
