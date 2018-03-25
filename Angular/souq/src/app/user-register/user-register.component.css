@@ -1,0 +1,21 @@
+.form
+{
+    padding-left:30%;
+    width:70%;
+}
+.btn-primary
+{
+    margin-left:85%;
+    background-color: #4CAF50;
+    border:none;
+    opacity: 9;
+}
+.choosefile
+{
+    color: rgb(153, 66, 149);
+
+}
+/* input[type=file]
+{
+    display: none;
+} */

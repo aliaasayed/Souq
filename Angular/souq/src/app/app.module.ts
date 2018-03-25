@@ -33,6 +33,7 @@ import {
     GoogleLoginProvider,
     FacebookLoginProvider,
 } from 'angular5-social-login';
+import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 
 
 export function getAuthServiceConfigs() {
@@ -65,7 +66,8 @@ export function getAuthServiceConfigs() {
     EditInfoComponent,
     UserProfileDetailComponent,
     ProductSouqComponent,
-    SellerProComponent
+    SellerProComponent,
+    SellerOrdersComponent
   ],
   imports: [
     BrowserModule,

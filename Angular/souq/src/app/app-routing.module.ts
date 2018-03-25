@@ -15,6 +15,7 @@ import { ProductSouqComponent }   from './product-souq/product-souq.component';
 import { EditInfoComponent } from './edit-info/edit-info.component'
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 
+import { UserHomeComponent } from './user-home/user-home.component';
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },
   { path: 'souq/forgetPw', component: ForgetPasswordComponent},
@@ -31,8 +32,8 @@ const routes: Routes = [
   // {path: "souq/product/:page?", component:   ProductSouqComponent},
 
   {path: "edit-info", component: EditInfoComponent},
-  { path: 'sellerHome', component: SellerProComponent}
-
+  { path: 'sellerHome', component: SellerProComponent},
+  { path: 'userhome', component: UserHomeComponent}
 ];
 
 @NgModule({

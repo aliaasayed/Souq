@@ -1,13 +1,43 @@
+<div class="col-sm-5 form">
+
+<div class="panel panel-info">
+   <div class="panel-heading">
+     Sign Up 
+   </div>
+    <div class="panel-body">
 <form (ngSubmit)="submitIt(loginForm)" #loginForm="ngForm">
-  User Name : <br>
-  <input type="text" name="username" ngModel required><br>
-  Password : <br>
-  <input type="password" name="password" ngModel required ><br>
-  Email : <br>
-  <input type="email" name="email" ngModel required ><br>
-  Address :  <br>
-  <input type="text" name="address" ngModel required ><br>
-  <input type="file" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
-   base-sixty-four-input/>
-  <input type="submit">
+    <div class="form-group">
+        <label for="name">User Name</label>
+        <input type="text" class="form-control" name="username" ngModel required>
+      </div>
+
+    <div class="form-group">
+        <label for="name">Password</label>
+        <input class="form-control" type="password" name="password" ngModel  required>
+      </div> 
+
+      <div class="form-group">
+          <label for="name">Retype Password</label>
+          <input class="form-control" type="password" name="password" ngModel  required>
+        </div> 
+
+        <div class="form-group">
+            <label for="name">Email</label>
+            <input class="form-control" type="email" name="email" ngModel required>
+          </div> 
+
+          <div class="form-group">
+              <label for="name">Address</label>
+              <input class="form-control" type="text" name="address" ngModel required>
+            </div>  
+            <div class="form-group">
+                <label for="name">Upload a photo</label>
+                <input type="file" class="choosefile" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+                base-sixty-four-input/>
+              </div>   
+
+  <input type="submit" class="btn btn-primary">
 </form>
+</div>
+</div>
+</div>
