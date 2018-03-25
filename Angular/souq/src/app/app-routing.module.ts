@@ -14,7 +14,6 @@ import { ProductSouqComponent }   from './product-souq/product-souq.component';
 
 import { EditInfoComponent } from './edit-info/edit-info.component'
 import { SellerProComponent } from './seller-pro/seller-pro.component';
->>>>>>> 0153b3bff4ba2e3fee33ed3dade3f634e5e057d0
 
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },

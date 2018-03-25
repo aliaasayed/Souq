@@ -22,10 +22,8 @@ import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
 import { EditInfoComponent } from './edit-info/edit-info.component';
-<<<<<<< HEAD
 import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
-=======
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
 
@@ -36,8 +34,6 @@ import {
     FacebookLoginProvider,
 } from 'angular5-social-login';
 
-
->>>>>>> 0153b3bff4ba2e3fee33ed3dade3f634e5e057d0
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -59,7 +55,7 @@ export function getAuthServiceConfigs() {
   declarations: [
     AppComponent,
     UserHomeComponent,
-    
+
     UserRegisterComponent,
     LoginSouqComponent,
     SouqhomeComponent,
@@ -68,11 +64,8 @@ export function getAuthServiceConfigs() {
     SellerRegisterComponent,
     EditInfoComponent,
     UserProfileDetailComponent,
-<<<<<<< HEAD
     ProductSouqComponent,
-=======
     SellerProComponent
->>>>>>> 0153b3bff4ba2e3fee33ed3dade3f634e5e057d0
   ],
   imports: [
     BrowserModule,
@@ -89,11 +82,8 @@ export function getAuthServiceConfigs() {
       useFactory: getAuthServiceConfigs},
       LoginService,
       UsersProfileService,
-<<<<<<< HEAD
-      ProductService
-=======
+      ProductService,
       SellerProductsService
->>>>>>> 0153b3bff4ba2e3fee33ed3dade3f634e5e057d0
   ],
   bootstrap: [AppComponent]
 })

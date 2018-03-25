@@ -6,6 +6,7 @@ var router = express.Router();
 var fs = require("fs");
 var mongoose = require("mongoose");
 var ProductsModel = mongoose.model("products");
+//var fileUploadMid = multer({dest:"./public/images"});
 
 /******** Enable Front-End Access*******/
 router.use(function(req,res,next){
@@ -15,42 +16,8 @@ router.use(function(req,res,next){
   next();
 });
 
-///////////////////////////////////////////////////////
-// router.get("/pro",function(request,response)
-// {
-//     var product = new ProductsModel({
-//
-//          _id: new mongoose.Types.ObjectId,
-//         name:"Shoexpress Lace Up Boots For Women - Black",
-//         price:32.00,
-//         offer:20,
-//         stock:8,
-//         description:'The advertised prices for products '+ 'displayed at Souq.com are inclusive of any VAT.'
-//       +'However, your final price will be reflected at checkout, once the order information is completed.'+
-//       +'If your order contains items from a FBS (Fulfilled by Souq) '+'not issue a Tax Invoice and charge VAT on their sales.',
-//
-//         category:'ObjectId("5ab6b32942be84332f54aa7a")',
-//         subcategory:"shoes",
-//         DateOfEntry: new Date(),
-//         specifications:{color:"black",size:"40"},
-//         SellerID:'ObjectId("5ab6b684ed2ce9385f478652")',
-//         image:"https://cf1.s3.souqcdn.com/item/2018/02/11/28/78/46/23/item_XXL_28784623_110320606.jpg",
-//         rating:{1:0, 2:0, 3:5, 4:2, 5:5}
-//       });
-//     product.save(function(err,doc){
-//     if(!err)
-//     {
-//         console.log("entry success");
-//         response.send("added");
-//     }
-//     else
-//         response.json(err);
-//     });
-// });
-/////////////////////////////////////////////////////////////////////////
 
 /****************** Add Product ******************/
-
 router.post("/add",urlEncodedMid,function(request,response)
 {
     var product = new ProductsModel({
@@ -67,8 +34,6 @@ router.post("/add",urlEncodedMid,function(request,response)
         specifications:request.body.specifications,
         SellerID:request.body.SellerID,
         image:request.body.image,
-
-        rating:{1:0, 2:0, 3:0, 4:0, 5:0}
         rating:{1:0, 2:0, 3:0, 4:0, 5:0, T:0}
 
       });
@@ -115,6 +80,15 @@ router.post("/update",urlEncodedMid,function(request,response)
     });
 });
 
+/////////
+
+router.get("/Plist/:page?",function(req,res){
+  var page = req.params.page ? req.params.page:1;
+   // res.json("kk");
+  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
+  res.json({productsData:result});
+  });
+});
 
 //******************************************************
 router.get("/update/:Id",function(request,response)
@@ -139,14 +113,6 @@ router.post("/delete",urlEncodedMid,function(request,response)
       });
 });
 
-
-router.get("/Plist/:page?",function(req,res){
-  var page = req.params.page ? req.params.page:1;
-   // res.json("kk");
-  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
-  res.json({productsData:result});
-  });
-
 /*************get All products *************/
 router.get("",function(request,response)
 {
@@ -164,7 +130,6 @@ router.get("/seller/:sellerId",function(request,response)
   ProductsModel.find({SellerID:request.params.sellerId},function(err,data){
     response.send(data);
   });
-
 });
 
 
@@ -179,10 +144,10 @@ router.post("/rate",urlEncodedMid,function(request,response)
            return error;
         }
 
-        var myrate = request.body.myRating
-        console.log(product.rating[myrate]);
 
-       product.rating.myrate = product.rating[myrate]++
+        var myrate = request.body.myRating
+
+        console.log(product.rating[myrate]);
 
        product.rating.myrate = product.rating[myrate]++;
 
@@ -204,6 +169,8 @@ router.post("/rate",urlEncodedMid,function(request,response)
 
       product.rating.T = Math.round(product.rating.T*10)/10;
 
+
+
         product.save(function (err, updatedProduct) {
           if (err)
           {
@@ -223,7 +190,3 @@ router.post("/rate",urlEncodedMid,function(request,response)
 //---------------------------------------------------------------------
 
 module.exports = router;
-
-
-
-// });
