@@ -8,7 +8,16 @@ var mongoose = require("mongoose");
 var ProductsModel = mongoose.model("products");
 //var fileUploadMid = multer({dest:"./public/images"});
 
+/******** Enable Front-End Access*******/
+router.use(function(req,res,next){
+  res.header("Access-Control-Allow-Origin","*");
+  res.header("Access-Control-Allow-Headers","Content-Type");
+  res.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE")
+  next();
+});
 
+
+/****************** Add Product ******************/
 router.post("/add",urlEncodedMid,function(request,response)
 {
     var product = new ProductsModel({
@@ -25,7 +34,7 @@ router.post("/add",urlEncodedMid,function(request,response)
         specifications:request.body.specifications,
         SellerID:request.body.SellerID,
         image:request.body.image,
-        rating:{1:0, 2:0, 3:0, 4:0, 5:0}
+        rating:{1:0, 2:0, 3:0, 4:0, 5:0, T:0}
 
       });
     product.save(function(err,doc){
@@ -39,6 +48,7 @@ router.post("/add",urlEncodedMid,function(request,response)
     });
 });
 
+//**************************************************
 router.post("/update",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product){
@@ -71,7 +81,7 @@ router.post("/update",urlEncodedMid,function(request,response)
 });
 
 
-
+//******************************************************
 router.get("/update/:Id",function(request,response)
 {
     ProductsModel.findOne({_id:request.params.Id},function(err,data){
@@ -94,15 +104,28 @@ router.post("/delete",urlEncodedMid,function(request,response)
       });
 });
 
-
+/*************get All products *************/
 router.get("",function(request,response)
 {
-    ProductsModel.find({},function(err,data){
-        // response.product = data;
-        response.send(data)
-});
+  ProductsModel.find({},function(err,data){
+      response.send(data)
+  });
 });
 
+
+
+/*************Get products by seller ID *************/
+/*** ++ calculate total-rating and send along with data ***/
+router.get("/seller/:sellerId",function(request,response)
+{
+  ProductsModel.find({SellerID:request.params.sellerId},function(err,data){
+    response.send(data);
+  });
+});
+
+
+
+/****************** Rate Product*********************/
 router.post("/rate",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product) {
@@ -111,14 +134,31 @@ router.post("/rate",urlEncodedMid,function(request,response)
            var error = console.log("error here");
            return error;
         }
-        
-      
+          
 
         var myrate = request.body.myRating
         
         console.log(product.rating[myrate]);
 
-       product.rating.myrate = product.rating[myrate]++
+       product.rating.myrate = product.rating[myrate]++;
+
+       //calculate total rating:
+       product.rating.T = (
+                            product.rating[1] * 1 +
+                            product.rating[2] * 2 +
+                            product.rating[3] * 3 +
+                            product.rating[4] * 4 +
+                            product.rating[5] * 5
+                          )/
+                          (
+                            product.rating[1] +
+                            product.rating[2] +
+                            product.rating[3] +
+                            product.rating[4] +
+                            product.rating[5]
+                          );
+
+      product.rating.T = Math.round(product.rating.T*10)/10;
         
 
 
@@ -138,12 +178,8 @@ router.post("/rate",urlEncodedMid,function(request,response)
       });
 });
 
-
+//---------------------------------------------------------------------
 
 module.exports = router;
 
-// router.get("/products/add",function(request,response)
-// {
-    
-// });
 

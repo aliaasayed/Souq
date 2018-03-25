@@ -1,21 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import {
-    SocialLoginModule,
-    AuthServiceConfig,
-    GoogleLoginProvider,
-    FacebookLoginProvider,
-} from "angular5-social-login";
-
 import { FormsModule } from '@angular/forms';
 
 import { HttpModule } from '@angular/http';
+import { CarouselModule } from 'ngx-bootstrap';
+import { RatingModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
 import { LoginService } from './login.service';
+import { UserHomeComponent } from './user-home/user-home.component';
+
 import { UsersProfileService } from './users-profile.service';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
@@ -26,6 +22,17 @@ import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
 import { EditInfoComponent } from './edit-info/edit-info.component';
+import { SellerProComponent } from './seller-pro/seller-pro.component';
+import { SellerProductsService } from './seller-products.service';
+
+import {
+    SocialLoginModule,
+    AuthServiceConfig,
+    GoogleLoginProvider,
+    FacebookLoginProvider,
+} from 'angular5-social-login';
+
+
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -46,6 +53,8 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [
     AppComponent,
+    UserHomeComponent,
+    
     UserRegisterComponent,
     LoginSouqComponent,
     SouqhomeComponent,
@@ -54,11 +63,14 @@ export function getAuthServiceConfigs() {
     SellerRegisterComponent,
     EditInfoComponent,
     UserProfileDetailComponent,
+    SellerProComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    CarouselModule.forRoot(),
+    RatingModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
     SocialLoginModule,
@@ -67,7 +79,8 @@ export function getAuthServiceConfigs() {
     {provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs},
       LoginService,
-      UsersProfileService
+      UsersProfileService,
+      SellerProductsService
   ],
   bootstrap: [AppComponent]
 })
