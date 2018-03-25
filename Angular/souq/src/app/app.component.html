@@ -1,18 +1,15 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<a routerLink="/login">Login</a>
+<!-- <a routerLink="/login">Login</a>
 <a routerLink="/souq/userRegister">userRegister</a>
-<a routerLink="/souq/sellerRegister">sellerRegister</a>
+<a routerLink="/souq/sellerRegister">sellerRegister</a> -->
 <router-outlet></router-outlet>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Souq</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <div class="container-fluid">
 
-</head>
+            <div class="row">
+                    <div class="header">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                      <ul class="nav navbar-nav">
+
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -40,16 +37,57 @@
         <li></li>
         <li *ngIf="!logedUser.nationalID && configData.login">
 
-
-                <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                <button type="submit" class="searchButton">
-                  Search
-               </button>
+                        <li><button (click)="showSideMenu()" class="btn btn-default navbar-btn">
 
 
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+                            <i class="fas fa-bars fa-lg"></i>
+                            </button></li>
+                        <li> <a class="navbar-brand" href="#"> My Cart <i class="fab fa-opencart"></i></a></li>
+                      </ul>
+
+
+                      <ul class="nav navbar-nav navbar-right">
+                          <li *ngIf="!logedUser.nationalID && configData.login">
+                                <form class="navbar-form " method="POST" action="">
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" placeholder="Search for product" name="Query">
+                                          <div class="input-group-btn">
+                                            <button class="btn btn-default search" type="submit">
+                                              <i class="glyphicon glyphicon-search icon"></i>
+                                          </button>
+                                          </div>
+                                        </div>
+                                      </form>
+                          </li>
+                          <li *ngIf="!configData.login"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"  ></span> Sign Up</a></li>
+                          <li *ngIf="!configData.login"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
+                            <li *ngIf="configData.login"><img  class="img-responsive img-circle" src={{logedUser.image}} width="70"></li>
+                          <li *ngIf="configData.login"><a routerLink="/souq/home/profile"><span class="glyphicon glyphicon-user icon"></span>{{logedUser.name}}</a></li>
+                          <li *ngIf="!logedUser.nationalID && configData.login"><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
+                          <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-in icon" ></span> logout</a></li>
+                      </ul>
+                    </div>
+                  </nav>
+
+                  <ol class="breadcrumb" style="text-align:center">
+                        <li><a href="#">All Categories</a></li>
+                        <li><a href="#">Category one </a></li>
+                        <li class="active"><a href="#">Category two </a></li>
+                        <li class="active"><a href="#">Category three </a></li>
+                  </ol>
+                </div>
+                <div id="mySidenav" class="sidenav">
+                  <button class="closebtn" (click)="HideSideMenu()">&times;</button>
+                  <a href="#">Home</a>
+                  <a href="#">My Account</a>
+                  <a href="#">My Orders</a>
+                    <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
+                    <ul class="collapse list-unstyled" id="catSubmenu">
+                        <li><a href="#">Home 1</a></li>
+                        <li><a href="#">Home 2</a></li>
+                        <li><a href="#">Home 3</a></li>
+                    </ul>
+
 
         <li *ngIf="!configData.login"><a routerLink="/souq/signup"><span class="glyphicon glyphicon-user"  ></span> Sign Up</a></li>
         <li *ngIf="!configData.login"><a href="/souq/login"><span class="glyphicon glyphicon-log-in" ></span> Login</a></li>
@@ -59,14 +97,15 @@
        </a> </li>
         <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-in" ></span> logout</a></li>
 
-      </ul>
+                </div>
+          
+
+            </div>
+            <!-- load any page here in this div -->
+            <div class="row" id="content">
+              <router-outlet></router-outlet>
+                   <!-- <app-user-home></app-user-home> -->
+            </div>
+
+
     </div>
-  </div>
-</nav>
-
-<body>
-
-  <router-outlet></router-outlet>
-
-</body>
-</html>

@@ -15,7 +15,12 @@ var corsOptions = {
 }
 
 server.use(cors(corsOptions))
-
+server.use(function(req,resp,next){
+  resp.header("Access-Control-Allow-Origin","*");
+  resp.header("Access-Control-Allow-Headers","Content-Type");
+  resp.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
+  next();
+});
 mongoose.connect("mongodb://localhost:27017/Souq");
 
 var options = {
@@ -25,18 +30,12 @@ var options = {
 
 var httpsServer = https.createServer(options,server);
 
-server.use(function(req,resp,next){
-  resp.header("Access-Control-Allow-Origin","*");
-  resp.header("Access-Control-Allow-Headers","Content-Type");
-  resp.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE");
-  next();
-});
 
-// server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
-server.use(bodyParser.json()); // to support JSON-encoded bodies
-// app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
-//     extended: true
-// }))
+// // server.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+// server.use(bodyParser.json()); // to support JSON-encoded bodies
+// // app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+// //     extended: true
+// // }))
 
 fs.readdirSync(path.join(__dirname,"models")).forEach(function(filename){
     require('./models/'+filename);

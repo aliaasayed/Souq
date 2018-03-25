@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 var fileUploadMid = multer({dest:"./public/images"});
 var UserModel = mongoose.model("users");
 var bodyParser = require("body-parser");
-var urlEncodedMid = bodyParser.urlencoded({extended: true});
+var urlEncodedMid = bodyParser.urlencoded({extended: true,limit:'50mb'});
 var jwt=require("jsonwebtoken");
 var router = express.Router();
 /*****************/
@@ -27,6 +27,13 @@ var router = express.Router();
 //       resp.json(err);
 //   });
 // });
+
+router.use(bodyParser.json({limit: "5mb"}))
+router.post("/upload",function(req,resp){
+console.log(req);
+
+})
+
 /******* Register ********/
 router.post("/register",urlEncodedMid,function(req,resp){
 console.log(req.body);

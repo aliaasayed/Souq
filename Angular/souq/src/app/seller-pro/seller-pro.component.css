@@ -1,0 +1,31 @@
+#desc{
+	text-align: justify; 
+}
+
+#rate{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+button{
+	width: 80px;
+	font-size: 120%;
+}
+
+
+.fa.fa-star{
+	color:gray;
+	border-color: red;
+	font-size: 20px;
+
+}
+
+.fa-star.checked {
+    color: orange;
+    size: 100px;
+}
