@@ -1,0 +1,15 @@
+<form (ngSubmit)="submitIt(sellerForm)" #sellerForm="ngForm">
+  User Name : <br>
+  <input type="text" name="username" ngModel required><br>
+  Password : <br>
+  <input type="password" name="password" ngModel required ><br>
+  Email : <br>
+  <input type="email" name="email" ngModel required ><br>
+  Address :  <br>
+  <input type="text" name="address" ngModel required ><br>
+  National ID :  <br>
+  <input type="text" name="nationalID" ngModel required ><br>
+  <input type="file" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+   base-sixty-four-input/>
+  <input type="submit">
+</form>

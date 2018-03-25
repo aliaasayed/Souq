@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "angular5-social-login": "^1.0.9",
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",
     "ngx-bootstrap": "^2.0.3",
@@ -46,5 +47,9 @@
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
+  },
+  "serve": {
+    "sslKey": "/httpslicense/server.key",
+    "sslCert": "/httpslicense/server.crt"
   }
 }

@@ -1,0 +1,13 @@
+{
+
+  "/api": {
+
+    "target": "https://localhost:9090",
+
+  },
+
+    "changeOrigin": true
+
+  }
+
+}

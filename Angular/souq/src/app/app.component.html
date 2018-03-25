@@ -1,4 +1,7 @@
-
+<!-- <a routerLink="/login">Login</a>
+<a routerLink="/souq/userRegister">userRegister</a>
+<a routerLink="/souq/sellerRegister">sellerRegister</a> -->
+<router-outlet></router-outlet>
     <div class="container-fluid">
     
             <div class="row">
@@ -16,7 +19,7 @@
 
                   
                       <ul class="nav navbar-nav navbar-right">
-                          <li>
+                          <li *ngIf="!logedUser.nationalID && configData.login">
                                 <form class="navbar-form " method="POST" action="">
                                         <div class="input-group">
                                           <input type="text" class="form-control" placeholder="Search for product" name="Query">
@@ -28,15 +31,21 @@
                                         </div>
                                       </form>
                           </li>
-                          <li><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
+                          <li *ngIf="!configData.login"><a href="/souq/signup"><span class="glyphicon glyphicon-user icon"  ></span> Sign Up</a></li>
+                          <li *ngIf="!configData.login"><a href="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
+                            <li *ngIf="configData.login"><img  class="img-responsive img-circle" src={{logedUser.image}} width="70"></li>
+                          <li *ngIf="configData.login"><a href="/souq/home/profile"><span class="glyphicon glyphicon-user icon"></span>{{logedUser.name}}</a></li>
+                          <li *ngIf="!logedUser.nationalID && configData.login"><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
+                          <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-in icon" ></span> logout</a></li>
                       </ul>
                     </div>
                   </nav>
                   
                   <ol class="breadcrumb" style="text-align:center">
                         <li><a href="#">All Categories</a></li>
-                        <li><a href="#">Library</a></li>
-                        <li class="active">Data</li>
+                        <li><a href="#">Category one </a></li>
+                        <li class="active"><a href="#">Category two </a></li>
+                        <li class="active"><a href="#">Category three </a></li>
                   </ol>
                 </div>
                 <div id="mySidenav" class="sidenav">
@@ -52,14 +61,22 @@
                     </ul>
                
                 </div>
+                <!-- <nav>
+                    <a routerLink="/sellerHome">Home - Seller</a>
+                  </nav>
+                
+                  <router-outlet></router-outlet> -->
                 
             </div>
+            <!-- load any page here in this div -->
             <div class="row" id="content">
-                   <app-user-home></app-user-home>
+                   <!-- <app-user-home></app-user-home> -->
             </div>
             
         
     </div>
+
+
 
 
 
