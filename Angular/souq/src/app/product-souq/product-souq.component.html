@@ -1,7 +1,7 @@
 
-<div class="SuccessAddToCart"*ngIf="IsAdded" >
+<div class="SuccessAddToCart" *ngIf="IsAdded">
 
-  <h1>{{selectedItem.name}} is added to your cart</h1>
+  <h3>{{selectedItem.name}} </h3><p>is added to your cart</p>
   <input class="btn" type="button" (click)="HidsAll()" name="OKey" value="Okay" >
 
 </div>
@@ -29,8 +29,9 @@
 
         <!-- <p>{{selectedItem.specifications}} </p> -->
 
+
        <input class="btn" type="button"(click)="addTocart()" name="AddToCart" value="AddToCart" >
-         <p class="alert" *ngIf="alert" >You must login first</p>
+        <p class="alert" *ngIf="alert" >You must login first</p>
    </div>
  </div>
 

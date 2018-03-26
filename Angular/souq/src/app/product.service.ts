@@ -16,9 +16,16 @@ export class ProductService {
 
 
   addProductTocaret(prodID:any):Observable<any> {
-    var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id
+
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
+
+    var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
     var body = {"clientId": uid,"prodId":prodID};
-   return this.http.post<any>('https://localhost:9090/items/addToCart',body);
+    console.log("sssssssss",body);
+   return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
+     headers: headers
+   });
 
   }
 
