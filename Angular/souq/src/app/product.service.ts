@@ -35,10 +35,10 @@ export class ProductService {
            .set('Content-Type', 'application/json');
   form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
   console.log(form);
-  
-  this.product=this.http.post<any>('http://localhost:9090/products/add', form,{headers:headers});
-  console.log("service",this.product)
-  return this.product;
+
+  return this.http.post<any>('https://localhost:9090/products/add', form,
+  {headers:headers});
+  //console.log("service",this.product)
   }
 
 

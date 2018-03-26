@@ -18,22 +18,23 @@ router.use(function(req,res,next){
 
 
 /****************** Add Product ******************/
-router.post("/add",urlEncodedMid,function(request,response)
+router.post("/add",bodyParser.json(),function(request,response)
 {
+  console.log(request.body);
     var product = new ProductsModel({
 
          _id: new mongoose.Types.ObjectId,
         name:request.body.name,
         price:request.body.price,
-        //offer:request.body.offer,
+        offer:request.body.offer,
         stock:request.body.stock,
         description:request.body.description,
-        //category:request.body.category,
-        //subcategory:request.body.subcategory,
+        category:request.body.category,
+        subcategory:request.body.subcategory,
         DateOfEntry: new Date(),
         specifications:request.body.specifications,
         SellerID:request.body.SellerID,
-        //image:request.body.image,
+        image:request.body.image,
         rating:{1:0, 2:0, 3:0, 4:0, 5:0, T:0}
 
       });
@@ -41,7 +42,7 @@ router.post("/add",urlEncodedMid,function(request,response)
     if(!err)
     {
         console.log("entry success");
-        response.send("added");
+        response.json("added");
     }
     else
         response.json(err);
