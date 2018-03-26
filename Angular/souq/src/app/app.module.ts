@@ -36,6 +36,7 @@ import {
 } from 'angular5-social-login';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 import { AddProductComponent } from './addproduct/addproduct.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
 
 
 export function getAuthServiceConfigs() {
@@ -70,7 +71,8 @@ export function getAuthServiceConfigs() {
     ProductSouqComponent,
     SellerProComponent,
     SellerOrdersComponent,
-    AddProductComponent
+    AddProductComponent,
+    EditproductComponent
   ],
   imports: [
     BrowserModule,

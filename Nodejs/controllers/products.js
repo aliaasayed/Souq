@@ -76,7 +76,7 @@ router.post("/update",urlEncodedMid,function(request,response)
             response.json(err);
           }
           console.log("update success");
-          response.send("updated");
+          response.json(updatedProduct);
         });
     });
 });
