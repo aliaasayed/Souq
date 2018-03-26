@@ -8,13 +8,32 @@ var bodyParser = require("body-parser");
 var urlEncodedMid = bodyParser.urlencoded({extended: true,limit:'50mb'});
 var jwt=require("jsonwebtoken");
 var router = express.Router();
+/*****************/
 
+// router.get("/user",function(req,resp){
+//   var user = new UserModel({
+//     name:"keepselling seller Souq",
+//     password:"12345",
+//     email:"keepselling@yahoo.com",
+//     address:"Egypt cairo",
+//     image:"https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjrpoKU54XaAhXF2qQKHYoVA8sQjRx6BAgAEAU&url=https%3A%2F%2Fbrandpa.com%2Fname%2Fecoriginal&psig=AOvVaw3-UjKG1lLt-rX2OHSHZT0P&ust=1522009953934143",
+//     nationalID:"123456789",
+//     tokens:"",
+//   });
+//   user.save(function(err,doc){
+//   if(!err)
+//       resp.json("added");
+//   else
+//       resp.json(err);
+//   });
+// });
 
 // router.use(bodyParser.json({limit: "5mb"}))
 router.post("/upload",function(req,resp){
 console.log(req);
 
 })
+
 /******* Register ********/
 router.post("/register",urlEncodedMid,function(req,resp){
 console.log(req.body);
@@ -44,7 +63,8 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
           success: true,
           message: 'Enjoy your token!',
           token: token,
-          user:data
+          user:data,
+          role:()=>{user["nationalID"]}
         });
   }
   else

@@ -15,28 +15,28 @@
                             <i class="fas fa-bars fa-lg"></i>
                             </button></li>
                         <li> <a class="navbar-brand" href="#"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li *ngIf="!logedUser.nationalID && configData.login">
+                          <form class="navbar-form " method="POST" action="">
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for product" name="Query">
+                                    <div class="input-group-btn">
+                                      <button class="btn btn-default search" type="submit">
+                                        <i class="glyphicon glyphicon-search icon"></i>
+                                    </button>
+                                    </div>
+                                  </div>
+                                </form>
+                          </li>
                       </ul>
 
 
                       <ul class="nav navbar-nav navbar-right">
-                          <li *ngIf="!logedUser.nationalID && configData.login">
-                                <form class="navbar-form " method="POST" action="">
-                                        <div class="input-group">
-                                          <input type="text" class="form-control" placeholder="Search for product" name="Query">
-                                          <div class="input-group-btn">
-                                            <button class="btn btn-default search" type="submit">
-                                              <i class="glyphicon glyphicon-search icon"></i>
-                                          </button>
-                                          </div>
-                                        </div>
-                                      </form>
-                          </li>
-                          <li *ngIf="!configData.login"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"  ></span> Sign Up</a></li>
+                          <li *ngIf="!configData.login"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
                           <li *ngIf="!configData.login"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
-                            <li *ngIf="configData.login"><img  class="img-responsive img-circle" src={{logedUser.image}} width="70"></li>
-                          <li *ngIf="configData.login"><a routerLink="/souq/home/profile"><span class="glyphicon glyphicon-user icon"></span>{{logedUser.name}}</a></li>
+                          <li *ngIf="configData.login"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
+                          <li *ngIf="configData.login"><a routerLink="/souq/home/profile">{{logedUser.name}}</a></li>
                           <li *ngIf="!logedUser.nationalID && configData.login"><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
-                          <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-in icon" ></span> logout</a></li>
+                          <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-out icon" ></span> Logout</a></li>
                       </ul>
                     </div>
                   </nav>
@@ -50,8 +50,9 @@
                 </div>
                 <div id="mySidenav" class="sidenav">
                   <button class="closebtn" (click)="HideSideMenu()">&times;</button>
-                  <a href="#">Home</a>
-                  <a href="#">My Account</a>
+                  <a *ngIf="!logedUser.nationalID && configData.login" routerLink="/userhome">Home</a>
+                  <a routerLink="/userhome">Home</a>
+                  <a *ngIf="configData.login" routerLink="/souq/home/profile">My Account</a>
                   <a href="#">My Orders</a>
                     <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
                     <ul class="collapse list-unstyled" id="catSubmenu">
@@ -61,17 +62,13 @@
                     </ul>
 
                 </div>
-                <!-- <nav>
-                    <a routerLink="/sellerHome">Home - Seller</a>
-                  </nav>
-
-                   -->
+              
 
             </div>
             <!-- load any page here in this div -->
             <div class="row" id="content">
               <router-outlet></router-outlet>
-                   <!-- <app-user-home></app-user-home> -->
+                 
             </div>
 
 

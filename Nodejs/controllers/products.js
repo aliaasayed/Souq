@@ -21,7 +21,7 @@ router.use(function(req,res,next){
 router.post("/add",urlEncodedMid,function(request,response)
 {
     var product = new ProductsModel({
-     
+
          _id: new mongoose.Types.ObjectId,
         name:request.body.name,
         price:request.body.price,
@@ -52,12 +52,12 @@ router.post("/add",urlEncodedMid,function(request,response)
 router.post("/update",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product){
-        if (err) 
+        if (err)
         {
            var error = console.log("error here");
            return error;
         }
-    
+
         product.name = request.body.name,
         product.price = request.body.price,
         product.offer = request.body.offer,
@@ -67,9 +67,9 @@ router.post("/update",urlEncodedMid,function(request,response)
         product.subcategory = request.body.subcategory,
         product.specifications = request.body.specifications,
         product.image = request.body.image;
-   
+
     product.save(function(err, updatedProduct){
-          if (err) 
+          if (err)
           {
             console.log("error here2");
             response.json(err);
@@ -80,6 +80,15 @@ router.post("/update",urlEncodedMid,function(request,response)
     });
 });
 
+/////////
+
+router.get("/Plist/:page?",function(req,res){
+  var page = req.params.page ? req.params.page:1;
+   // res.json("kk");
+  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
+  res.json({productsData:result});
+  });
+});
 
 //******************************************************
 router.get("/update/:Id",function(request,response)
@@ -98,7 +107,7 @@ router.post("/delete",urlEncodedMid,function(request,response)
             console.log("success");
             response.send("delete success");
         }
-          
+
         else
           response.json(err);
       });
@@ -129,15 +138,15 @@ router.get("/seller/:sellerId",function(request,response)
 router.post("/rate",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product) {
-        if (err) 
+        if (err)
         {
            var error = console.log("error here");
            return error;
         }
-          
+
 
         var myrate = request.body.myRating
-        
+
         console.log(product.rating[myrate]);
 
        product.rating.myrate = product.rating[myrate]++;
@@ -159,11 +168,11 @@ router.post("/rate",urlEncodedMid,function(request,response)
                           );
 
       product.rating.T = Math.round(product.rating.T*10)/10;
-        
+
 
 
         product.save(function (err, updatedProduct) {
-          if (err) 
+          if (err)
           {
             console.log("error here2");
             // return error2;
@@ -181,5 +190,3 @@ router.post("/rate",urlEncodedMid,function(request,response)
 //---------------------------------------------------------------------
 
 module.exports = router;
-
-

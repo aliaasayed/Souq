@@ -44,14 +44,13 @@ router.post("/addToCart",urlEncodedMid, function(req, res){
 	newCartItem.prodId = req.body.prodId;
 	newCartItem.quantity = 1;
 	newCartItem.state = 'Cart';
-
+    console.log("sss",req.body)
 	newCartItem.save(function(err, item){
 		if(err){
-			res.send(err);
+			res.json(err);
 		}
 		else{
-			console.log("item is added");
-			res.send(item._id);
+			res.json({"success":true});
 		}
 	});
 });
@@ -71,7 +70,7 @@ router.put('/checkout/:clientId', function(req, res){
 });
 
 /**************** In cart check ********************
->>take clientId and prodId and 
+>>take clientId and prodId and
 >>check the existance of the product in customer cart'*/
 router.post("/checkCart",urlEncodedMid, function(req, res){
 	ItemModel.count({

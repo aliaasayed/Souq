@@ -13,7 +13,6 @@ import { LoginService } from './login.service';
 export class AppComponent implements OnInit{
 
   title = 'app';
-  isHidden=true;
   url;
   configData=config;
   logedUser={};

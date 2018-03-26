@@ -1,6 +1,7 @@
 
 
 var mongoose = require("mongoose");
+var mongoose_paginate= require("mongoose-paginate");
 var Schema = mongoose.Schema;
 var newID = Schema.Types.ObjectId;
 var products = new Schema({
@@ -46,10 +47,11 @@ var products = new Schema({
     ref:"user"
   },
   image:String,
-  
+
 }
 // ,{ _id: false }
 );
 
+products.plugin(mongoose_paginate);
 // Register ...
 mongoose.model("products",products);

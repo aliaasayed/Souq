@@ -21,7 +21,6 @@ export class LoginSouqComponent implements OnInit {
   loginPage=false;
 
   constructor(private loginService: LoginService,private socialAuthService: AuthService){
-
   //web servic take token then retrieve it's rule and info needed
   if(localStorage.getItem('Souqlogin')){//there token exist in localS
     this.loginService.verifyToken().subscribe((res)=>{
@@ -38,12 +37,6 @@ export class LoginSouqComponent implements OnInit {
   else{//user isnot logged
         this.loginPage=true;
         console.log("else")
-        // this.loginService.getGmailURL().subscribe((res)=>{
-        //   this.FbookUrl=res;
-        // });
-        // this.loginService.getFacebookURL().subscribe((res)=>{
-        //   this.GmailUrl=res;
-        // });
       }
     }
     public socialSignIn(socialPlatform : string) {
