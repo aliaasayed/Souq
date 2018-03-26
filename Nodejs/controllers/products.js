@@ -25,15 +25,15 @@ router.post("/add",urlEncodedMid,function(request,response)
          _id: new mongoose.Types.ObjectId,
         name:request.body.name,
         price:request.body.price,
-        offer:request.body.offer,
+        //offer:request.body.offer,
         stock:request.body.stock,
         description:request.body.description,
-        category:request.body.category,
-        subcategory:request.body.subcategory,
+        //category:request.body.category,
+        //subcategory:request.body.subcategory,
         DateOfEntry: new Date(),
         specifications:request.body.specifications,
         SellerID:request.body.SellerID,
-        image:request.body.image,
+        //image:request.body.image,
         rating:{1:0, 2:0, 3:0, 4:0, 5:0, T:0}
 
       });

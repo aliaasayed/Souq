@@ -1,0 +1,21 @@
+<form (ngSubmit)="submitted(addproductForm)" #addproductForm="ngForm">
+  Product Name : 
+  <input type="text" name="name" ngModel required><br>
+  Price : 
+  <input type="text" name="price" ngModel required><br>
+  Available Quantity : 
+  <input type="text" name="stock" ngModel required><br>
+  Description : 
+  <input type="text" name="description" ngModel required><br>
+  Category : 
+  <input type="text" name="category" ngModel required><br>
+  Subcategory : 
+  <input type="text" name="subcategory" ngModel required><br>
+  Specifications : 
+  <input type="text" name="specifications" ngModel required><br>
+  
+
+  <input type="file" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+   base-sixty-four-input/>
+  <input type="submit">
+</form>

@@ -5,7 +5,7 @@ import { LoginService } from './login.service';
 
 @Injectable()
 export class ProductService {
-
+  product:any;
   constructor(private http:HttpClient) { }
 
   getProducts(page:Number): Observable<any> {
@@ -28,5 +28,18 @@ export class ProductService {
    });
 
   }
+
+  addproduct(form):Observable<any>
+  {
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  console.log(form);
+  
+  this.product=this.http.post<any>('http://localhost:9090/products/add', form,{headers:headers});
+  console.log("service",this.product)
+  return this.product;
+  }
+
 
 }

@@ -8,7 +8,6 @@ import { RatingModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-
 import { LoginService } from './login.service';
 import { UserHomeComponent } from './user-home/user-home.component';
 
@@ -21,11 +20,13 @@ import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
-import { EditInfoComponent } from './edit-info/edit-info.component';
+
 import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
+
+
 
 import {
     SocialLoginModule,
@@ -34,6 +35,7 @@ import {
     FacebookLoginProvider,
 } from 'angular5-social-login';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+import { AddProductComponent } from './addproduct/addproduct.component';
 
 
 export function getAuthServiceConfigs() {
@@ -63,11 +65,12 @@ export function getAuthServiceConfigs() {
     SellerHomeComponent,
     ForgetPasswordComponent,
     SellerRegisterComponent,
-    EditInfoComponent,
+   
     UserProfileDetailComponent,
     ProductSouqComponent,
     SellerProComponent,
-    SellerOrdersComponent
+    SellerOrdersComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
