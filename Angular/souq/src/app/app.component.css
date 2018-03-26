@@ -18,6 +18,7 @@ div {
 #content {
     transition: margin-left .5s;
     padding: 16px;
+    position: relative;
 }
 .sidenav a {
     padding: 8px 8px 8px 32px;
