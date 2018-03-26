@@ -41,10 +41,10 @@ export function getAuthServiceConfigs() {
           id: FacebookLoginProvider.PROVIDER_ID,
           provider: new FacebookLoginProvider("1714698738591209")
         },
-        //{
-        //   id: GoogleLoginProvider.PROVIDER_ID,
-        //   provider: new GoogleLoginProvider("294559565518-b4o6oi3a57782msinnbpvsjenquhjc0g.apps.googleusercontent.com")
-        // },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("354714650297-41vs1jbd0kr4dgvk1i1o1635no10vnfi.apps.googleusercontent.com")
+        },
       ]
   );
   return config;
@@ -54,7 +54,7 @@ export function getAuthServiceConfigs() {
   declarations: [
     AppComponent,
     UserHomeComponent,
-    
+
     UserRegisterComponent,
     LoginSouqComponent,
     SouqhomeComponent,

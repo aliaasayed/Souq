@@ -59,7 +59,7 @@ export class LoginSouqComponent implements OnInit {
             console.log(socialPlatform+" sign in data : " , userData);
             this.loginService.register(userData).subscribe((res)=>{
             console.log(res);
-            window.location.href = 'https://localhost:4200/souq/home';
+            //window.location.href = 'https://localhost:4200/souq/home';
           });
           }
         );

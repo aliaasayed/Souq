@@ -10,7 +10,7 @@ var jwt=require("jsonwebtoken");
 var router = express.Router();
 
 
-router.use(bodyParser.json({limit: "5mb"}))
+// router.use(bodyParser.json({limit: "5mb"}))
 router.post("/upload",function(req,resp){
 console.log(req);
 
