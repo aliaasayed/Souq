@@ -23,7 +23,7 @@ export class LoginService {
 
     return this.http.get('https://localhost:9090/auth/api/protected', {
       headers: headers
-    })
+    });
   }
 
   verifyToken(){

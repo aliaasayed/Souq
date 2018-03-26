@@ -238,6 +238,6 @@ body.noScroll { /* ...or body.dialogShowing */
   margin-left: 30%;
   margin-top: 20%;
   margin-bottom: 2%;
-  background-color: rgba(200,200,230,1); /*dim the background*/
+  background-color: rgba(100,100,130,1); /*dim the background*/
   overflow-y:hidden;
 }
