@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
 import { UserHomeComponent } from './user-home/user-home.component';
 
+import { EditProductComponent } from './editproduct/editproduct.component';
+
 import { UsersProfileService } from './users-profile.service';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
@@ -78,6 +80,7 @@ export function getAuthServiceConfigs() {
     MycartDetailComponent,
 
     AddProductComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,

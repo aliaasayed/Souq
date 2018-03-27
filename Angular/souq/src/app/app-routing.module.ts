@@ -9,6 +9,7 @@ import { SouqhomeComponent }   from './souqhome/souqhome.component';
 import { SellerHomeComponent }   from './seller-home/seller-home.component';
 import { ForgetPasswordComponent }   from './forget-password/forget-password.component';
 import { UserProfileDetailComponent }   from './user-profile-detail/user-profile-detail.component';
+import { EditProductComponent } from './editproduct/editproduct.component';
 
 import { ProductSouqComponent }   from './product-souq/product-souq.component';
 
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'souq/myCart', component: MycartDetailComponent},
 
   { path: 'addproduct', component: AddProductComponent},
+  { path: 'editproduct', component: EditProductComponent},
 
 ];
 
