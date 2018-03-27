@@ -41,22 +41,22 @@ export class ProductService {
   //console.log("service",this.product)
   }
 
-  updateproduct(form):Observable<any>
+  // updateproduct(form):Observable<any>
+  // {
+  //   const headers = new HttpHeaders()
+  //          .set('Content-Type', 'application/json');
+  // form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  // console.log(form);
+  //
+  // return this.http.post<any>('https://localhost:9090/products/update', form,
+  // {headers:headers});
+  // }
+
+  getUpdateData(prodID:any):Observable<any>
   {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
-  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-  console.log(form);
 
-  return this.http.post<any>('https://localhost:9090/products/update', form,
-  {headers:headers});
-  }
-
-  getUpdateData(prodID:any):Observable<any> 
-  {
-    const headers = new HttpHeaders()
-           .set('Content-Type', 'application/json');
-  
   return this.http.get<any>('https://localhost:9090/products/update'+prodID,{
      headers: headers
    });

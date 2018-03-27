@@ -7,7 +7,7 @@
         <p>UserName : {{user.name}}</p>
         <p>Email : {{user.email}}</p>
         <p>Address : {{user.address}}</p>
-        <p>NationalID : {{user.nationalID}}</p>
+        <p *ngIf = "user.nationalID;">NationalID : {{user.nationalID}}</p>
         <button (click)="edit()" [hidden]="infohidden">Edit</button>
       </div>
 			<div class="panel-heading" [hidden]="formhidden">
@@ -34,10 +34,10 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="address" class="form-control" [(ngModel)]="user.address" required placeholder="address"><br>
             </div><br>
-            <div class="input-group margT25">
+            <div *ngIf = "user.nationalID;" class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
               <input type="text" name="nationalID" class="form-control" [(ngModel)]="user.nationalID" required placeholder="nationalID"><br>
-            </div><br>
+            </div><br *ngIf = "user.nationalID;">
 						<div class="form-group margT10">
 						<!-- Button -->
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"

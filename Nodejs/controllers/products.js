@@ -129,7 +129,7 @@ router.get("",function(request,response)
 router.get("/seller/:sellerId/:page",function(request,response)
 {
   ProductsModel.paginate({SellerID:request.params.sellerId} , {page:request.params.page,limit:3}, function(err,data){
-    response.send(data);
+    response.json(data);
   });
 });
 
