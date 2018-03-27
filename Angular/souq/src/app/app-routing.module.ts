@@ -12,6 +12,7 @@ import { UserProfileDetailComponent }   from './user-profile-detail/user-profile
 
 import { ProductSouqComponent }   from './product-souq/product-souq.component';
 import { AddProductComponent }   from './addproduct/addproduct.component';
+import { EditProductComponent } from './editproduct/editproduct.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';import { UserHomeComponent } from './user-home/user-home.component';
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },
@@ -29,7 +30,9 @@ const routes: Routes = [
   // {path: "souq/product/:page?", component:   ProductSouqComponent},
   { path: 'sellerHome', component: SellerProComponent},
   { path: 'userhome', component: UserHomeComponent},
-  { path: 'addproduct', component: AddProductComponent}
+  { path: 'addproduct', component: AddProductComponent},
+  { path: 'editproduct', component: EditProductComponent}
+
 ];
 
 @NgModule({

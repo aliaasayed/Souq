@@ -7,7 +7,7 @@ import {NgForm} from '@angular/forms';
   templateUrl: './editproduct.component.html',
   styleUrls: ['./editproduct.component.css']
 })
-export class AddProductComponent implements OnInit 
+export class EditProductComponent implements OnInit 
 {
   product;
   image; 

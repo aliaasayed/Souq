@@ -57,7 +57,7 @@ export class ProductService {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
   
-  return this.http.get<any>('https://localhost:9090/items/'+prodID,{
+  return this.http.get<any>('https://localhost:9090/products/update'+prodID,{
      headers: headers
    });
   }
