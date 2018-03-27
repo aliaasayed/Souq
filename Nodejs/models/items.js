@@ -8,9 +8,9 @@ var items = new Schema({
 
 	clientId:{ type: Schema.Types.ObjectId ,  ref:"users"	},
 
-	prodId:{type: Schema.Types.ObjectId ,ref:"products"},
-
-	quantity:{type: Number}, //ref:"products"
+	prodId:{ type: Schema.Types.ObjectId, ref: 'products' },
+	
+	quantity:{type: Number}, //Note = quantity required from the same item 
 
 	state: {type: String, enum:['Delivered', 'Ordered', 'Cart']}
 

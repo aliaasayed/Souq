@@ -11,10 +11,15 @@ import { ForgetPasswordComponent }   from './forget-password/forget-password.com
 import { UserProfileDetailComponent }   from './user-profile-detail/user-profile-detail.component';
 
 import { ProductSouqComponent }   from './product-souq/product-souq.component';
+
 import { EditInfoComponent } from './edit-info/edit-info.component'
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { UserHomeComponent } from './user-home/user-home.component';
 import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
+
+import { AddProductComponent }   from './addproduct/addproduct.component';
+import { EditProductComponent } from './editproduct/editproduct.component';
+import { SellerProComponent } from './seller-pro/seller-pro.component';import { UserHomeComponent } from './user-home/user-home.component';
 
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },
@@ -23,18 +28,21 @@ const routes: Routes = [
   { path: 'souq/userRegister', component: UserRegisterComponent },
   { path: 'souq/sellerRegister', component: SellerRegisterComponent },
 
-  { path: 'souq/home', component: SouqhomeComponent},
+  { path: 'souq/home', component: UserHomeComponent},
   { path: 'souq/seller/home', component: SellerHomeComponent},
   { path: 'souq/home/profile', component: UserProfileDetailComponent},
 
   {path: "userRegister", component: UserRegisterComponent},
   {path: "souq/product", component:   ProductSouqComponent},
   // {path: "souq/product/:page?", component:   ProductSouqComponent},
-
-  {path: "edit-info", component: EditInfoComponent},
   { path: 'sellerHome', component: SellerProComponent},
   { path: 'userhome', component: UserHomeComponent},
+
   { path: 'souq/myCart', component: MycartDetailComponent}
+
+  { path: 'addproduct', component: AddProductComponent},
+  { path: 'editproduct', component: EditProductComponent}
+
 ];
 
 @NgModule({

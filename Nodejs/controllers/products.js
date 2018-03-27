@@ -18,8 +18,9 @@ router.use(function(req,res,next){
 
 
 /****************** Add Product ******************/
-router.post("/add",urlEncodedMid,function(request,response)
+router.post("/add",bodyParser.json(),function(request,response)
 {
+  console.log(request.body);
     var product = new ProductsModel({
 
          _id: new mongoose.Types.ObjectId,
@@ -41,7 +42,7 @@ router.post("/add",urlEncodedMid,function(request,response)
     if(!err)
     {
         console.log("entry success");
-        response.send("added");
+        response.json("added");
     }
     else
         response.json(err);
@@ -75,7 +76,7 @@ router.post("/update",urlEncodedMid,function(request,response)
             response.json(err);
           }
           console.log("update success");
-          response.send("updated");
+          response.json(updatedProduct);
         });
     });
 });
@@ -125,13 +126,12 @@ router.get("",function(request,response)
 
 /*************Get products by seller ID *************/
 /*** ++ calculate total-rating and send along with data ***/
-router.get("/seller/:sellerId",function(request,response)
+router.get("/seller/:sellerId/:page",function(request,response)
 {
-  ProductsModel.find({SellerID:request.params.sellerId},function(err,data){
+  ProductsModel.paginate({SellerID:request.params.sellerId} , {page:request.params.page,limit:3}, function(err,data){
     response.send(data);
   });
 });
-
 
 
 /****************** Rate Product*********************/

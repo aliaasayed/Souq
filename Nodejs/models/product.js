@@ -43,7 +43,7 @@ var products = new Schema({
     type:Object
   },
   SellerID:{
-    type:String,
+    type:Schema.Types.ObjectId,
     ref:"user"
   },
   image:String,

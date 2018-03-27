@@ -1,0 +1,50 @@
+<div class="container">
+	<div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 loginbox">
+		<div class="panel panel-info" >
+			<div class="panel-heading">
+				<div class="panel-title"> Sign UP </div>
+			</div>
+			<div class="panel-body panel-pad">
+				<!-- <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> -->
+        <form (ngSubmit)="submitted(addproductForm)" #addproductForm="ngForm">
+						<div class="input-group margT25">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-user"></i>
+							</span>
+              <input type="text" name="name" class="form-control" ngModel required placeholder="productName"><br>
+						</div><br>
+						<div class="input-group margT25">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input type="number" name="price" class="form-control" ngModel required placeholder="price"><br>
+						</div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="fa fa-at"></i></span>
+              <input type="number" name="stock" class="form-control" ngModel required placeholder="stock"><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="description" class="form-control" ngModel required placeholder="description"><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="fa fa-at"></i></span>
+              <input type="text" name="category" class="form-control" ngModel required placeholder="category"><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="subcategory" class="form-control" ngModel required placeholder="subcategory"><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="specifications" class="form-control" ngModel required placeholder="specifications"><br>
+            </div><br>
+						<div class="form-group margT10">
+						<!-- Button -->
+              <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+               base-sixty-four-input/>
+              <input type="submit" class="btn btn-block btn-success" [disabled]="!addproductForm.form.valid">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

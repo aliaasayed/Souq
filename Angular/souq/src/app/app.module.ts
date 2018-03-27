@@ -8,7 +8,6 @@ import { RatingModule } from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-
 import { LoginService } from './login.service';
 import { UserHomeComponent } from './user-home/user-home.component';
 
@@ -21,11 +20,13 @@ import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
-import { EditInfoComponent } from './edit-info/edit-info.component';
+
 import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
+
+
 
 import {
     SocialLoginModule,
@@ -34,7 +35,12 @@ import {
     FacebookLoginProvider,
 } from 'angular5-social-login';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+
 import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
+
+import { AddProductComponent } from './addproduct/addproduct.component';
+import { EditProductComponent } from './editproduct/editproduct.component';
+
 
 
 export function getAuthServiceConfigs() {
@@ -44,10 +50,10 @@ export function getAuthServiceConfigs() {
           id: FacebookLoginProvider.PROVIDER_ID,
           provider: new FacebookLoginProvider("1714698738591209")
         },
-        //{
-        //   id: GoogleLoginProvider.PROVIDER_ID,
-        //   provider: new GoogleLoginProvider("294559565518-b4o6oi3a57782msinnbpvsjenquhjc0g.apps.googleusercontent.com")
-        // },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("354714650297-41vs1jbd0kr4dgvk1i1o1635no10vnfi.apps.googleusercontent.com")
+        },
       ]
   );
   return config;
@@ -64,12 +70,17 @@ export function getAuthServiceConfigs() {
     SellerHomeComponent,
     ForgetPasswordComponent,
     SellerRegisterComponent,
-    EditInfoComponent,
+
     UserProfileDetailComponent,
     ProductSouqComponent,
     SellerProComponent,
     SellerOrdersComponent,
+
     MycartDetailComponent
+
+    AddProductComponent,
+    EditProductComponent
+
   ],
   imports: [
     BrowserModule,

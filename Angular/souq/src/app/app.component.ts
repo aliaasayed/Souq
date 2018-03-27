@@ -4,6 +4,8 @@ declare var jquery:any;
 declare var $ :any;
 import {config} from './config';
 import { LoginService } from './login.service';
+import { ProductService } from './product.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
