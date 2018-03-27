@@ -126,13 +126,12 @@ router.get("",function(request,response)
 
 /*************Get products by seller ID *************/
 /*** ++ calculate total-rating and send along with data ***/
-router.get("/seller/:sellerId",function(request,response)
+router.get("/seller/:sellerId/:page",function(request,response)
 {
-  ProductsModel.find({SellerID:request.params.sellerId},function(err,data){
+  ProductsModel.paginate({SellerID:request.params.sellerId} , {page:request.params.page,limit:3}, function(err,data){
     response.send(data);
   });
 });
-
 
 
 /****************** Rate Product*********************/
