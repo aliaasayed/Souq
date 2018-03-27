@@ -26,6 +26,25 @@ router.get("/show",function(req,res){
     });
   });
 
+/**************** Show Seller Ordered Items *******************
+****** Take seller ID and return orders of his products ****/
+router.get("/sellerOrders/:sID",function(req,res){
+  ItemModel.find({state:'Ordered'}).
+  populate('prodId').
+  exec(function(err,orders){
+  	if (err) return handleError(err);
+    ordersArr=[]
+    for (i in orders){
+    	if(orders[i].prodId.SellerID == req.params.sID){
+    		ordersArr.push(orders[i]);
+    	}
+    } 
+    res.json(ordersArr);
+    console.log("Seller orders retrieved");
+  });
+});
+
+
 ///****************8 my update////////////////////////
  router.get("/mycartCount",function(req,res){
    ItemModel.find({"state":"Cart"},function(err,result){
