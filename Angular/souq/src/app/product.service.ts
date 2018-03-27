@@ -22,11 +22,30 @@ export class ProductService {
 
     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
     var body = {"clientId": uid,"prodId":prodID};
-    console.log("sssssssss",body);
    return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
      headers: headers
    });
 
+  }
+
+  getmyCartProductcount(){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycartCount`,{
+      headers: headers
+    });
+  }
+
+  getmyCartProducts(page:Number){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycart/${page}`,{
+      headers: headers
+    });
   }
 
 }

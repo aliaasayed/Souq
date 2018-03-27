@@ -35,7 +35,7 @@
                           <li *ngIf="!configData.login"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
                           <li *ngIf="configData.login"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
                           <li *ngIf="configData.login"><a routerLink="/souq/home/profile">{{logedUser.name}}</a></li>
-                          <li *ngIf="!logedUser.nationalID && configData.login"><a href="#"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
+                          <li *ngIf="!logedUser.nationalID && configData.login"><a routerLink="/souq/myCart"><i class="fas fa-shopping-cart fa-2x icon"></i></a></li>
                           <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-out icon" ></span> Logout</a></li>
                       </ul>
                     </div>
@@ -62,13 +62,13 @@
                     </ul>
 
                 </div>
-              
+
 
             </div>
             <!-- load any page here in this div -->
             <div class="row" id="content">
               <router-outlet></router-outlet>
-                 
+
             </div>
 
 

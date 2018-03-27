@@ -34,6 +34,7 @@ import {
     FacebookLoginProvider,
 } from 'angular5-social-login';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 
 
 export function getAuthServiceConfigs() {
@@ -67,7 +68,8 @@ export function getAuthServiceConfigs() {
     UserProfileDetailComponent,
     ProductSouqComponent,
     SellerProComponent,
-    SellerOrdersComponent
+    SellerOrdersComponent,
+    MycartDetailComponent
   ],
   imports: [
     BrowserModule,

@@ -11,11 +11,11 @@ import { ForgetPasswordComponent }   from './forget-password/forget-password.com
 import { UserProfileDetailComponent }   from './user-profile-detail/user-profile-detail.component';
 
 import { ProductSouqComponent }   from './product-souq/product-souq.component';
-
 import { EditInfoComponent } from './edit-info/edit-info.component'
 import { SellerProComponent } from './seller-pro/seller-pro.component';
-
 import { UserHomeComponent } from './user-home/user-home.component';
+import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
+
 const routes: Routes = [
   { path: 'souq/login', component: LoginSouqComponent },
   { path: 'souq/forgetPw', component: ForgetPasswordComponent},
@@ -33,7 +33,8 @@ const routes: Routes = [
 
   {path: "edit-info", component: EditInfoComponent},
   { path: 'sellerHome', component: SellerProComponent},
-  { path: 'userhome', component: UserHomeComponent}
+  { path: 'userhome', component: UserHomeComponent},
+  { path: 'souq/myCart', component: MycartDetailComponent}
 ];
 
 @NgModule({
