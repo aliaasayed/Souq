@@ -22,13 +22,31 @@ export class ProductService {
 
     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
     var body = {"clientId": uid,"prodId":prodID};
-    console.log("sssssssss",body);
    return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
      headers: headers
    });
 
   }
 
+  getmyCartProductcount(){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycartCount`,{
+      headers: headers
+    });
+  }
+
+  getmyCartProducts(page:Number){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycart/${page}`,{
+      headers: headers
+    });
+}
   addproduct(form):Observable<any>
   {
     const headers = new HttpHeaders()
@@ -41,16 +59,16 @@ export class ProductService {
   //console.log("service",this.product)
   }
 
-  // updateproduct(form):Observable<any>
-  // {
-  //   const headers = new HttpHeaders()
-  //          .set('Content-Type', 'application/json');
-  // form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-  // console.log(form);
-  //
-  // return this.http.post<any>('https://localhost:9090/products/update', form,
-  // {headers:headers});
-  // }
+  updateproduct(form):Observable<any>
+  {
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  console.log(form);
+
+  return this.http.post<any>('https://localhost:9090/products/update', form,
+  {headers:headers});
+  }
 
   getUpdateData(prodID:any):Observable<any>
   {
@@ -60,6 +78,7 @@ export class ProductService {
   return this.http.get<any>('https://localhost:9090/products/update'+prodID,{
      headers: headers
    });
+
   }
 
 }
