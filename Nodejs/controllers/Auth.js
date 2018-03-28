@@ -28,7 +28,7 @@ var router = express.Router();
 //   });
 // });
 
-router.use(bodyParser.json({limit: "5mb"}))
+// router.use(bodyParser.json({limit: "5mb"}))
 router.post("/upload",function(req,resp){
 console.log(req);
 
@@ -57,7 +57,7 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
   UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
    if(data != null && !err)
    {
-     const payload = {email: data.email};
+     const payload = {email: data.email,Id:data._id};
      const token=jwt.sign(payload,'myscret');
      resp.json({
           success: true,

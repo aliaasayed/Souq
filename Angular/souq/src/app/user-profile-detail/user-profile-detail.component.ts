@@ -9,6 +9,7 @@ import { UsersProfileService } from '../users-profile.service';
 export class UserProfileDetailComponent implements OnInit {
   formhidden = true;
   infohidden = false;
+  image;
  user={};
   constructor(private usersProfileService:UsersProfileService) {
 
@@ -24,8 +25,24 @@ export class UserProfileDetailComponent implements OnInit {
     this.formhidden=false;
     this.infohidden=true;
   }
-  submitIt(loginForm){
-    console.log(loginForm.value)
+  submitIt(form) {
+    console.log(form.valid);
+    form.value.image=this.image;
+    console.log(form.value)
+    this.usersProfileService.updateUser(form.value).subscribe((res)=>{
+    console.log(res);
+  });
+  }
+  fileUpload(files)
+  {
+  //console.log(files[0]);
+  this.image = files[0];
+  var myReader:FileReader = new FileReader();
+  myReader.readAsDataURL(this.image);
+  myReader.onloadend = (e) => {
+    this.image = myReader.result;
+    //console.log(this.image)
+  }
   }
   ngOnInit() {
   }

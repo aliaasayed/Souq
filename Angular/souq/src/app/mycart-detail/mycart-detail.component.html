@@ -1,0 +1,32 @@
+
+<h2 class="middle">Shopping Cart:{{CartProductCount}}</h2>
+
+<h1 class="rightbutton">Total: {{totalPrice}} EGP</h1>
+<div class="checkout">
+    <button type="button" class="btn btn-danger rightbutton">Check Out</button>
+</div>
+
+
+
+    <div  *ngFor="let cartprod of CartProducts" class="card" >
+         <img src={{cartprod.prodId.image}} />
+           <div class="card-info">
+             <h2> Price: {{cartprod.prodId.price}}</h2>
+             <h3> Name : {{cartprod.prodId.name}} </h3>
+            <select>
+            <option></option>
+            </select>
+
+             <h4 class="infoStock"> Order now there is only : {{cartprod.prodId.stock}} left on stock</h4>
+
+           </div>
+    </div>
+
+
+ <div class="divCenter">
+        <div class="pagination" *ngFor="let page of pages;let i = index">
+             <a *ngIf="i==0" href="#">&laquo;</a>
+             <a (click)="getProductCartPage(i+1)">{{i+1}}</a>
+            <a *ngIf="i==pages.length-1" href="#">&raquo;</a>
+        </div>
+</div>

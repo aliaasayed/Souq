@@ -16,8 +16,8 @@
 			<div class="panel-body panel-pad">
 				<div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div>
 				<div class="col-sm-12 controls">
-					<button id="btn-fblogin" href="#" class="btn btn-facebook" (click)="socialSignIn('facebook')">Login with Facebook</button>
-					<button id="btn-googlelogin" href="#" class="btn btn-google" (click)="socialSignIn('google')">Login with Google+</button>
+					<button style="float:left" id="btn-fblogin" href="#" class="btn btn-facebook" (click)="socialSignIn('facebook')">Login with Facebook</button>
+					<button style="float:right" id="btn-googlelogin" href="#" class="btn btn-google" (click)="socialSignIn('google')">Login with Google+</button>
 					</div>
 					<form id="loginform" class="form-horizontal" role="form">
 						<div class="form-group">
@@ -50,7 +50,8 @@
 							<div class="col-md-12 control">
 								<div class="no-acc">
 									Don't have an account!
-									<a href="/souq/signup"> Sign Up Here </a>
+									<a routerLink="/souq/userRegister"> Sign Up Here </a>
+									<a style="float:right"routerLink="/souq/sellerRegister"> Sign Up as Seller </a>
 								</div>
 							</div>
 						</div>

@@ -48,15 +48,35 @@ router.get("/edit/:id",function(req,resp){
 });
 
 
-router.post("/edit/:id",fileUploadMid.single('image'),function(req,resp){
+router.post("/edit/:id",urlEncodedMid,function(req,resp){
   // req.file.filename
-  UserModel.update({_id:req.params.id},{"$set":{name:req.body.username,email:req.body.email,password:req.body.password,address:req.body.address}},function(err,data){
+  console.log(req.body);
+
+  if(req.body.image)
+  {
+      UserModel.update({_id:req.params.id},{"$set":{
+        name:req.body.username,
+        password:req.body.password,
+        email:req.body.email,
+        address:req.body.address,
+        nationalID:req.body.nationalID,
+        image:req.body.image
+      }},function(err,data){
+      if(!err)
+        resp.json("done image");
+    });
+  }
+else{
+    UserModel.update({_id:req.params.id},{"$set":{
+    name:req.body.username,
+    password:req.body.password,
+    email:req.body.email,
+    address:req.body.address,
+    nationalID:req.body.nationalID,
+    }},function(err,data){
     if(!err)
-      resp.send("TRUE");
-    else
-    {
-      resp.send("error");
-    }
-  })
+      resp.json("done");
+  });
+}
 });
 module.exports = router;

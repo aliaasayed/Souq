@@ -5,7 +5,7 @@ import { LoginService } from './login.service';
 
 @Injectable()
 export class ProductService {
-
+  product:any;
   constructor(private http:HttpClient) { }
 
   getProducts(page:Number): Observable<any> {
@@ -16,9 +16,66 @@ export class ProductService {
 
 
   addProductTocaret(prodID:any):Observable<any> {
-    var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id
+
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
+
+    var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
     var body = {"clientId": uid,"prodId":prodID};
-   return this.http.post<any>('https://localhost:9090/items/addToCart',body);
+   return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
+     headers: headers
+   });
+
+  }
+
+  getmyCartProductcount(){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycartCount`,{
+      headers: headers
+    });
+  }
+
+  getmyCartProducts(page:Number){
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+    return this.http.get<any>(`https://localhost:9090/items/mycart/${page}`,{
+      headers: headers
+    });
+}
+  addproduct(form):Observable<any>
+  {
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  console.log(form);
+
+  return this.http.post<any>('https://localhost:9090/products/add', form,
+  {headers:headers});
+  //console.log("service",this.product)
+  }
+
+  updateproduct(form,id):Observable<any>
+  {
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+
+  return this.http.post<any>('https://localhost:9090/products/update/5abaaf0070e9b342a5281d7f', form,
+  {headers:headers});
+  }
+
+  getUpdateData(prodID:any):Observable<any>
+  {
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+
+  return this.http.get<any>('https://localhost:9090/products/update/'+prodID,{
+     headers: headers
+   });
 
   }
 

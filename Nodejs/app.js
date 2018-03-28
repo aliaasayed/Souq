@@ -8,6 +8,7 @@ var flash = require("connect-flash");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var cors = require('cors')
+server.use(bodyParser.json({limit: "5mb"}))
 
 var corsOptions = {
   "Access-Control-Allow-Origin":"*",

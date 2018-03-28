@@ -1,13 +1,33 @@
 var express = require("express");
-var server = express();
 var bodyParser = require("body-parser");
 var urlEncodedMid = bodyParser.urlencoded({extended:true});
 var router = express.Router();
 var mongoose = require("mongoose");
 var ItemModel = mongoose.model("items");
+var UserModel = mongoose.model("users");
+var ProductsModel = mongoose.model("products");
+var jwt=require("jsonwebtoken");
+
 
 console.log("Iam INNNN");
 
+
+//*****************veifyToken***********************//
+function verifyJWToken(req,res,next){
+  const authHeader=req.headers['authorization'];
+  if( typeof authHeader!=="undefined"){
+     req.token=authHeader;
+     jwt.verify(req.token,'myscret',(err,data)=>{
+        if(!err){
+        req.uid=data.Id;
+        console.log("item verify token ",req.uid);
+        next();
+      }
+      });
+  }
+  else
+    res.json({"error":"not no token exist for autherize"})
+}
 /******** Enable Front-End Access*******/
 router.use(function(req,res,next){
   res.header("Access-Control-Allow-Origin","*");
@@ -18,12 +38,77 @@ router.use(function(req,res,next){
 
 /**************** Show All Items ********************/
 router.get("/show",function(req,res){
+
   ItemModel.find({},function(err,result){
-    res.json(result);
+      res.json(result);
+    });
   });
-  console.log("items called");
-  // res.send("haaay");
+
+/**************** Show Seller Ordered Items *******************
+****** Take seller ID and return orders of his products ****/
+router.get("/sellerOrders/:sID",function(req,res){
+  ItemModel.find({state:'Ordered'}).
+  populate('prodId').
+  exec(function(err,orders){
+  	if (err) return handleError(err);
+    ordersArr=[]
+    for (i in orders){
+    	if(orders[i].prodId.SellerID == req.params.sID){
+    		ordersArr.push(orders[i]);
+    	}
+    } 
+    res.json(ordersArr);
+    console.log("Seller orders retrieved");
+  });
 });
+
+
+///****************8 my update////////////////////////
+ router.get("/mycartCount",verifyJWToken,function(req,res){
+  console.log("mycartCount ",req.uid);
+   ItemModel.find({"clientId":req.uid,"state":"Cart"},function(err,result){
+       if(!err)
+        res.json(result.length);
+      else
+        res.json({"error":"DB error"})
+       });
+ });
+
+  router.get("/myCart/:page?",verifyJWToken,function(req,res){
+    var page = req.params.page ? req.params.page:1;
+
+    ItemModel.find({"clientId":req.uid},function(err,result){
+      if(!err){
+        ProductsModel.populate(result,{path:"prodId",select:["name","price","image","stock"]}, function(err,result){
+            if(!err)
+            {
+              chunk=2;
+              pagesNumber=Math.ceil(result.length/chunk);
+              p=0;
+              tempres=[];
+              totalPrice=0;
+              console.log(result[0]);
+              for (i=0; i<result.length ; i++) {
+                   totalPrice += result[i].prodId.price;
+              }
+              for (i=0,j=pagesNumber; i<j,p<page ; i+=chunk,p++) {
+                   tempres = result.slice(i,i+chunk);
+              }
+              // console.log({"resultArr":tempres,"pages":pagesNumber,"finalres":finalres});
+
+                 res.json({"resultArr":tempres,"pages":pagesNumber,"totalprice":totalPrice});
+
+            }
+
+            else
+              res.json({"error":"DB error"})
+        });
+      }
+      else
+          res.json({"error":"no DB exist"})
+    });
+
+  });
 
 /**************** Show My cart ********************
 >>inputs required: clientId as a parameter */
@@ -32,19 +117,18 @@ router.get("/myCart/:cId",function(req,res){
     res.json(result);
   });
   console.log("items called");
-  // res.send("haaay");
 });
 
 /**************** Add to cart ********************
 >>inputs required: clientId, prodId */
-router.post("/addToCart",urlEncodedMid, function(req, res){
+router.post("/addToCart",bodyParser.json(), function(req, res){
 	var newCartItem = new ItemModel();
 	newCartItem._id = new mongoose.Types.ObjectId;
 	newCartItem.clientId = req.body.clientId;
 	newCartItem.prodId = req.body.prodId;
 	newCartItem.quantity = 1;
 	newCartItem.state = 'Cart';
-    console.log("sss",req.body)
+    console.log("ssmmmmmmmmmmmms",req.body)
 	newCartItem.save(function(err, item){
 		if(err){
 			res.json(err);

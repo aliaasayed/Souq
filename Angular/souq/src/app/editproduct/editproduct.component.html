@@ -1,0 +1,21 @@
+<form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
+  Product Name :
+  <input type="text" name="name" [(ngModel)]= "product.name" required><br>
+  Price :
+  <input type="text" name="price" [(ngModel)]= "product.price" required><br>
+  Available Quantity :
+  <input type="text" name="stock" [(ngModel)]= "product.stock" required><br>
+  Description :
+  <input type="text" name="description" [(ngModel)]= "product.description" required><br>
+  Category :
+  <input type="text" name="category" [(ngModel)]= "product.category" required><br>
+  Subcategory :
+  <input type="text" name="subcategory" [(ngModel)]= "product.subcategory" required><br>
+  Specifications :
+  <input type="text" name="specifications" [(ngModel)]= "product.specifications" required><br>
+
+
+  <input type="file" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+   base-sixty-four-input/>
+  <input type="submit">
+</form>
