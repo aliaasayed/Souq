@@ -14,6 +14,7 @@ console.log("Iam INNNN");
 
 //*****************veifyToken***********************//
 function verifyJWToken(req,res,next){
+  console.log("ddddddddd")
   const authHeader=req.headers['authorization'];
   if( typeof authHeader!=="undefined"){
      req.token=authHeader;
@@ -56,7 +57,7 @@ router.get("/sellerOrders/:sID",function(req,res){
     	if(orders[i].prodId.SellerID == req.params.sID){
     		ordersArr.push(orders[i]);
     	}
-    } 
+    }
     res.json(ordersArr);
     console.log("Seller orders retrieved");
   });
@@ -77,7 +78,7 @@ router.get("/sellerOrders/:sID",function(req,res){
   router.get("/myCart/:page?",verifyJWToken,function(req,res){
     var page = req.params.page ? req.params.page:1;
 
-    ItemModel.find({"clientId":req.uid},function(err,result){
+    ItemModel.find({'state':"Cart","clientId":req.uid},function(err,result){
       if(!err){
         ProductsModel.populate(result,{path:"prodId",select:["name","price","image","stock"]}, function(err,result){
             if(!err)
@@ -87,14 +88,12 @@ router.get("/sellerOrders/:sID",function(req,res){
               p=0;
               tempres=[];
               totalPrice=0;
-              console.log(result[0]);
               for (i=0; i<result.length ; i++) {
-                   totalPrice += result[i].prodId.price;
+                   totalPrice += result[i].prodId.price*result[i].quantity;
               }
               for (i=0,j=pagesNumber; i<j,p<page ; i+=chunk,p++) {
                    tempres = result.slice(i,i+chunk);
               }
-              // console.log({"resultArr":tempres,"pages":pagesNumber,"finalres":finalres});
 
                  res.json({"resultArr":tempres,"pages":pagesNumber,"totalprice":totalPrice});
 
@@ -121,7 +120,7 @@ router.get("/myCart/:cId",function(req,res){
 
 /**************** Add to cart ********************
 >>inputs required: clientId, prodId */
-router.post("/addToCart",bodyParser.json(), function(req, res){
+router.post("/addToCart",[verifyJWToken,bodyParser.json()], function(req, res){
 	var newCartItem = new ItemModel();
 	newCartItem._id = new mongoose.Types.ObjectId;
 	newCartItem.clientId = req.body.clientId;
@@ -141,29 +140,68 @@ router.post("/addToCart",bodyParser.json(), function(req, res){
 
 /**************** Checkout ********************
 >>take clientId and
->>Change all products with 'Cart' state to 'Ordered'*/
-router.put('/checkout/:clientId', function(req, res){
-	ItemModel.update({'state':"Cart", 'clientId': req.params.clientId},
-		{'$set': {'state':'Ordered'} }, { multi: true },
-		function(err){
-			if(err){
-				res.send(err);
-			}
-			res.send("Checkout was done successfuly");
-		})
+>>Change all products with 'Cart' state to 'Ordered' if it's stock >0*/
+router.post('/mycart/checkout',[verifyJWToken,bodyParser.json()] ,function(req, res){
+ console.log("check out")
+  checkedout=[];
+  notcheckedout=[];
+  ItemModel.find({'state':"Cart","clientId":req.uid},function(err,result){
+    if(!err){
+      ProductsModel.populate(result,{path:"prodId",select:["_id","stock","name"]}, function(err,result){
+        for (var i=0;i<result.length;i++){
+                 if(result[i].prodId.stock>=result[i].quantity) //update order to delviered then subtract quantity of product
+                   {
+                     newquan=result[i].prodId.stock-result[i].quantity;
+                    ItemModel.update({'state':"Cart", 'clientId': req.uid,'prodId':result[i].prodId},
+                      {'$set': {'state':'Ordered'} },
+                      function(err,data){
+                       console.log(" error in update ItemModel",data)
+                      });
+
+                      ProductsModel.update({'_id':result[i].prodId},
+                          {'$set': {'stock':newquan} },
+                          function(err,data){
+                               console.log(" error in update ProductsModel",data)
+
+                          });
+                          checkedout.push(result[i].prodId.name)
+                 }
+                 else {
+
+                    key=result[i].prodId.name;
+                    val=result[i].prodId.stock;
+                      notcheckedout.push({key:key})
+                 }
+       }
+         console.log(checkedout,notcheckedout)
+         res.json({"checkedout":checkedout,"notcheckedout":notcheckedout})
+      });
+
+    }
+  });
 });
 
 /**************** In cart check ********************
 >>take clientId and prodId and
 >>check the existance of the product in customer cart'*/
-router.post("/checkCart",urlEncodedMid, function(req, res){
+router.post("/checkCart",[verifyJWToken,bodyParser.json()], function(req, res){
 	ItemModel.count({
-		'clientId': req.body.clientId,
+		'clientId': req.uid,
 		'prodId': req.body.prodId,
 		'state':"Cart"
 	}, function (err, docs) {
-  		res.json(docs);
-		console.log(docs>0?"Already Exists":"New");
+     if(!err){
+             if (docs>0 )
+               res.json({"mes":"exist"});
+
+            else
+              res.json({"mes":"notexist"});
+              }
+    else{
+        console.log("error")
+  		  res.json({"mes":"db err"});
+     }
+
 	});
 });
 
@@ -182,5 +220,35 @@ router.put('/deliver/:id', function(req, res){
 });
 
 /*--------------------------------------------------*/
+router.post('/myCart/delete', [verifyJWToken,bodyParser.json()],function(req, res){
+ console.log(req.uid,req.body)
+ ItemModel.findOne({_id:req.body.orderId},function(err,data){
+  if(!err)
+   {
+     console.log("remove")
+     ItemModel.remove({_id:req.body.orderId},function(err,data){
+       if(! err)
+        res.json({"sucess":"removed"})
+       else
+         res.json({"fail":"Db delete"})
+     });
+   }
+   else {
+     res.json("DB error");
+   }
+ });
+});
+
+router.post('/myCart/updateQuan', [verifyJWToken,bodyParser.json()],function(req, res){ //update orderQaun item
+  ItemModel.update({'_id': req.body.orderId},
+    {'$set': {'quantity':req.body.newQuan} },
+    function(err){
+      if(err){
+        res.json({"err":err});
+      }
+      else
+        res.json("Item quan updated successfuly");
+    })
+});
 
 module.exports = router;
