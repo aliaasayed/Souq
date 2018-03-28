@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
-
+import { Router } from '@angular/router';
 import {
     AuthService,
     FacebookLoginProvider,
@@ -19,8 +19,8 @@ export class LoginSouqComponent implements OnInit {
   logedUser:any;
   user={email:"",password:""};
   loginPage=false;
-
-  constructor(private loginService: LoginService,private socialAuthService: AuthService){
+   router: Router;
+  constructor(private loginService: LoginService,private socialAuthService: AuthService,private route:Router){
   //web servic take token then retrieve it's rule and info needed
   if(localStorage.getItem('Souqlogin')){//there token exist in localS
     this.loginService.verifyToken().subscribe((res)=>{
@@ -50,9 +50,12 @@ export class LoginSouqComponent implements OnInit {
         this.socialAuthService.signIn(socialPlatformProvider).then(
           (userData) => {
             console.log(socialPlatform+" sign in data : " , userData);
-            this.loginService.register(userData).subscribe((res)=>{
+            this.loginService.socialLogin(userData).subscribe((res)=>{
             console.log(res);
-            //window.location.href = 'https://localhost:4200/souq/home';
+            if(res=="true" || res=="user email exist")
+            {
+              window.location.href = 'https://localhost:4200/souq/home';
+            }else{}
           });
           }
         );

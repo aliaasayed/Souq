@@ -1,14 +1,26 @@
 
-<div class="container">
 	<div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 loginbox">
 		<div class="panel panel-info" >
-      <div class="" [hidden]="infohidden">
-        <img width="200px" height="200px" src="{{user.image}}" alt=""><br>
-        <p>UserName : {{user.name}}</p>
-        <p>Email : {{user.email}}</p>
-        <p>Address : {{user.address}}</p>
-        <p>NationalID : {{user.nationalID}}</p>
-        <button (click)="edit()" [hidden]="infohidden">Edit</button>
+        <div class="panel-heading" [hidden]="infohidden">
+            <div class="panel-title"> User Information </div>
+          </div>
+      <div class="panel-body" [hidden]="infohidden">
+          <div class="media">
+              <div class="media-left">
+                  <img width="200px" class="media-object" style="width:150px" src="{{user.image}}" alt="">
+              </div>
+              <div class="media-body">
+                <h2 class="media-heading">{{user.name}}</h2>
+                <br>
+                <label>Email  </label><p> {{user.email}}</p>
+                <label>Address  </label><p>{{user.address}}</p>
+                <label *ngIf = "user.nationalID;">NationalID </label> <p *ngIf = "user.nationalID;"> {{user.nationalID}}</p>
+                <br>
+                <button (click)="edit()" [hidden]="infohidden" class="btn btn-success">Edit Information</button>
+              </div>
+            </div>
+        
+        
       </div>
 			<div class="panel-heading" [hidden]="formhidden">
 				<div class="panel-title"> Edit </div>
@@ -34,10 +46,10 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="address" class="form-control" [(ngModel)]="user.address" required placeholder="address"><br>
             </div><br>
-            <div class="input-group margT25">
+            <div *ngIf = "user.nationalID;" class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
               <input type="text" name="nationalID" class="form-control" [(ngModel)]="user.nationalID" required placeholder="nationalID"><br>
-            </div><br>
+            </div><br *ngIf = "user.nationalID;">
 						<div class="form-group margT10">
 						<!-- Button -->
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
@@ -48,4 +60,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
+

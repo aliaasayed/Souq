@@ -50,37 +50,43 @@ router.post("/add",bodyParser.json(),function(request,response)
 });
 
 //**************************************************
-router.post("/update",urlEncodedMid,function(request,response)
-{
-    ProductsModel.findById(request.body.Id, function (err, product){
-        if (err)
-        {
-           var error = console.log("error here");
-           return error;
-        }
+router.post("/update/:id",bodyParser.json(),function(req,resp){
+  // req.file.filename
+  console.log(req.body);
 
-        product.name = request.body.name,
-        product.price = request.body.price,
-        product.offer = request.body.offer,
-        product.stock = request.body.stock,
-        product.description = request.body.description,
-        product.category = request.body.category,
-        product.subcategory = request.body.subcategory,
-        product.specifications = request.body.specifications,
-        product.image = request.body.image;
-
-    product.save(function(err, updatedProduct){
-          if (err)
-          {
-            console.log("error here2");
-            response.json(err);
-          }
-          console.log("update success");
-          response.json(updatedProduct);
-        });
+  if(req.body.image)
+  {
+      ProductsModel.update({_id:req.params.id},{"$set":{
+        name:req.body.name,
+        price:req.body.price,
+        offer:req.body.offer,
+        stock:req.body.stock,
+        description:req.body.description,
+        category:req.body.category,
+        subcategory:req.body.subcategory,
+        specifications:req.body.specifications,
+        image:req.body.image,
+      }},function(err,data){
+      if(!err)
+        resp.json("done image");
     });
+  }
+else{
+    ProductsModel.update({_id:req.params.id},{"$set":{
+      name:req.body.name,
+      price:req.body.price,
+      offer:req.body.offer,
+      stock:req.body.stock,
+      description:req.body.description,
+      category:req.body.category,
+      subcategory:req.body.subcategory,
+      specifications:req.body.specifications,
+    }},function(err,data){
+    if(!err)
+      resp.json("done");
+  });
+}
 });
-
 /////////
 
 router.get("/Plist/:page?",function(req,res){
@@ -129,7 +135,7 @@ router.get("",function(request,response)
 router.get("/seller/:sellerId/:page",function(request,response)
 {
   ProductsModel.paginate({SellerID:request.params.sellerId} , {page:request.params.page,limit:3}, function(err,data){
-    response.send(data);
+    response.json(data);
   });
 });
 

@@ -15,6 +15,7 @@ export class SellerProComponent implements OnInit {
 	getProducts(p){
 		this.sellerProductService.getProducts(p)
 		.subscribe(products => {
+      console.log(products)
 			this.products = products;
 			this.pagesArr = new Array <Number>(parseInt(this.products.pages));
 		});
@@ -27,7 +28,7 @@ export class SellerProComponent implements OnInit {
 		// console.log(parseInt(this.products.pages));
 	}
 
-	
+
 
 	// getProducts(){
 	// 	this.sellerProductService.getProducts()

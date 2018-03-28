@@ -9,10 +9,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class SellerProductsService {
 	///to change after megrge-----
-	// private sellerProdUrl = 'http://localhost:9090/products/seller/100/1';
-	//-----------------------------
-	getProducts(page): Observable<any>{
-		return this.http.get<any>(`http://localhost:9090/products/seller/100/${page}`)
+	sellId=JSON.parse(localStorage.getItem('SouqloginUser'))._id
+	private sellerProdUrl = 'https://localhost:9090/products/seller/'+this.sellId+'/2';
+
+	getProducts(p): Observable<any>{
+
+		return this.http.get<any>(this.sellerProdUrl)
 		.pipe(
 				catchError(this.handleError('getProducts', []))
 			);

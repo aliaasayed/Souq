@@ -50,4 +50,14 @@ export class LoginService {
              headers: headers
            });
       }
+      socialLogin(register):Observable<any>
+          {
+           console.log(register)
+           const headers = new HttpHeaders()
+                 .set('Content-Type', 'application/json');
+
+               return this.http.post('https://localhost:9090/auth/socialLogin',register ,{
+                 headers: headers
+               });
+          }
   }

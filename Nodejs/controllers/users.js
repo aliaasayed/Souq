@@ -48,7 +48,7 @@ router.get("/edit/:id",function(req,resp){
 });
 
 
-router.post("/edit/:id",bodyParser.json(),function(req,resp){
+router.post("/edit/:id",urlEncodedMid,function(req,resp){
   // req.file.filename
   console.log(req.body);
 

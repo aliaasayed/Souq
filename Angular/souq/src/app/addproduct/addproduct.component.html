@@ -2,7 +2,7 @@
 	<div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 loginbox">
 		<div class="panel panel-info" >
 			<div class="panel-heading">
-				<div class="panel-title"> Sign UP </div>
+				<div class="panel-title"> Add Product </div>
 			</div>
 			<div class="panel-body panel-pad">
 				<!-- <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> -->
@@ -21,6 +21,10 @@
               <span class="input-group-addon"><i class="fa fa-at"></i></span>
               <input type="number" name="stock" class="form-control" ngModel required placeholder="stock"><br>
             </div><br>
+						<div class="input-group margT25">
+							<span class="input-group-addon"><i class="fa fa-at"></i></span>
+							<input type="number" name="offer" class="form-control" ngModel required placeholder="offer"><br>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="description" class="form-control" ngModel required placeholder="description"><br>
@@ -41,7 +45,7 @@
 						<!-- Button -->
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
                base-sixty-four-input/>
-              <input type="submit" class="btn btn-block btn-success" [disabled]="!addproductForm.form.valid">
+              <input type="submit" class="btn btn-block btn-success">
 						</div>
 					</form>
 				</div>

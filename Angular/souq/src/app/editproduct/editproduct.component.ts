@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import { ActivatedRoute } from '@angular/router'
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -9,22 +10,25 @@ import {NgForm} from '@angular/forms';
 })
 export class EditProductComponent implements OnInit
 {
-  product;
+  product={};
   image;
-  productid: any;
-  constructor(private ProductService: ProductService)
+  id;
+  constructor(private ProductService: ProductService,private route : ActivatedRoute)
   {
-    this.ProductService.getUpdateData(this.productid).subscribe((res)=>{
+    this.route.params.subscribe((params) => {this.id=params['id']
+    console.log(params)});
+    this.ProductService.getUpdateData(this.id).subscribe((res)=>{
       console.log(res);
       this.product = res;
     })
+
   }
   update(form) {
     console.log(form.valid);
     form.value.image=this.image;
     console.log(form.value);
 
-    this.ProductService.updateproduct(form.value).subscribe((res)=>{
+    this.ProductService.updateproduct(form.value,this.id).subscribe((res)=>{
     console.log(res);
   });
 }
