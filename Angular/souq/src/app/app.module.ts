@@ -27,7 +27,7 @@ import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
-
+import { SellerOrdersService } from './seller-orders.service';
 
 
 import {
@@ -103,7 +103,8 @@ export function getAuthServiceConfigs() {
       UsersProfileService,
       ProductService,
       SellerProductsService,
-      CategoriesService
+      CategoriesService,
+      SellerOrdersService
   ],
   bootstrap: [AppComponent]
 })

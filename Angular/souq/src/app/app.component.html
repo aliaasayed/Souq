@@ -61,6 +61,7 @@
                   <a *ngIf="logedUser.nationalID && configData.login" routerLink="/sellerHome">Home</a>
                   <a *ngIf="configData.login" routerLink="/souq/home/profile">My Account</a>
                   <a *ngIf="!logedUser.nationalID && configData.login" >My Orders</a>
+                  <a *ngIf="logedUser.nationalID && configData.login" routerLink="/sellerOrders">Orders to Deliever</a>
                     <label>Categories</label>
                     <ul class="list-unstyled">
                       <li *ngFor="let category of categories , let j=index">

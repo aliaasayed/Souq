@@ -20,7 +20,9 @@ import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 import { AddProductComponent }   from './addproduct/addproduct.component';
 
 import { AllCategoriesComponent }   from './all-categories/all-categories.component';
+import { SellerOrdersComponent }   from './seller-orders/seller-orders.component';
 import { AppComponent } from './app.component';
+
 const routes: Routes = [
   //{path: '', component: AppComponent},
 
@@ -46,7 +48,7 @@ const routes: Routes = [
   { path: 'editproduct/:id', component: EditProductComponent},
 
   { path: 'AllCategories', component: AllCategoriesComponent},
-
+  { path: 'sellerOrders', component: SellerOrdersComponent},
 ];
 
 @NgModule({

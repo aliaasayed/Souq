@@ -1,20 +1,19 @@
 
-<div class="order">
+<div class="order" *ngFor="let order of sellerOrders,let i=index">
       <div class="panel panel-default">
           <div class="panel-body">
               <div class="media">
                   <div class="media-left">
-                    <img src="assets/images/photo_6.png" class="media-object" style="width:150px">
+                    <img src="{{ order.prodId.image }}" class="media-object">
                   </div>
                   <div class="media-body">
-                    <h3 class="media-heading">John Doe</h3>
+                    <h3 class="media-heading">{{ order.prodId.name}}</h3>
                     <rating [max]="max" [(ngModel)]="rate"  [readonly]="isReadonly"></rating>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>{{ order.prodId.description}}</p>
                   </div>
                   <div class="media-right" style="width:15%">
-                      <h4>10,000 EGP</h4>
-                      <p> Avaliable <span class="badge">12</span></p>
+                      <h4>{{ order.prodId.price}} EGP</h4>
+                      <p> Avaliable <span class="badge">{{ order.prodId.stock}}</span></p>
                       <button class="btn btn-primary">View Order Details</button>
                     </div>
                 </div>
