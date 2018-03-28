@@ -44,6 +44,8 @@ const routes: Routes = [
 
   { path: 'AllCategories', component: AllCategoriesComponent},
 
+  { path: 'orderDetails', component: OrderDetailsComponent}
+
 
 ];
 

@@ -47,22 +47,34 @@ router.get("/show",function(req,res){
 
 /**************** Show Seller Ordered Items *******************
 ****** Take seller ID and return orders of his products ****/
-router.get("/sellerOrders/:sID",function(req,res){
+router.get("/sellerOrders/:sID/:OID?",function(req,res){
   ItemModel.find({state:'Ordered'}).
   populate('prodId').
   exec(function(err,orders){
-  	if (err) return handleError(err);
+    if (err) return handleError(err);
     ordersArr=[]
     for (i in orders){
-    	if(orders[i].prodId.SellerID == req.params.sID){
-    		ordersArr.push(orders[i]);
-    	}
+      if(orders[i].prodId.SellerID == req.params.sID){
+        ordersArr.push(orders[i]);
+      }
+    } 
+
+    if(req.params.OID){       //if orderId was given
+      for(j = 0; j < ordersArr.length; j++){
+        if(ordersArr[j]._id == req.params.OID){
+          res.json(ordersArr[j]);
+          console.log("An order selected");
+          break;
+        }
+      }
     }
-    res.json(ordersArr);
-    console.log("Seller orders retrieved");
+    else{
+      res.json(ordersArr);
+      console.log("Seller orders retrieved");
+    }
+
   });
 });
-
 
 ///****************8 my update////////////////////////
  router.get("/mycartCount",verifyJWToken,function(req,res){

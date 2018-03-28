@@ -28,6 +28,9 @@ import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
 
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import {OrderDetailsService} from './order-details.service';
+
 
 
 import {
@@ -36,6 +39,7 @@ import {
     GoogleLoginProvider,
     FacebookLoginProvider,
 } from 'angular5-social-login';
+
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 import { CategoriesService } from './categories.service';
 import { AllCategoriesComponent } from './all-categories/all-categories.component';
@@ -85,6 +89,8 @@ export function getAuthServiceConfigs() {
 
     AddProductComponent,
     EditProductComponent,
+
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +109,8 @@ export function getAuthServiceConfigs() {
       UsersProfileService,
       ProductService,
       SellerProductsService,
-      CategoriesService
+      CategoriesService,
+      OrderDetailsService
   ],
   bootstrap: [AppComponent]
 })
