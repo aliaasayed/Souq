@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-declare var jquery:any;
-declare var $ :any;
 import {config} from './config';
 import { LoginService } from './login.service';
+import { CategoriesService } from './categories.service';
+
+declare var jquery:any;
+declare var $ :any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,19 +14,31 @@ import { LoginService } from './login.service';
 })
 
 export class AppComponent implements OnInit{
-
+  categories;
   title = 'app';
   url;
   configData=config;
   logedUser={};
+
+
+
   ngOnInit(): void {
   }
-  constructor(private loginService: LoginService){
+  constructor(private categoriesService: CategoriesService,private loginService: LoginService){
     this.configData.login=localStorage.getItem('Souqlogin');
     let logU = JSON.parse(localStorage.getItem('SouqloginUser'));
     if(logU!=null)
      this.logedUser=logU;
-    console.log("ctor",this.configData)
+    console.log("ctor",this.configData);
+    
+    
+      this.categoriesService.getCategories().subscribe((res)=>{
+        this.categories=res;
+        // console.log(res);
+        // console.log(this.categories);
+      });
+  
+  
   }
   showSideMenu(){
     $('.sidenav').css('width',"250px");  
@@ -42,4 +57,6 @@ export class AppComponent implements OnInit{
      localStorage.clear();
      this.configData.login="false"
     }
+
+
 }

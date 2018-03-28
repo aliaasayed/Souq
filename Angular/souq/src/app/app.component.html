@@ -43,9 +43,14 @@
 
                   <ol class="breadcrumb" style="text-align:center">
                         <li><a href="#">All Categories</a></li>
-                        <li><a href="#">Category one </a></li>
-                        <li class="active"><a href="#">Category two </a></li>
-                        <li class="active"><a href="#">Category three </a></li>
+                        <li *ngFor="let category of categories , let i=index"> 
+                          <a href="#menu{{i}}" data-toggle="collapse" aria-expanded="false"> {{ category.Name }} </a>
+                          <ul class="collapse list-unstyled" id="menu{{i}}">
+                              <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory"> 
+                                  <a href="#"> {{ subcategory }} </a>
+                              </li>
+                          </ul>
+                        </li>
                   </ol>
                 </div>
                 <div id="mySidenav" class="sidenav">
@@ -54,11 +59,16 @@
                   <a routerLink="/userhome">Home</a>
                   <a *ngIf="configData.login" routerLink="/souq/home/profile">My Account</a>
                   <a href="#">My Orders</a>
-                    <a href="#catSubmenu" data-toggle="collapse" aria-expanded="false">Categories</a>
-                    <ul class="collapse list-unstyled" id="catSubmenu">
-                        <li><a href="#">Home 1</a></li>
-                        <li><a href="#">Home 2</a></li>
-                        <li><a href="#">Home 3</a></li>
+                    <label>Categories</label>
+                    <ul class="list-unstyled">
+                      <li *ngFor="let category of categories , let j=index"> 
+                          <a href="#Submenu{{j}}" data-toggle="collapse" aria-expanded="false">{{ category.Name }}</a>
+                            <ul class="collapse list-unstyled" id="Submenu{{j}}">
+                                <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory"> 
+                                    <a href="#"> {{ subcategory }} </a>
+                                </li>
+                            </ul>
+                      </li>
                     </ul>
 
                 </div>
@@ -68,7 +78,7 @@
             <!-- load any page here in this div -->
             <div class="row" id="content">
               <router-outlet></router-outlet>
-                 
+                 <app-all-categories></app-all-categories>
             </div>
 
 

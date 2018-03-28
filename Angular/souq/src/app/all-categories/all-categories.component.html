@@ -1,0 +1,19 @@
+
+<div class="col-sm-4" *ngFor="let category of AllCategories ,let i=index">
+  <div class="panel panel-info">
+      <div class="panel-heading">
+     {{ category.Name }} 
+        </div>
+      <div class="panel-body">
+              <ul>
+                  <li *ngFor="let subcategory of category.subcategories ,let i=index">
+                      <a> {{ subcategory }}</a>
+                  </li>
+  
+                </ul>
+      </div>
+  </div>
+</div>
+
+
+

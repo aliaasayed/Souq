@@ -1,0 +1,14 @@
+ul
+{
+    list-style-type: none;
+}
+
+li a:hover
+{
+    cursor: pointer;
+}
+.panel-heading
+{
+    font-size:18px;
+    
+}

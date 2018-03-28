@@ -34,6 +34,9 @@ import {
     FacebookLoginProvider,
 } from 'angular5-social-login';
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
+import { CategoriesService } from './categories.service';
+import { AllCategoriesComponent } from './all-categories/all-categories.component';
+
 
 
 export function getAuthServiceConfigs() {
@@ -67,7 +70,8 @@ export function getAuthServiceConfigs() {
     UserProfileDetailComponent,
     ProductSouqComponent,
     SellerProComponent,
-    SellerOrdersComponent
+    SellerOrdersComponent,
+    AllCategoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,8 @@ export function getAuthServiceConfigs() {
       LoginService,
       UsersProfileService,
       ProductService,
-      SellerProductsService
+      SellerProductsService,
+      CategoriesService
   ],
   bootstrap: [AppComponent]
 })
