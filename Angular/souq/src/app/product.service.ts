@@ -64,12 +64,13 @@ export class ProductService {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 
-  return this.http.post<any>('https://localhost:9090/products/update/5abaaf0070e9b342a5281d7f', form,
+  return this.http.post<any>('https://localhost:9090/products/update/'+id, form,
   {headers:headers});
   }
 
   getUpdateData(prodID:any):Observable<any>
   {
+    console.log(prodID)
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 

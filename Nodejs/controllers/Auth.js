@@ -44,13 +44,26 @@ console.log(req.body);
     address:req.body.address,
     image:req.body.image,
     nationalID:req.body.nationalID,
-    tokens:req.body.token,
   });
   saveProfile(user,function(DBRes){
       resp.json(DBRes);
   });
 });
 
+
+/******* Register ********/
+router.post("/socialLogin",urlEncodedMid,function(req,resp){
+console.log(req.body);
+  var user = new UserModel({
+    name:req.body.name,
+    email:req.body.email,
+    image:req.body.image,
+    tokens:req.body.token,
+  });
+  saveProfile(user,function(DBRes){
+      resp.json(DBRes);
+  });
+});
 
 /********User Login*********/
 router.post("/userlogin",urlEncodedMid,function(req,resp){

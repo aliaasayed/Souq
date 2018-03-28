@@ -9,8 +9,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class SellerProductsService {
 	///to change after megrge-----
-	private sellerProdUrl = 'https://localhost:9090/products/seller/5aba9fb678a52a33fb026da6/1';
-	//-----------------------------
+	sellId=JSON.parse(localStorage.getItem('SouqloginUser'))._id
+	private sellerProdUrl = 'https://localhost:9090/products/seller/'+this.sellId+'/2';
+
 	getProducts(p): Observable<any>{
 
 		return this.http.get<any>(this.sellerProdUrl)

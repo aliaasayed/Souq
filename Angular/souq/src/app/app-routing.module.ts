@@ -20,8 +20,10 @@ import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 import { AddProductComponent }   from './addproduct/addproduct.component';
 
 import { AllCategoriesComponent }   from './all-categories/all-categories.component';
-
+import { AppComponent } from './app.component';
 const routes: Routes = [
+  //{path: '', component: AppComponent},
+
   { path: 'souq/login', component: LoginSouqComponent },
   { path: 'souq/forgetPw', component: ForgetPasswordComponent},
 
@@ -41,7 +43,7 @@ const routes: Routes = [
   { path: 'souq/myCart', component: MycartDetailComponent},
 
   { path: 'addproduct', component: AddProductComponent},
-  { path: 'editproduct', component: EditProductComponent},
+  { path: 'editproduct/:id', component: EditProductComponent},
 
   { path: 'AllCategories', component: AllCategoriesComponent},
 

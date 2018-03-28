@@ -1,7 +1,7 @@
 <!-- <a routerLink="/login">Login</a>
 <a routerLink="/souq/userRegister">userRegister</a>
 <a routerLink="/souq/sellerRegister">sellerRegister</a> -->
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
     <div class="container-fluid">
 
             <div class="row">
@@ -14,7 +14,9 @@
 
                             <i class="fas fa-bars fa-lg"></i>
                             </button></li>
-                        <li> <a class="navbar-brand" href="#"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li> <a *ngIf="!logedUser.nationalID && configData.login" class="navbar-brand" routerLink="/userhome"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li> <a *ngIf="logedUser.nationalID && configData.login" class="navbar-brand" routerLink="/sellerHome"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li> <a *ngIf="!configData.login" class="navbar-brand"> My Cart <i class="fab fa-opencart"></i></a></li>
                         <li *ngIf="!logedUser.nationalID && configData.login">
                           <form class="navbar-form " method="POST" action="">
                                   <div class="input-group">
@@ -43,10 +45,10 @@
 
                   <ol class="breadcrumb" style="text-align:center">
                         <li><a routerLink="/AllCategories">All Categories</a></li>
-                        <li *ngFor="let category of categories , let i=index"> 
+                        <li *ngFor="let category of categories , let i=index">
                           <a href="#menu{{i}}" data-toggle="collapse" aria-expanded="false"> {{ category.Name }} </a>
                           <ul class="collapse list-unstyled" id="menu{{i}}">
-                              <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory"> 
+                              <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory">
                                   <a href="#"> {{ subcategory }} </a>
                               </li>
                           </ul>
@@ -56,15 +58,15 @@
                 <div id="mySidenav" class="sidenav">
                   <button class="closebtn" (click)="HideSideMenu()">&times;</button>
                   <a *ngIf="!logedUser.nationalID && configData.login" routerLink="/userhome">Home</a>
-                  <a routerLink="/userhome">Home</a>
+                  <a *ngIf="logedUser.nationalID && configData.login" routerLink="/sellerHome">Home</a>
                   <a *ngIf="configData.login" routerLink="/souq/home/profile">My Account</a>
-                  <a href="#">My Orders</a>
+                  <a *ngIf="!logedUser.nationalID && configData.login" >My Orders</a>
                     <label>Categories</label>
                     <ul class="list-unstyled">
-                      <li *ngFor="let category of categories , let j=index"> 
+                      <li *ngFor="let category of categories , let j=index">
                           <a href="#Submenu{{j}}" data-toggle="collapse" aria-expanded="false">{{ category.Name }}</a>
                             <ul class="collapse list-unstyled" id="Submenu{{j}}">
-                                <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory"> 
+                                <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory">
                                     <a href="#"> {{ subcategory }} </a>
                                 </li>
                             </ul>

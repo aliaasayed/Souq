@@ -1,21 +1,54 @@
-<form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
-  Product Name :
-  <input type="text" name="name" [(ngModel)]= "product.name" required><br>
-  Price :
-  <input type="text" name="price" [(ngModel)]= "product.price" required><br>
-  Available Quantity :
-  <input type="text" name="stock" [(ngModel)]= "product.stock" required><br>
-  Description :
-  <input type="text" name="description" [(ngModel)]= "product.description" required><br>
-  Category :
-  <input type="text" name="category" [(ngModel)]= "product.category" required><br>
-  Subcategory :
-  <input type="text" name="subcategory" [(ngModel)]= "product.subcategory" required><br>
-  Specifications :
-  <input type="text" name="specifications" [(ngModel)]= "product.specifications" required><br>
-
-
-  <input type="file" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
-   base-sixty-four-input/>
-  <input type="submit">
-</form>
+<div class="container">
+	<div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 loginbox">
+		<div class="panel panel-info" >
+			<div class="panel-heading">
+				<div class="panel-title"> Update Product</div>
+			</div>
+			<div class="panel-body panel-pad">
+				<!-- <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> -->
+        <form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
+						<div class="input-group margT25">
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-user"></i>
+							</span>
+              <input type="text" name="name" class="form-control" [(ngModel)]= "product.name" required><br>
+						</div><br>
+						<div class="input-group margT25">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input type="number" name="price" class="form-control" [(ngModel)]= "product.price" required><br>
+						</div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="fa fa-at"></i></span>
+              <input type="number" name="stock" class="form-control" [(ngModel)]= "product.stock" required><br>
+            </div><br>
+						<div class="input-group margT25">
+							<span class="input-group-addon"><i class="fa fa-at"></i></span>
+              <input type="number" name="offer" class="form-control" [(ngModel)]= "product.offer" required><br>
+						</div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="description" class="form-control" [(ngModel)]= "product.description" required><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="fa fa-at"></i></span>
+              <input type="text" name="category" class="form-control" [(ngModel)]= "product.category" required><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="subcategory" class="form-control" [(ngModel)]= "product.subcategory" required><br>
+            </div><br>
+            <div class="input-group margT25">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input type="text" name="specifications" class="form-control" [(ngModel)]= "product.specifications" required><br>
+            </div><br>
+						<div class="form-group margT10">
+						<!-- Button -->
+              <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
+               base-sixty-four-input/>
+              <input type="submit" class="btn btn-block btn-success">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
