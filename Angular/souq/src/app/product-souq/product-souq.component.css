@@ -224,7 +224,7 @@ body.noScroll { /* ...or body.dialogShowing */
   background-color: rgba(1,2,0,0.9); /*dim the background*/
   overflow-y:hidden;
 }
-.SuccessAddToCart{
+.addtocartcase{
   position: fixed;
   top: 0;
   left: 0;
@@ -238,6 +238,6 @@ body.noScroll { /* ...or body.dialogShowing */
   margin-left: 30%;
   margin-top: 20%;
   margin-bottom: 2%;
-  background-color: rgba(100,100,130,1); /*dim the background*/
+  background-color: rgba(115, 223, 237,1); /*dim the background*/
   overflow-y:hidden;
 }

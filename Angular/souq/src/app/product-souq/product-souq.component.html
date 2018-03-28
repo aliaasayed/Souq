@@ -1,10 +1,18 @@
 
-<div class="SuccessAddToCart" *ngIf="IsAdded">
+<div class="addtocartcase" *ngIf="IsAdded">
 
   <h3>{{selectedItem.name}} </h3><p>is added to your cart</p>
   <input class="btn" type="button" (click)="HidsAll()" name="OKey" value="Okay" >
 
 </div>
+
+<div class="addtocartcase" *ngIf="Isexist">
+
+  <h3>{{selectedItem.name}} </h3><p>is already exist in your card your cart</p>
+  <input class="btn" type="button" (click)="HidsAll()" name="OKey" value="Okay" >
+
+</div>
+
 
  <div *ngIf="showDetail" class="overlay">
    <div id="info" >

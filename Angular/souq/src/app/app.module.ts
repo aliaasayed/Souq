@@ -76,7 +76,7 @@ export function getAuthServiceConfigs() {
     SellerProComponent,
     SellerOrdersComponent,
 
-    MycartDetailComponent
+    MycartDetailComponent,
 
     AddProductComponent,
     EditProductComponent

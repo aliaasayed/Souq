@@ -1,23 +1,37 @@
+<div class="popUpaction" *ngIf="removeItem ||futurelist">
+
+  <h4>confirm message</h4><p *ngIf="removeItem" color="#9b264f"> You are about to remove product from your cart  are you sure?</p>
+  <p *ngIf="futurelist" color="#5f1a70"> You are about to add product to your whish cart list </p>
+  <input class="btn" type="button" (click)="confirm()" name="confirm" value="yes" >
+    <input class="btn" type="button" (click)="preventfun()" name="cancel" value="no" >
+
+</div>
 
 <h2 class="middle">Shopping Cart:{{CartProductCount}}</h2>
 
 <h1 class="rightbutton">Total: {{totalPrice}} EGP</h1>
 <div class="checkout">
-    <button type="button" class="btn btn-danger rightbutton">Check Out</button>
+    <button type="button" class="btn btn-danger rightbutton" (click)="checkout()">Check Out</button>
 </div>
 
 
 
     <div  *ngFor="let cartprod of CartProducts" class="card" >
+       <a (click)="action('remove',cartprod)"  class="close-thik"></a>
+
+       <a  (click)="action('future',cartprod)" class="fa fa-shopping-bag wishList" ></a>
          <img src={{cartprod.prodId.image}} />
            <div class="card-info">
-             <h2> Price: {{cartprod.prodId.price}}</h2>
+             <h2> Price: {{cartprod.prodId.price}} EGP</h2>
              <h3> Name : {{cartprod.prodId.name}} </h3>
-            <select>
-            <option></option>
+
+            <p class="leftp"><b>QTY:</b></p>
+            <select class="selcls" value={{cartprod.quantity}}>
+
+             <option *ngFor="let x of cartprod.pcountArr ; let i = index"    (click)="updateQan(i+1,cartprod)" >{{i+1}}</option>
             </select>
 
-             <h4 class="infoStock"> Order now there is only : {{cartprod.prodId.stock}} left on stock</h4>
+             <p class="infoStock"> Order now there is only : {{cartprod.prodId.stock}} left on stock</p>
 
            </div>
     </div>
@@ -25,8 +39,8 @@
 
  <div class="divCenter">
         <div class="pagination" *ngFor="let page of pages;let i = index">
-             <a *ngIf="i==0" href="#">&laquo;</a>
+             <a *ngIf="i==0">&laquo;</a>
              <a (click)="getProductCartPage(i+1)">{{i+1}}</a>
-            <a *ngIf="i==pages.length-1" href="#">&raquo;</a>
+            <a *ngIf="i==pages.length-1">&raquo;</a>
         </div>
 </div>

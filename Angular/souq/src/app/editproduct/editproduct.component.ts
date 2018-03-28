@@ -7,13 +7,14 @@ import {NgForm} from '@angular/forms';
   templateUrl: './editproduct.component.html',
   styleUrls: ['./editproduct.component.css']
 })
-export class EditProductComponent implements OnInit 
+export class EditProductComponent implements OnInit
 {
   product;
-  image; 
-  constructor(private ProductService: ProductService,productid: any) 
+  image;
+  productid: any;
+  constructor(private ProductService: ProductService)
   {
-    this.ProductService.getUpdateData(productid).subscribe((res)=>{
+    this.ProductService.getUpdateData(this.productid).subscribe((res)=>{
       console.log(res);
       this.product = res;
     })
@@ -22,7 +23,7 @@ export class EditProductComponent implements OnInit
     console.log(form.valid);
     form.value.image=this.image;
     console.log(form.value);
-    
+
     this.ProductService.updateproduct(form.value).subscribe((res)=>{
     console.log(res);
   });
@@ -43,4 +44,3 @@ fileUpload(files)
   }
 
 }
-

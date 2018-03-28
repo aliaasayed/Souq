@@ -4,7 +4,6 @@ declare var jquery:any;
 declare var $ :any;
 import {config} from './config';
 import { LoginService } from './login.service';
-import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-root',
@@ -28,16 +27,16 @@ export class AppComponent implements OnInit{
     console.log("ctor",this.configData)
   }
   showSideMenu(){
-    $('.sidenav').css('width',"250px");  
+    $('.sidenav').css('width',"250px");
     $('.header').css('margin-left',"250px");
     $('#content').css('margin-left',"250px");
   }
 
   HideSideMenu(){
-    $('.sidenav').css('width',"0px"); 
+    $('.sidenav').css('width',"0px");
     $('.header').css('margin-left',"0px");
     $('#content').css('margin-left',"0px");
-    
+
   }
 
   logout(){
