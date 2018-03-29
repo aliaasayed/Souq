@@ -46,7 +46,8 @@ router.get("/show",function(req,res){
   });
 
 /**************** Show Seller Ordered Items *******************
-****** Take seller ID and return orders of his products ****/
+****** Take seller ID and return orders of his products *****
+***** if itemID is given it will return item (select item) ***/
 router.get("/sellerOrders/:sID/:OID?",function(req,res){
   ItemModel.find({state:'Ordered'}).
   populate('prodId').
