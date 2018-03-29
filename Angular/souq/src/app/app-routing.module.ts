@@ -16,6 +16,9 @@ import { AddProductComponent }   from './addproduct/addproduct.component';
 import { EditProductComponent } from './editproduct/editproduct.component';
 import { AllCategoriesComponent }   from './all-categories/all-categories.component';
 import { AppComponent } from './app.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
+
 const routes: Routes = [
   //{path: '', component: AppComponent},
 
@@ -44,7 +47,11 @@ const routes: Routes = [
 
   { path: 'AllCategories', component: AllCategoriesComponent},
 
-  { path: 'orderDetails', component: OrderDetailsComponent}
+  { path: 'orderDetails', component: OrderDetailsComponent},
+
+  { path: '404', component : ErrorPageComponent},
+  { path: '', redirectTo: '/souq/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/404', pathMatch: 'full'}
 
 
 ];

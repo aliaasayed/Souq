@@ -31,6 +31,7 @@ import { SellerProductsService } from './seller-products.service';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {OrderDetailsService} from './order-details.service';
 
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 import {
@@ -90,7 +91,9 @@ export function getAuthServiceConfigs() {
     AddProductComponent,
     EditProductComponent,
 
-    OrderDetailsComponent
+    OrderDetailsComponent,
+
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
