@@ -6,7 +6,40 @@
     margin-top: 3%;
     margin-bottom: 5%;
 }
+.leftp{
+      margin-right:70%;
+       padding: 2px;
+      color:green;
+      font:bold;
+}
+.popUpaction{
 
+  position: fixed;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 30%;
+  padding: 10px 10px 20px 10px;
+  border: 1px solid #BFBFBF;
+  background-color: white;
+  box-shadow: 20px 20px 15px #aaaaaa;
+  z-index: 90;
+  margin-left: 30%;
+  margin-top: 20%;
+  margin-bottom: 2%;
+  border-radius: 10%;
+  background-color: rgba(167, 182, 232,1); /*dim the background*/
+  overflow-y:hidden;
+}
+a{
+  cursor: pointer;
+}
 .pagination a {
     color: black;
     float: left;
@@ -42,6 +75,16 @@
   width:50%;
 
 }
+.wishList{
+
+  font-size:15px;
+  color:#4f0a56;
+  padding: 5px;
+}
+.close-thik:after {
+  content: '✖'; /* UTF-8 symbol */
+  padding: 7px;
+}
 .checkout{
   mragin-left:70%;
   size:120%;
@@ -54,11 +97,12 @@
 }
 .infoStock{
   color:red;
-  margin-left: 60%;
+  margin-left: 90%;
 }
 .card img {
   height: 150px;
   width: 130px;
+  padding: 5px;
   margin: 0 20px 20px 0;
 }
 
@@ -77,3 +121,16 @@
   font-size: inherit;
   margin: 5px 0;
 }
+
+.selcls {
+   margin-left:70%;
+    padding: 9px;
+    border: solid 1px #517B97;
+
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #CAD9E3), to(#FFFFFF));
+    background: -moz-linear-gradient(top, #FFFFFF, #CAD9E3 1px, #FFFFFF 25px);
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+
+    }

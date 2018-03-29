@@ -14,18 +14,30 @@ export class ProductService {
     return this.http.get<any>(`https://localhost:9090/products/Plist/${page}`);
   }
 
+  checkProductExistInCart(prodID:any):Observable<any> {
+      console.log("service check existenxe")
+      const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('authorization', localStorage.getItem('SouqtokenKey'));
 
-  addProductTocaret(prodID:any):Observable<any> {
+      var body = {"prodId":prodID};
+     return this.http.post<any>('https://localhost:9090/items/checkCart',body,{
+       headers: headers
+     });
+  }
 
-    const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json');
+addProductTocaret(prodID:any):Observable<any> {
 
-    var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-    var body = {"clientId": uid,"prodId":prodID};
-   return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
-     headers: headers
-   });
 
+     const headers = new HttpHeaders()
+         .set('Content-Type', 'application/json')
+         .set('authorization', localStorage.getItem('SouqtokenKey'));
+
+     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+     var body = {"clientId": uid,"prodId":prodID};
+    return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
+      headers: headers
+    });
   }
 
   getmyCartProductcount(){
@@ -46,9 +58,42 @@ export class ProductService {
     return this.http.get<any>(`https://localhost:9090/items/mycart/${page}`,{
       headers: headers
     });
-}
-  addproduct(form):Observable<any>
-  {
+  }
+
+  removemyCartProduct(orderId):Observable<any>{
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('authorization', localStorage.getItem('SouqtokenKey'));
+        var body = {"orderId":orderId};
+            return this.http.post<any>("https://localhost:9090/items/myCart/delete",body,{
+              headers: headers
+            });
+  }
+
+  updatemyCartProductQuan(quan,orderId):Observable<any>{
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+    var body = {"orderId":orderId,"newQuan":quan};
+        return this.http.post<any>("https://localhost:9090/items/myCart/updateQuan",body,{
+          headers: headers
+        });
+  }
+
+
+  checkOutmyCart():Observable<any>{
+
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('authorization', localStorage.getItem('SouqtokenKey'));
+        var body = {"task":"checkout"};
+        return this.http.post<any>("https://localhost:9090/items/mycart/checkout",body,{
+          headers: headers
+        });
+  }
+
+
+  addproduct(form):Observable<any>{
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
   form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
@@ -59,8 +104,7 @@ export class ProductService {
   //console.log("service",this.product)
   }
 
-  updateproduct(form,id):Observable<any>
-  {
+  updateproduct(form,id):Observable<any>{
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 
@@ -68,14 +112,12 @@ export class ProductService {
   {headers:headers});
   }
 
-  getUpdateData(prodID:any):Observable<any>
-  {
+  getUpdateData(prodID:any):Observable<any>{
     console.log(prodID)
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 
-  return this.http.get<any>('https://localhost:9090/products/update/'+prodID,{
-     headers: headers
+  return this.http.get<any>('https://localhost:9090/products/update'+prodID,{headers: headers
    });
 
   }

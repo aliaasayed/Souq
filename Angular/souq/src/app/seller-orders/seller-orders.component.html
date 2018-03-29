@@ -14,7 +14,8 @@
                   <div class="media-right" style="width:15%">
                       <h4>{{ order.prodId.price}} EGP</h4>
                       <p> Avaliable <span class="badge">{{ order.prodId.stock}}</span></p>
-                      <button class="btn btn-primary">View Order Details</button>
+                      <a class="btn btn-primary" [routerLink]="['/orderDetails',order._id]">View Order Details</a>
+                      
                     </div>
                 </div>
           </div>

@@ -31,27 +31,27 @@ export class AppComponent implements OnInit{
     if(logU!=null)
      this.logedUser=logU;
     console.log("ctor",this.configData);
-    
-    
+
+
       this.categoriesService.getCategories().subscribe((res)=>{
         this.categories=res;
         // console.log(res);
         // console.log(this.categories);
       });
-  
-  
+
+
   }
   showSideMenu(){
-    $('.sidenav').css('width',"250px");  
+    $('.sidenav').css('width',"250px");
     $('.header').css('margin-left',"250px");
     $('#content').css('margin-left',"250px");
   }
 
   HideSideMenu(){
-    $('.sidenav').css('width',"0px"); 
+    $('.sidenav').css('width',"0px");
     $('.header').css('margin-left',"0px");
     $('#content').css('margin-left',"0px");
-    
+
   }
 
   logout(){

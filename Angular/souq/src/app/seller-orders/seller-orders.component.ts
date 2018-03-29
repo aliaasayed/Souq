@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SellerOrdersService } from '../seller-orders.service';
+import { OrderDetailsComponent } from '../order-details/order-details.component';
 @Component({
   selector: 'app-seller-orders',
   templateUrl: './seller-orders.component.html',
@@ -7,6 +8,7 @@ import { SellerOrdersService } from '../seller-orders.service';
 })
 export class SellerOrdersComponent implements OnInit {
   sellerOrders;
+  orderDetails;
   max: number = 5;
   rate: number = 2;
   isReadonly: boolean = true;
@@ -18,5 +20,12 @@ export class SellerOrdersComponent implements OnInit {
 }
   ngOnInit() {
   }
-
+  showOrderDetails(id)
+  {
+    //console.log(id)
+    this.sellerOrdersService.getSellerOrderDetails(id).subscribe((res)=>{
+      this.orderDetails=res;
+      console.log(this.orderDetails)
+    });
+  }
 }

@@ -16,6 +16,7 @@ export class ProductSouqComponent implements OnInit {
   selectedItem;
   alert=false;
   IsAdded=false;
+  Isexist=false;
   i=1;
   constructor(private productService: ProductService,private loginService: LoginService) {
    this.getFProductPage();
@@ -55,16 +56,26 @@ export class ProductSouqComponent implements OnInit {
 
       this.loginService.verifyToken().subscribe((res)=>{
         console.log(res);
-        if(res['success']='valid'){
-          this.productService.addProductTocaret(this.selectedItem._id).subscribe((add_res)=>{
-            console.log(add_res);
-            if(add_res['success']){
-              console.log("item added to caret successfulyy")
-              this.IsAdded=true;
-            }
+          if(res['success']='valid'){
+                  this.productService.checkProductExistInCart(this.selectedItem._id).subscribe((exist_res)=>{
+                      if(exist_res.mes=="notexist"){
+                            this.productService.addProductTocaret(this.selectedItem._id).subscribe((add_res)=>{
+                              console.log("sssssssssss",add_res);
+                              if(add_res['success']){
+                                console.log("item added to caret successfulyy")
+                                this.IsAdded=true;
+                                this.Isexist=false;
 
-          });
-        }
+                              }
+                            });
+                      }
+                      else
+                           {  this.IsAdded=false;
+                             this.Isexist=true;
+                         }
+                      console.log("ddd",exist_res)
+                    });
+            }
         else
           console.log("invalid token matching")
       });
@@ -78,6 +89,7 @@ export class ProductSouqComponent implements OnInit {
   HidsAll(){
       this.IsAdded=false;
         this.showDetail=false;
+          this.Isexist=false;
   }
 
 }
