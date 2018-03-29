@@ -18,7 +18,6 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
 import { SellerRegisterComponent } from './seller-register/seller-register.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SouqhomeComponent } from './souqhome/souqhome.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
@@ -50,6 +49,7 @@ import { AllCategoriesComponent } from './all-categories/all-categories.componen
 import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 
 import { AddProductComponent } from './addproduct/addproduct.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 
@@ -76,7 +76,6 @@ export function getAuthServiceConfigs() {
 
     UserRegisterComponent,
     LoginSouqComponent,
-    SouqhomeComponent,
     SellerHomeComponent,
     ForgetPasswordComponent,
     SellerRegisterComponent,
@@ -94,7 +93,9 @@ export function getAuthServiceConfigs() {
 
     OrderDetailsComponent,
 
-    ErrorPageComponent
+    ErrorPageComponent,
+
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

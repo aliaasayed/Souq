@@ -1,7 +1,3 @@
-<!-- <a routerLink="/login">Login</a>
-<a routerLink="/souq/userRegister">userRegister</a>
-<a routerLink="/souq/sellerRegister">sellerRegister</a> -->
-<!-- <router-outlet></router-outlet> -->
     <div class="container-fluid">
 
             <div class="row">
@@ -49,7 +45,7 @@
                           <a href="#menu{{i}}" data-toggle="collapse" aria-expanded="false"> {{ category.Name }} </a>
                           <ul class="collapse list-unstyled" id="menu{{i}}">
                               <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory">
-                                  <a href="#"> {{ subcategory }} </a>
+                                  <a routerLink="/souq/product/{{subcategory}}"> {{ subcategory }} </a>
                               </li>
                           </ul>
                         </li>
@@ -68,7 +64,7 @@
                           <a href="#Submenu{{j}}" data-toggle="collapse" aria-expanded="false">{{ category.Name }}</a>
                             <ul class="collapse list-unstyled" id="Submenu{{j}}">
                                 <li *ngFor="let subcategory of category.subcategories , let i=index" class="subcategory">
-                                    <a href="#"> {{ subcategory }} </a>
+                                    <a routerLink="/souq/product/{{subcategory}}"> {{ subcategory }} </a>
                                 </li>
                             </ul>
                       </li>

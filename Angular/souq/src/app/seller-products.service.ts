@@ -10,11 +10,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class SellerProductsService {
 	///to change after megrge-----
 	sellId=JSON.parse(localStorage.getItem('SouqloginUser'))._id
-	private sellerProdUrl = 'https://localhost:9090/products/seller/'+this.sellId+'/2';
 
-	getProducts(p): Observable<any>{
-
-		return this.http.get<any>(this.sellerProdUrl)
+	getProducts(page): Observable<any>{
+		return this.http.get<any>(`https://localhost:9090/products/seller/${this.sellId}/${page}`)
 		.pipe(
 				catchError(this.handleError('getProducts', []))
 			);

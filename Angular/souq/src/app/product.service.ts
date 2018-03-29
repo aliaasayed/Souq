@@ -8,10 +8,10 @@ export class ProductService {
   product:any;
   constructor(private http:HttpClient) { }
 
-  getProducts(page:Number): Observable<any> {
+  getProducts(name,page:Number): Observable<any> {
 
   console.log(`https://localhost:9090/products/Plist/${page}`);
-    return this.http.get<any>(`https://localhost:9090/products/Plist/${page}`);
+    return this.http.get<any>(`https://localhost:9090/products/Plist/${name}/${page}`);
   }
 
   checkProductExistInCart(prodID:any):Observable<any> {
@@ -117,7 +117,7 @@ addProductTocaret(prodID:any):Observable<any> {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 
-  return this.http.get<any>('https://localhost:9090/products/update'+prodID,{headers: headers
+  return this.http.get<any>('https://localhost:9090/products/update/'+prodID,{headers: headers
    });
 
   }

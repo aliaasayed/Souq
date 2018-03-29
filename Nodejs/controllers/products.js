@@ -89,10 +89,10 @@ else{
 });
 /////////
 
-router.get("/Plist/:page?",function(req,res){
+router.get("/Plist/:subCatName/:page?",function(req,res){
   var page = req.params.page ? req.params.page:1;
    // res.json("kk");
-  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
+  ProductsModel.paginate({subcategory: req.params.subCatName},{page:page,limit:2},function(err,result){
   res.json({productsData:result});
   });
 });
@@ -146,7 +146,7 @@ router.get("/showSubProducts/:subCatName/:page?",function(req,res){
   ProductsModel.paginate({subcategory: req.params.subCatName},{page:req.params.page,limit:5}, function(err,products){
     if (products) {
           res.json(products);
-      } 
+      }
       else {
           res.send("Error: No product Found!");
       }
@@ -160,7 +160,7 @@ router.get("/showProduct/:pId",function(request,response)
   ProductsModel.find({_id: request.params.pId},function(err,product){
       if (product) {
           response.json(product);
-      } 
+      }
       else {
           response.send("Error: No product Found!");
       }

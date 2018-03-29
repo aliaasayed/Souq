@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { LoginSouqComponent }   from './login-souq/login-souq.component';
 import { UserRegisterComponent } from './user-register/user-register.component';
 import { SellerRegisterComponent } from './seller-register/seller-register.component';
-import { SouqhomeComponent }   from './souqhome/souqhome.component';
 import { SellerHomeComponent }   from './seller-home/seller-home.component';
 import { ForgetPasswordComponent }   from './forget-password/forget-password.component';
 import { UserProfileDetailComponent }   from './user-profile-detail/user-profile-detail.component';
@@ -18,6 +17,8 @@ import { AllCategoriesComponent }   from './all-categories/all-categories.compon
 import { SellerOrdersComponent }   from './seller-orders/seller-orders.component';
 import { OrderDetailsComponent }   from './order-details/order-details.component';
 import { AppComponent } from './app.component';
+import { ProductDetailsComponent }   from './product-details/product-details.component';
+
 import {ErrorPageComponent} from './error-page/error-page.component';
 
 const routes: Routes = [
@@ -33,10 +34,9 @@ const routes: Routes = [
   { path: 'souq/home/profile', component: UserProfileDetailComponent},
 
   {path: "userRegister", component: UserRegisterComponent},
-  {path: "souq/product", component:   ProductSouqComponent},
+  {path: "souq/product/:subCatName", component:   ProductSouqComponent},
   // {path: "souq/product/:page?", component:   ProductSouqComponent},
   { path: 'sellerHome', component: SellerProComponent},
-  { path: 'userhome', component: UserHomeComponent},
 
   { path: 'souq/myCart', component: MycartDetailComponent},
 
@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: 'editproduct', component: EditProductComponent},
 
   { path: 'editproduct/:id', component: EditProductComponent},
+  { path: 'productdetails/:id', component: ProductDetailsComponent},
 
   { path: 'AllCategories', component: AllCategoriesComponent},
   { path: 'sellerOrders', component: SellerOrdersComponent},

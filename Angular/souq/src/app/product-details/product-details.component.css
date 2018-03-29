@@ -1,0 +1,25 @@
+.popUpaction{
+
+  position: fixed;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 30%;
+  padding: 10px 10px 20px 10px;
+  border: 1px solid #BFBFBF;
+  background-color: white;
+  box-shadow: 20px 20px 15px #aaaaaa;
+  z-index: 90;
+  margin-left: 30%;
+  margin-top: 20%;
+  margin-bottom: 2%;
+  border-radius: 10%;
+  background-color: rgba(167, 182, 232,1); /*dim the background*/
+  overflow-y:hidden;
+}
