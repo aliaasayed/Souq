@@ -8,27 +8,7 @@ var bodyParser = require("body-parser");
 var urlEncodedMid = bodyParser.urlencoded({extended: true,limit:'50mb'});
 var jwt=require("jsonwebtoken");
 var router = express.Router();
-/*****************/
 
-// router.get("/user",function(req,resp){
-//   var user = new UserModel({
-//     name:"keepselling seller Souq",
-//     password:"12345",
-//     email:"keepselling@yahoo.com",
-//     address:"Egypt cairo",
-//     image:"https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjrpoKU54XaAhXF2qQKHYoVA8sQjRx6BAgAEAU&url=https%3A%2F%2Fbrandpa.com%2Fname%2Fecoriginal&psig=AOvVaw3-UjKG1lLt-rX2OHSHZT0P&ust=1522009953934143",
-//     nationalID:"123456789",
-//     tokens:"",
-//   });
-//   user.save(function(err,doc){
-//   if(!err)
-//       resp.json("added");
-//   else
-//       resp.json(err);
-//   });
-// });
-
-// router.use(bodyParser.json({limit: "5mb"}))
 router.post("/upload",function(req,resp){
 console.log(req);
 
@@ -63,6 +43,30 @@ console.log(req.body);
   saveProfile(user,function(DBRes){
       resp.json(DBRes);
   });
+});
+
+router.post("/userloginSocailmedia",urlEncodedMid,function(req,resp){
+  UserModel.findOne({email:req.body.email},function(err,data){
+    console.log("fffffffffff")
+    console.log(req.body)
+   if(data != null && !err)
+   {
+     const payload = {'userdata':data};
+     const token=jwt.sign(payload,'myscret');
+     resp.json({
+          success: true,
+          message: 'Enjoy your token!',
+          token: token,
+          user:data,
+          role:()=>{user["nationalID"]}
+        });
+      }
+      else{
+            resp.json("errrrr")
+      }
+    });
+
+
 });
 
 /********User Login*********/

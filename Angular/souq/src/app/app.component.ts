@@ -37,11 +37,19 @@ export class AppComponent implements OnInit{
 
     //get global data from global storage
         this.globalDataService.currentuser.subscribe((res)=>{
+          if(res.hasOwnProperty('provider'))
+          {
+            this.logedUser._id =res['id'];
+            this.logedUser.name =res['name'];
+            this.logedUser.image =res['image'];
+              this.logedUser.email =res['email'];
+          }
               if(res.hasOwnProperty('name'))
               {
                this.logedUser._id =res['_id'];
                this.logedUser.name =res['name'];
                this.logedUser.image =res['image'];
+              this.logedUser.email =res['email'];
                 if(res['nationalID'])
                      this.logedUser.hasNatId=true;
               }

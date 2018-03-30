@@ -29,8 +29,7 @@
 
 
                       <ul class="nav navbar-nav navbar-right">
-                        {{logedUser.email}}
-                        {{logedUser.name}}
+                    
                           <li *ngIf="logedUser.email==null"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
                           <li *ngIf="logedUser.email==null"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
                           <li *ngIf="logedUser.image"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
@@ -40,12 +39,12 @@
                       </ul>
                     </div>
                   </nav>
-                  
+
                   <div class="bar">
                     <li class="dropdown"><a class="btn dropbtn" routerLink="/AllCategories">All Categories</a></li>
                      <li class="dropdown" *ngFor="let category of categories , let i=index">
                         <a  class="btn dropbtn" data-toggle="dropdown"  data-delay="3000" data-close-others="false">
-                            {{ category.Name }} 
+                            {{ category.Name }}
                         </a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let subcategory of category.subcategories , let i=index">
@@ -53,7 +52,7 @@
                             </li>
                         </ul>
                      </li>
-                    </div> 
+                    </div>
                   <br><br><br>
                   <!-- <ol class="breadcrumb" style="text-align:center">
                         <li><a routerLink="/AllCategories">All Categories</a></li>
