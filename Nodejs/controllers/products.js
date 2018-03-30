@@ -6,6 +6,7 @@ var router = express.Router();
 var fs = require("fs");
 var mongoose = require("mongoose");
 var ProductsModel = mongoose.model("products");
+var RatingsModel = mongoose.model("ratings");
 //var fileUploadMid = multer({dest:"./public/images"});
 
 /******** Enable Front-End Access*******/
@@ -435,6 +436,15 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 });
 })
 
-
+// ---------------------Top Trending---------------------------------
+router.post("/toptrending",urlEncodedMid,function(request,response)
+{
+    ProductsModel.findOne({_id:request.body.Id},function(err,data){
+   // response.product = data;
+   
+   console.log(data.rating["T"])
+    response.json(data.rating["T"]);
+});
+})
 
 module.exports = router;
