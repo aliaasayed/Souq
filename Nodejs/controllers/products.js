@@ -223,171 +223,48 @@ router.post("/rate",urlEncodedMid,function(request,response)
 });
 
 //---------------------------------------------------------------------
-
-router.get("/search/:key?/:cat?/:page?",function(req,res)
+//pric 0:100
+router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 {
 
   var key = req.params.key ? req.params.key:'';
   var page = req.params.page ? req.params.page:1;
+  var pricelow = req.params.price ? req.params.price.split(":")[0]:0;
+  var pricehigh = req.params.price ? req.params.price.split(":")[1]:10000000;
+  console.log(req.params.price,"ccccccccccc",pricelow,pricehigh)
   var cat;
 
   if(req.params.cat)
-    cat =req.params.cat.split('+');
-
+    cat =req.params.cat.trim().split(',');
   var regexValue='\.*'+key+'\.';
-  console.log(key)
-  console.log(cat.length)
-  if(cat.length>1){
-     console.log(1)
-        ProductsModel.paginate(
-          {
-            $and:[{name:new RegExp(regexValue, 'i')}
-            ,{subcategory:{$in:cat}} ]
+  console.log("cat",cat)
+  if(cat.length>=1&&cat[0].trim()!=''){
+     console.log("1kkkkkkkkkkkkkkkkkkkkkkkkkkk")
+        ProductsModel.paginate({
+           name:new RegExp(regexValue, 'i'),
+            subcategory:{"$in":cat},price:{ "$gt" : pricelow, "$lt" : pricehigh},
           },{page:page,limit:2},function(err,result){
         res.json({productsData:result});
         });
   }
 
   else{
-     console.log(2)
-    ProductsModel.paginate(
-      {name:new RegExp(regexValue, 'i')},{page:page,limit:2},function(err,result){
+     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    ProductsModel.paginate({name:new RegExp(regexValue, 'i')
+   ,price:{ "$gt" : pricelow, "$lt" : pricehigh}
+  },{page:page,limit:2},function(err,result){
     res.json({productsData:result});
     });
   }
-});
-
-
-// --------------New Rating ---------------------------------
-
-router.post("/rating",urlEncodedMid,function(request,response)
-{
-    var productID = request.body.pId;
-    var userID = request.body.uId;
-    var newrate = request.body.myRating
-    // console.log(product.rating[myrate]);
-
-
-    RatingsModel.find({ $and: [ { product_id: { $eq: productID } }, { user_id: { $eq: userID } } ] } , function(error, results) {
-        if (!error)
-        {
-            console.log(results);
-            var oldRating = results.rating
-            if (oldRating != newrate)
-            {
-              results.rating = newrate;
-              ProductsModel.find(request.body.pId, function (err, product) {
-                if (err)
-                  {
-                    var error = console.log("error here");
-                    return error;
-                  }
-                else
-                  {
-                    product.rating.oldRating = product.rating[oldRating]--;
-                    product.rating.newrate = product.rating[newrate]++;
-                    product.rating.T = (
-                      product.rating[1] * 1 +
-                      product.rating[2] * 2 +
-                      product.rating[3] * 3 +
-                      product.rating[4] * 4 +
-                      product.rating[5] * 5
-                    )/
-                    (
-                      product.rating[1] +
-                      product.rating[2] +
-                      product.rating[3] +
-                      product.rating[4] +
-                      product.rating[5]
-                    );
-                    product.rating.T = Math.round(product.rating.T*10)/10;
-                    product.save(function (err, updatedProduct)
-                    {
-                        if (err)
-                          {
-                            console.log("error here2");
-                            response.send("error here2")
-                          }
-                        else
-                          {
-                          console.log("update success");
-                          response.send("update success");
-                          }
-                    });
-                  }
-              });
-            }
-            else
-            {
-              response.send("no update to record");
-            }
-
-        }
-        else
-        {
-          var rating = new ratingsModel({
-          product_id: productID,
-          user_id: userID,
-          rating: newrate,
-          });
-          ProductsModel.find(request.body.pId, function (err, product) {
-            if (err)
-              {
-                var error = console.log("error here");
-                return error;
-              }
-            else
-              {
-                product.rating.newrate = product.rating[newrate]++;
-              }
-
-            //calculate total rating:
-          product.rating.T = (
-                                product.rating[1] * 1 +
-                                product.rating[2] * 2 +
-                                product.rating[3] * 3 +
-                                product.rating[4] * 4 +
-                                product.rating[5] * 5
-                              )/
-                              (
-                                product.rating[1] +
-                                product.rating[2] +
-                                product.rating[3] +
-                                product.rating[4] +
-                                product.rating[5]
-                              );
-
-          product.rating.T = Math.round(product.rating.T*10)/10;
-          product.save(function (err, updatedProduct)
-          {
-              if (err)
-                {
-                  console.log("error here2");
-                  response.send("error here2")
-                }
-              else
-                {
-                console.log("update success");
-                response.send("update success");
-                }
-          });
-
-
-        });
-      }
-
-
 
 });
-});
 
-// ------------------------top offers--------------------------------
-
-router.get("/top",function(request,response)
+// ----------------------offers without limit------------------------------
+router.get("/offers",function(request,response)
 {
     var filter = { offer: { $exists : true } };
     var fields = {};
-    var options = {sort:{ DateOfEntry: -1 },limit: 5};
+    var options = {sort:{ DateOfEntry: -1 }};
 
     ProductsModel.find(filter, fields, options, function(err, results){
         if (!err) {
@@ -397,5 +274,18 @@ router.get("/top",function(request,response)
       })
 
 });
+// ----------------------offers with limit------------------------------
+router.get("/top",function(request,response)
+{
+    var filter = { offer: { $exists : true } };
+    var fields = {};
+    var options = {sort:{ DateOfEntry: -1 },limit: 10};
+    ProductsModel.find(filter, fields, options, function(err, results){
+        if (!err) {
+          console.log(results);
+          response.json(results)
+        }
+      })
 
+});
 module.exports = router;
