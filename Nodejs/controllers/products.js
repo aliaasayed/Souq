@@ -92,7 +92,9 @@ else{
 router.get("/Plist/:subCatName/:page?",function(req,res){
   var page = req.params.page ? req.params.page:1;
    // res.json("kk");
-  ProductsModel.paginate({subcategory: req.params.subCatName},{page:page,limit:2},function(err,result){
+  ProductsModel.paginate({ $and: [ {subcategory: req.params.subCatName}, { stock: {$gt: 0}} ] }
+    ,{page:page,limit:2},function(err,result){
+      console.log(result);
   res.json({productsData:result});
   });
 });
@@ -259,27 +261,28 @@ router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 
 });
 
-// ----------------------offers without limit------------------------------
+// // ----------------------offers without limit------------------------------
+// router.get("/ooosoffers",function(request,response)
+// {
+//     var filter = { offer: { $exists : true } };
+//     var fields = {};
+//     var options = {sort:{ DateOfEntry: -1 }};
+//
+//     ProductsModel.find(filter, fields, options, function(err, results){
+//         if (!err) {
+//           console.log(results);
+//           response.json(results)
+//         }
+//       })
+//
+// });
+// ----------------------offers with limit------------------------------
 router.get("/offers",function(request,response)
 {
-    var filter = { offer: { $exists : true } };
-    var fields = {};
-    var options = {sort:{ DateOfEntry: -1 }};
 
-    ProductsModel.find(filter, fields, options, function(err, results){
-        if (!err) {
-          console.log(results);
-          response.json(results)
-        }
-      })
-
-});
-// ----------------------offers with limit------------------------------
-router.get("/top",function(request,response)
-{
-    var filter = { offer: { $exists : true } };
+    var filter = { $or: [ { offer: { $gt: 0 } }, { offer: { $ne : null } } ] } ;
     var fields = {};
-    var options = {sort:{ DateOfEntry: -1 },limit: 10};
+    var options = {sort:{ DateOfEntry: -1 },limit: 5};
     ProductsModel.find(filter, fields, options, function(err, results){
         if (!err) {
           console.log(results);

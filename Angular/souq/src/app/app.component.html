@@ -17,7 +17,7 @@
                                   <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search for product" name="Query">
                                     <div class="input-group-btn">
-                                    <a href="/souq/search" class="btn btn-default search" >
+                                    <a routerLink="/souq/search" class="btn btn-default search" >
                                         <i class="glyphicon glyphicon-search icon"></i>
                                     </a>
                                     </div>
@@ -47,7 +47,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let subcategory of category.subcategories , let i=index">
-                                <a href="#"> {{ subcategory }} </a>
+                                <a routerLink="/souq/product/{{subcategory}}"> {{ subcategory }} </a>
                             </li>
                         </ul>
                      </li>
