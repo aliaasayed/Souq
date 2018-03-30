@@ -20,12 +20,5 @@ export class SellerOrdersComponent implements OnInit {
 }
   ngOnInit() {
   }
-  showOrderDetails(id)
-  {
-    //console.log(id)
-    this.sellerOrdersService.getSellerOrderDetails(id).subscribe((res)=>{
-      this.orderDetails=res;
-      console.log(this.orderDetails)
-    });
-  }
+
 }
