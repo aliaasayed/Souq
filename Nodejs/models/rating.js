@@ -2,17 +2,17 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ratings = new Schema({
-    product_id: 
+    product_id:
     {
         type: Schema.Types.ObjectId,
         ref:"products"
     },
-    user_id: 
+    user_id:
     {
         type: Schema.Types.ObjectId,
         ref:"users"
     },
-    rating: 
+    rating:
     {
         type:Number
     }

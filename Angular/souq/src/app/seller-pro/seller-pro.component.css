@@ -46,7 +46,7 @@ button{
 
 .pagination a {
     color: black;
-    float: left;
+    /*float: left;*/
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color .3s;
@@ -59,9 +59,13 @@ button{
     background-color: #4CAF50;
     color: white;
     border: 1px solid #4CAF50;
+    
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    cursor: pointer;
+    }
 
 
 

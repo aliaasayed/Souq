@@ -28,6 +28,8 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
 
+   
+
   }
   constructor(private categoriesService: CategoriesService,private loginService: LoginService,private route:Router,private globalDataService:GlobalDataService){
 
@@ -58,8 +60,9 @@ export class AppComponent implements OnInit{
       this.categoriesService.getCategories().subscribe((res)=>{
         this.categories=res
       });
-
-
+     
+      // $('#myLink').bind('click', false);
+      $("#myLink").attr('disabled', true);
   }
   showSideMenu(){
     $('.sidenav').css('width',"250px");
@@ -73,10 +76,7 @@ export class AppComponent implements OnInit{
     $('#content').css('margin-left',"0px");
 
   }
-  showOptions()
-  {
-    $('.dropdown-menu').show();
-  }
+
 
   checklogging(){
     if(localStorage.getItem('SouqtokenKey')){

@@ -1,10 +1,10 @@
 <div class="" style="margin-left:5%;width:90%">
 <carousel>
     <slide *ngFor="let product of products , let i=index">
-      <a routerLink="/productdetails/{{product._id}}"><img src="{{product.image}}" alt="First slide" style="display: block; width: 100%;"></a>
+      <a routerLink="/productdetails/{{product._id}}"><img src="{{product.image}}" alt="First slide" style="display: block; max-width: 50%"></a>
       <div class="carousel-caption d-none d-md-block">
         <h3>{{product.name}}</h3>
-        <p>Offer : {{product.offer}} %</p>
+        <p>{{product.offer}} %OFF</p>
       </div>
     </slide>
   </carousel>

@@ -6,6 +6,7 @@ var router = express.Router();
 var fs = require("fs");
 var mongoose = require("mongoose");
 var ProductsModel = mongoose.model("products");
+var RatingsModel = mongoose.model("ratings");
 //var fileUploadMid = multer({dest:"./public/images"});
 
 /******** Enable Front-End Access*******/
@@ -92,7 +93,9 @@ else{
 router.get("/Plist/:subCatName/:page?",function(req,res){
   var page = req.params.page ? req.params.page:1;
    // res.json("kk");
-  ProductsModel.paginate({subcategory: req.params.subCatName},{page:page,limit:2},function(err,result){
+  ProductsModel.paginate({ $and: [ {subcategory: req.params.subCatName}, { stock: {$gt: 0}} ] }
+    ,{page:page,limit:2},function(err,result){
+      console.log(result);
   res.json({productsData:result});
   });
 });
@@ -222,6 +225,137 @@ router.post("/rate",urlEncodedMid,function(request,response)
       });
 });
 
+// ----------------------new rating------------------------------------
+router.post("/rating",urlEncodedMid,function(request,response)
+{
+    var productID = request.body.pId;
+    var userID = request.body.uId;
+    var newrate = request.body.myRating
+    // console.log(typeof newrate)
+    // console.log(product.rating[myrate]);
+
+
+    RatingsModel.find({ $and: [ { product_id: { $eq: productID } }, { user_id: { $eq: userID } } ] } , function(error, results) {
+        if (results != "")
+        {
+            // console.log(results);
+            var oldRating = results.rating
+            // console.log(typeof oldRating)
+            if (oldRating != newrate)
+            {
+              results.rating = newrate;
+              ProductsModel.findById(request.body.pId, function (err, product) {
+                if (err)
+                  {
+                    var error = console.log("error here");
+                    return error;
+                  }
+                else
+                  {
+                    product.rating.oldRating = product.rating[oldRating]--;
+                    product.rating.newrate = product.rating[newrate]++;
+                    product.rating.T = (
+                      product.rating[1] * 1 +
+                      product.rating[2] * 2 +
+                      product.rating[3] * 3 +
+                      product.rating[4] * 4 +
+                      product.rating[5] * 5
+                    )/
+                    (
+                      product.rating[1] +
+                      product.rating[2] +
+                      product.rating[3] +
+                      product.rating[4] +
+                      product.rating[5]
+                    );
+                    product.rating.T = Math.round(product.rating.T*10)/10;
+                    product.save(function (err, updatedProduct)
+                    {
+                        if (err)
+                          {
+                            console.log(product);
+                            console.log(err);
+                            response.send(err)
+                          }
+                        else
+                          {
+                          console.log("update success");
+                          response.send("update success");
+                          }
+                    });
+                  }
+              });
+            }
+            else
+            {
+              response.send("no update to record");
+            }
+
+        }
+        else
+        {
+          var rating = new RatingsModel({
+          product_id: productID,
+          user_id: userID,
+          rating: newrate,
+          });
+
+          rating.save(function(err,doc){})
+
+          ProductsModel.findById(productID, function (err, product) {
+            if (err)
+              {
+                var error = console.log("error here");
+                return error;
+              }
+            else
+              {
+                console.log(productID)
+                console.log(product)
+                product.rating.newrate = product.rating[newrate]++;
+              }
+
+            //calculate total rating:
+          product.rating.T = (
+                                product.rating[1] * 1 +
+                                product.rating[2] * 2 +
+                                product.rating[3] * 3 +
+                                product.rating[4] * 4 +
+                                product.rating[5] * 5
+                              )/
+                              (
+                                product.rating[1] +
+                                product.rating[2] +
+                                product.rating[3] +
+                                product.rating[4] +
+                                product.rating[5]
+                              );
+
+          product.rating.T = Math.round(product.rating.T*10)/10;
+          product.save(function (err, updatedProduct)
+          {
+              if (err)
+                {
+                  console.log(err);
+                  response.send(err)
+                }
+              else
+                {
+                console.log("update success");
+                response.send("update success");
+                }
+          });
+
+
+        });
+      }
+
+
+
+});
+});
+
+
 //---------------------------------------------------------------------
 //pric 0:100
 router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
@@ -259,13 +393,28 @@ router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 
 });
 
-// ----------------------offers without limit------------------------------
+// // ----------------------offers without limit------------------------------
+// router.get("/ooosoffers",function(request,response)
+// {
+//     var filter = { offer: { $exists : true } };
+//     var fields = {};
+//     var options = {sort:{ DateOfEntry: -1 }};
+//
+//     ProductsModel.find(filter, fields, options, function(err, results){
+//         if (!err) {
+//           console.log(results);
+//           response.json(results)
+//         }
+//       })
+//
+// });
+// ----------------------offers with limit------------------------------
 router.get("/offers",function(request,response)
 {
-    var filter = { offer: { $exists : true } };
-    var fields = {};
-    var options = {sort:{ DateOfEntry: -1 }};
 
+    var filter = { $or: [ { offer: { $gt: 0 } }, { offer: { $ne : null } } ] } ;
+    var fields = {};
+    var options = {sort:{ DateOfEntry: -1 },limit: 5};
     ProductsModel.find(filter, fields, options, function(err, results){
         if (!err) {
           console.log(results);
@@ -274,18 +423,34 @@ router.get("/offers",function(request,response)
       })
 
 });
-// ----------------------offers with limit------------------------------
-router.get("/top",function(request,response)
+
+
+// ------------------show total rating------------------------------
+router.post("/avgrating",urlEncodedMid,function(request,response)
 {
-    var filter = { offer: { $exists : true } };
-    var fields = {};
-    var options = {sort:{ DateOfEntry: -1 },limit: 10};
-    ProductsModel.find(filter, fields, options, function(err, results){
-        if (!err) {
-          console.log(results);
-          response.json(results)
-        }
-      })
+    ProductsModel.findOne({_id:request.body.Id},function(err,data){
+   // response.product = data;
 
+   console.log(data.rating["T"])
+    response.json(data.rating["T"]);
 });
+})
+
+// ---------------------Top Trending---------------------------------
+router.get("/toptrending",function(request,response)
+{
+
+    var filter = { rating: { T: { $ne : 0 } } };
+    var fields = {};
+    // var options = {sort:{rating: { T: -1 }}};
+    var options = {sort:{ T: -1 }};
+    
+    ProductsModel.find(filter, fields, options,function(err,data){
+   console.log(data)
+    response.json(data);
+
+    
+});
+})
+
 module.exports = router;
