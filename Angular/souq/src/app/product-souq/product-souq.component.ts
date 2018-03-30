@@ -37,43 +37,4 @@ export class ProductSouqComponent implements OnInit {
       console.log(this.productsData);
     });
   }
-
-
-
 }
-
-
-//   viewDetail(event,item)
-//   {
-//     if(event.target.type=="button"){
-//         this.showDetail=true;
-//         this.selectedItem=item;
-//     }
-//     else{
-//         this.showDetail=false;
-//         this.alert=false;
-//     }
-//   }
-// }
-
-//   addTocart(){
-//     if(localStorage.getItem('SouqtokenKey')){
-//
-//       this.loginService.verifyToken().subscribe((res)=>{
-//         if(res['success']='valid'){
-//                 this.productService.checkProductExistInCart(this.selectedItem._id).subscribe((exist_res)=>{
-//                 if(exist_res.mes=="notexist"){
-//                 this.productService.addProductTocaret(this.selectedItem._id).subscribe((add_res)=>{
-//                     if(add_res['success']){
-//                         console.log("item added to caret successfulyy")
-//                         this.IsAdded=true;
-//                         this.Isexist=false;
-//                     }
-//                    }
-//                   }
-//                 }
-//            }
-//         });
-//     }
-//
-// }

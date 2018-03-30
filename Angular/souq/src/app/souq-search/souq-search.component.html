@@ -1,60 +1,75 @@
 
-<div class="container">
-	<div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <div id="imaginary_container">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  [(ngModel)]="SearchWord" placeholder="Search"  (input)="liveSearch()">
-                    <span class="input-group-addon">
-                        <button type="submit" (click)="getsearchResultFp()">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </div>
-            </div>
-        </div>
+	<div class="container">
+		<div class="row">
+	        <div class="col-sm-6 col-sm-offset-3">
+	            <div id="imaginary_container">
+	                <div class="input-group stylish-input-group">
+	                    <input type="text" class="form-control"  [(ngModel)]="SearchWord" placeholder="Search"  (input)="liveSearch()">
+	                    <span class="input-group-addon">
+	                        <!-- <button type="submit" (click)="getsearchResultFp()"> -->
+	                            <span class="glyphicon glyphicon-search"></span>
+	                        <!-- </button> -->
+	                    </span>
+	                </div>
+	            </div>
+	        </div>
+		</div>
 	</div>
+
+<div class="leftdiv">
+			<div *ngFor="let option of options">
+			        <label>
+			            <input type="checkbox"
+			                   name="options"
+			                   value="{{option.value}}"
+			                   [(ngModel)]="option.checked"
+												 (click)="clickcheck()"/>
+			            {{option.name}}
+			        </label>
+			    </div>
+
+
+			
+
+			<div>
+					<h3>price range :</h3>
+					from :<input min=0 type="number" [(ngModel)]="minVal"  (input)="clickcheck()"><br><br>
+					to   :<input min=0 type="number"  [(ngModel)]="maxVal"  (input)="clickcheck()">
+			</div>
+
 </div>
 
+<div class="rightdiv">
+		<div *ngIf="reslen" class="searchFind">
+		<h3 >{{reslen}} result search for {{SearchWord}}</h3>
+		</div>
 
-<div *ngFor="let option of options">
-        <label>
-            <input type="checkbox"
-                   name="options"
-                   value="{{option.value}}"
-                   [(ngModel)]="option.checked"/>
-            {{option.name}}
-        </label>
-    </div>
+		<div *ngIf="reslen==0" class="searchnotFind">
+		<h3>0 result for search {{SearchWord}}</h3>
+		</div>
 
-<p> Selected value: {{selectedValue | json}} </p>
+		<div class="order" *ngFor="let item of serachRes" >
+ 	       <div class="panel panel-default">
+ 	           <div class="panel-body">
+ 	               <div class="media">
+ 	                   <div class="media-left">
+ 	                     <img src="{{ item.image }}" class="media-object">
+ 	                   </div>
+ 	                   <div class="media-body">
+ 	                     <h3 class="media-heading">{{ item.name}}</h3>
+ 	                     <rating [max]="max" [(ngModel)]="rate"  [readonly]="isReadonly"></rating>
+ 	                     <p>{{ item.description}}</p>
+ 	                   </div>
+ 	                   <div class="media-right" style="width:15%">
+ 	                       <h4>{{ item.price}} EGP</h4>
+ 	                       <p> Avaliable <span class="badge">{{ item.stock}}</span></p>
+ 	                       <a class="btn btn-primary" routerLink="/productdetails/{{item._id}}">View Details</a>
 
-
-<div *ngIf="reslen" class="searchFind">
-<h3 >{{reslen}} result search for {{SearchWord}}</h3>
-</div>
-
-<div *ngIf="reslen==0" class="searchnotFind">
-<h3>0 result for search {{SearchWord}}</h3>
-</div>
-
-
-<div  *ngFor="let sRes of serachRes" class="card" >
-   <a (click)="action('remove',sRes)"  class="close-thik"></a>
-
-   <a  (click)="action('future',sRes)" class="fa fa-shopping-bag wishList" ></a>
-     <img src={{sRes.image}} />
-       <div class="card-info">
-         <h2> Price: {{sRes.price}} EGP</h2>
-         <h3> Name : {{sRes.name}} </h3>
-
-        <p class="leftp"><b>QTY:</b></p>
-
-         <p class="infoStock"> Order now there is only : {{sRes.stock}} left on stock</p>
-
-       </div>
-</div>
-
+ 	                     </div>
+ 	                 </div>
+ 	           </div>
+ 	       </div>
+ 	     </div>
 
 <div class="divCenter">
     <div class="pagination" *ngFor="let page of pages;let i = index">
@@ -62,4 +77,5 @@
          <a (click)="getsearchResult(i+1)">{{i+1}}</a>
         <a *ngIf="i==pages.length-1">&raquo;</a>
     </div>
+</div>
 </div>

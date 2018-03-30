@@ -223,40 +223,41 @@ router.post("/rate",urlEncodedMid,function(request,response)
 });
 
 //---------------------------------------------------------------------
-
-router.get("/search/:key?/:cat?/:page?",function(req,res)
+//pric 0:100
+router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 {
 
   var key = req.params.key ? req.params.key:'';
   var page = req.params.page ? req.params.page:1;
+  var pricelow = req.params.price ? req.params.price.split(":")[0]:0;
+  var pricehigh = req.params.price ? req.params.price.split(":")[1]:10000000;
+  console.log(req.params.price,"ccccccccccc",pricelow,pricehigh)
   var cat;
 
   if(req.params.cat)
-    cat =req.params.cat.split('+');
-
+    cat =req.params.cat.trim().split(',');
   var regexValue='\.*'+key+'\.';
-  console.log(key)
-  console.log(cat.length)
-  if(cat.length>1){
-     console.log(1)
-        ProductsModel.paginate(
-          {
-            $and:[{name:new RegExp(regexValue, 'i')}
-            ,{subcategory:{$in:cat}} ]
+  console.log("cat",cat)
+  if(cat.length>=1&&cat[0].trim()!=''){
+     console.log("1kkkkkkkkkkkkkkkkkkkkkkkkkkk")
+        ProductsModel.paginate({
+           name:new RegExp(regexValue, 'i'),
+            subcategory:{"$in":cat},price:{ "$gt" : pricelow},price:{ "$lte" : pricehigh},
           },{page:page,limit:2},function(err,result){
         res.json({productsData:result});
         });
   }
 
   else{
-     console.log(2)
-    ProductsModel.paginate(
-      {name:new RegExp(regexValue, 'i')},{page:page,limit:2},function(err,result){
+     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    ProductsModel.paginate({name:new RegExp(regexValue, 'i')
+   ,price:{ "$gt" : pricelow},price:{ "$lt" : pricehigh}
+  },{page:page,limit:2},function(err,result){
     res.json({productsData:result});
     });
   }
+
 });
 
-//{name:new RegExp(/lack/, 'i'),subcategory:{$in:["shoes"," "]}}
 
 module.exports = router;

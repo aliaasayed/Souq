@@ -13,18 +13,20 @@
                         <li> <a *ngIf="!logedUser.nationalID && logedUser" class="navbar-brand" routerLink="/userhome"> My Cart <i class="fab fa-opencart"></i></a></li>
                         <li> <a *ngIf="logedUser.nationalID && logedUser" class="navbar-brand" routerLink="/sellerHome"> My Cart <i class="fab fa-opencart"></i></a></li>
                         <li> <a *ngIf="!configData.login" class="navbar-brand"> My Cart <i class="fab fa-opencart"></i></a></li>
+
                         <li *ngIf="!logedUser.nationalID && configData.login">
-                          <form class="navbar-form " method="POST" action="">
+                          <form class="navbar-form " method="get" action="/souq/search">
                                   <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search for product" name="Query">
                                     <div class="input-group-btn">
-                                      <button class="btn btn-default search" type="submit">
+                                    <a href="/souq/search" class="btn btn-default search" >
                                         <i class="glyphicon glyphicon-search icon"></i>
-                                    </button>
+                                    </a>
                                     </div>
                                   </div>
                                 </form>
                           </li>
+
                       </ul>
 
 

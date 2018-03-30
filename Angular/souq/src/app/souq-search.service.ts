@@ -9,11 +9,11 @@ export class SouqSearchService {
   constructor(private http:HttpClient) { }
 
 
-  getSearchProducts(keyword,page): Observable<any> {
+  getSearchProducts(keyword,subcat,priceRange,page): Observable<any> {
     const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
-
-      return this.http.get(`https://localhost:9090/products/search/${keyword}/${page}`, {
+         console.log(keyword,subcat,page)
+      return this.http.get(`https://localhost:9090/products/search/${keyword}/${subcat} / ${priceRange} /${page}`, {
         headers: headers
       });
   }
