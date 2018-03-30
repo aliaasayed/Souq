@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Headers,RequestOptions } from '@angular/http';
+import {GlobalDataService} from './global-data.service'
 
 @Injectable()
 export class LoginService {
   user:any;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private globalDataService:GlobalDataService) { }
+
   getUserLoginToken(email:String,password:String):Observable<any>{
 
   var body = {"email": email,"password": password};
    this.user=this.http.post<any>('https://localhost:9090/auth/userlogin', body);
-   console.log("service",this.user)
+   // console.log("service",this.user)
+   this.globalDataService.setUserData(this.user);
    return this.user;
 
   }

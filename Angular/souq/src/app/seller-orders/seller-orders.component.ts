@@ -12,7 +12,7 @@ export class SellerOrdersComponent implements OnInit {
   max: number = 5;
   rate: number = 2;
   isReadonly: boolean = true;
-  constructor(private sellerOrdersService: SellerOrdersService) { 
+  constructor(private sellerOrdersService: SellerOrdersService) {
    this.sellerOrdersService.getSellerOrders().subscribe((res)=>{
    this.sellerOrders=res;
    console.log("res"+res)

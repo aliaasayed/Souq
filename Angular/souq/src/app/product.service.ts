@@ -2,16 +2,22 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { LoginService } from './login.service';
+import {GlobalDataService} from './global-data.service'
 
 @Injectable()
 export class ProductService {
   product:any;
-  constructor(private http:HttpClient) { }
-
-  getProducts(page:Number): Observable<any> {
+  sellId;
+	constructor(private http: HttpClient,private globalDataService: GlobalDataService) {
+	this.globalDataService.currentuser.subscribe((res)=>{
+		this.sellId = res['_id'];
+		console.log("loged user",res)
+	});
+}
+  getProducts(name,page:Number): Observable<any> {
 
   console.log(`https://localhost:9090/products/Plist/${page}`);
-    return this.http.get<any>(`https://localhost:9090/products/Plist/${page}`);
+    return this.http.get<any>(`https://localhost:9090/products/Plist/${name}/${page}`);
   }
 
   checkProductExistInCart(prodID:any):Observable<any> {
@@ -33,8 +39,7 @@ addProductTocaret(prodID:any):Observable<any> {
          .set('Content-Type', 'application/json')
          .set('authorization', localStorage.getItem('SouqtokenKey'));
 
-     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-     var body = {"clientId": uid,"prodId":prodID};
+     var body = {"prodId":prodID};
     return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
       headers: headers
     });
@@ -96,7 +101,7 @@ addProductTocaret(prodID:any):Observable<any> {
   addproduct(form):Observable<any>{
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
-  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  form.SellerID = this.sellId
   console.log(form);
 
   return this.http.post<any>('https://localhost:9090/products/add', form,
@@ -117,7 +122,7 @@ addProductTocaret(prodID:any):Observable<any> {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
 
-  return this.http.get<any>('https://localhost:9090/products/update'+prodID,{headers: headers
+  return this.http.get<any>('https://localhost:9090/products/update/'+prodID,{headers: headers
    });
 
   }

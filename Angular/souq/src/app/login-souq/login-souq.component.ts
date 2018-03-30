@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
+import {GlobalDataService} from '../global-data.service'
 import {
     AuthService,
     FacebookLoginProvider,
@@ -19,27 +20,22 @@ export class LoginSouqComponent implements OnInit {
   logedUser:any;
   user={email:"",password:""};
   loginPage=false;
-   router: Router;
-  constructor(private loginService: LoginService,private socialAuthService: AuthService,private route:Router){
-  //web servic take token then retrieve it's rule and info needed
-  if(localStorage.getItem('Souqlogin')){//there token exist in localS
-    this.loginService.verifyToken().subscribe((res)=>{
-      if(res['success']&&localStorage.getItem('Souqlogin')=="true"){
-       console.log("login",JSON.parse(localStorage.getItem('SouqloginUser')).nationalID)
-      if(!JSON.parse(localStorage.getItem('SouqloginUser')).nationalID)
-        window.location.href = 'https://localhost:4200/souq/home';
-      else
-        window.location.href = 'https://localhost:4200/souq/seller/home';
-      }
 
-    });
-  }
-  else{//user isnot logged
+  constructor(private loginService: LoginService,
+    private socialAuthService: AuthService,
+    private route:Router,private globalDataService:GlobalDataService){
+
+  //web servic take token then retrieve it's rule and info needed
+    if(!localStorage.getItem('SouqtokenKey')){//user isnot logged
         this.loginPage=true;
         console.log("else")
       }
+    else{
+       this.route.navigate(['/'])
     }
-    public socialSignIn(socialPlatform : string) {
+  }
+
+  public socialSignIn(socialPlatform : string) {
         let socialPlatformProvider;
         if(socialPlatform == "facebook"){
           socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -54,7 +50,7 @@ export class LoginSouqComponent implements OnInit {
             console.log(res);
             if(res=="true" || res=="user email exist")
             {
-              window.location.href = 'https://localhost:4200/souq/home';
+               this.route.navigate(['/souq/home'])
             }else{}
           });
           }
@@ -66,14 +62,21 @@ export class LoginSouqComponent implements OnInit {
 
   getToken(): void {
     this.loginService.getUserLoginToken(this.user.email,this.user.password).subscribe((res)=>{
-      console.log(res);
+      console.log("login service",res);
+
       if(res.success){
         localStorage.setItem('SouqtokenKey', res.token);
-        localStorage.setItem('Souqlogin', "true");
-        localStorage.setItem('SouqloginUser', JSON.stringify(res.user));
-        this.logedUser=res.user;
-        console.log("click",this.logedUser);
-        window.location.href = 'https://localhost:4200/souq/home';
+
+        this.globalDataService.setUserData(res.user);
+        this.globalDataService.currentuser.subscribe((res)=>{
+          this.logedUser=res;
+          console.log("loged user",this.logedUser)
+        });
+
+        if(this.logedUser.nationalID!=null)
+        this.route.navigate(['/sellerHome'])
+        else
+        this.route.navigate(['/souq/home'])
        }
       else
       console.log(res);

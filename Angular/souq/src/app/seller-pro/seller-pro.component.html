@@ -1,24 +1,10 @@
-<!-- <div *ngFor = "let product of products">
-	<h2>{{product.image}}</h2>
-	<h2>{{product.name}}</h2>
-	<h3>{{product.rating.T}}</h3>
-	<p>{{product.description}}</p>
-	<h3>{{product.price}} LE</h3>
-	<h4>{{product.stock}} avaialable</h4>
-	<button type="">Edit</button>
-</div> -->
+<div style="text-align: center;" *ngIf="products.docs.length == 0">
+<h3> Sorry but you don't have any products yet </h3>
+<button type="button" class="btn btn-secondary" routerLink= "/addproduct"> Start adding products</button> 	
+</div>
 
 
 
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
- -->
 
 <div class="container-fluid " >
 	<div class="row" *ngFor = "let product of products.docs">
@@ -32,11 +18,18 @@
 
 			    <div class="col-sm-6" >
 			    	<h3>{{product.name}}</h3>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star checked"></span>
-						<span class="fa fa-star"></span>
-						<span class="fa fa-star"></span>
+						<span *ngIf="product.rating.T >= 1" class="fa fa-star checked"></span>
+						<span *ngIf="product.rating.T >= 2" class="fa fa-star checked"></span>
+						<span *ngIf="product.rating.T >= 3" class="fa fa-star checked"></span>
+						<span *ngIf="product.rating.T >= 4" class="fa fa-star checked"></span>
+						<span *ngIf="product.rating.T == 5" class="fa fa-star checked"></span>
+
+						<span *ngIf="product.rating.T < 1" class="fa fa-star "></span>
+						<span *ngIf="product.rating.T < 2" class="fa fa-star "></span>
+						<span *ngIf="product.rating.T < 3" class="fa fa-star "></span>
+						<span *ngIf="product.rating.T < 4" class="fa fa-star "></span>
+						<span *ngIf="product.rating.T < 5" class="fa fa-star "></span>
+
 						<span id="rate">({{product.rating.T}}/5)</span>
 					<p id="desc">{{product.description}}</p>
 			    </div>
@@ -64,11 +57,4 @@
  	</ul>
 
 
-<!-- /////// -->
-    <!-- div class="pagination" *ngFor="let page of pages;let i = index">
-         <a *ngIf="i==0" href="#">&laquo;</a>
-         <a (click)="getProducts(i+1)">{{i+1}}</a>
-        <a *ngIf="i==products.pages-1" href="#">&raquo;</a>
-    </div> -->
-    <!-- /// -->
 </div>

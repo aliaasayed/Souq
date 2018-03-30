@@ -14,14 +14,12 @@ console.log("Iam INNNN");
 
 //*****************veifyToken***********************//
 function verifyJWToken(req,res,next){
-  console.log("ddddddddd")
   const authHeader=req.headers['authorization'];
   if( typeof authHeader!=="undefined"){
      req.token=authHeader;
      jwt.verify(req.token,'myscret',(err,data)=>{
         if(!err){
-        req.uid=data.Id;
-        console.log("item verify token ",req.uid);
+        req.uid=data.userdata._id;
         next();
       }
       });
@@ -45,6 +43,50 @@ router.get("/show",function(req,res){
     });
   });
 
+
+/**************** Show my Orders *********************
+** Return client orders not in cart (Ordered or Delivered) **/
+router.get("/cOrders/:cId/:page",function(req,res){
+  ItemModel.find(
+    {clientId:req.params.cId, state: {$in: ['Ordered', 'Delivered']} },
+     function(err,result){
+        prodIds = [];
+        stateArr = [];
+        for (i in result){
+          prodIds.push(result[i].prodId);
+          stateArr.push(result[i].state);
+        }
+
+        ProductsModel.paginate(
+          {_id: {$in: prodIds} },
+          {page:req.params.page,limit:3},
+          function(err,product){
+            if (product) {
+              product = product.docs;
+            }
+            else {
+                res.send("Error: No product Found!");
+            }
+
+            final = [];
+            for(p in product){
+              cPro={trate: Math.round(product[p].rating.T),
+                    name: product[p].name,
+                    description: product[p].description,
+                    image: product[p].image,
+                    stock: product[p].stock,
+                    price: product[p].price,
+                    state: stateArr[p]
+                   }
+              final.push(cPro);
+            }
+
+            res.json(final);
+          });
+    });
+  });
+
+
 /**************** Show Seller Ordered Items *******************
 ****** Take seller ID and return orders of his products *****
 ***** if itemID is given it will return item (select item) ***/
@@ -58,7 +100,7 @@ router.get("/sellerOrders/:sID/:OID?",function(req,res){
       if(orders[i].prodId.SellerID == req.params.sID){
         ordersArr.push(orders[i]);
       }
-    } 
+    }
 
     if(req.params.OID){       //if orderId was given
       for(j = 0; j < ordersArr.length; j++){
@@ -136,11 +178,10 @@ router.get("/myCart/:cId",function(req,res){
 router.post("/addToCart",[verifyJWToken,bodyParser.json()], function(req, res){
 	var newCartItem = new ItemModel();
 	newCartItem._id = new mongoose.Types.ObjectId;
-	newCartItem.clientId = req.body.clientId;
+	newCartItem.clientId = req.uid;
 	newCartItem.prodId = req.body.prodId;
 	newCartItem.quantity = 1;
 	newCartItem.state = 'Cart';
-    console.log("ssmmmmmmmmmmmms",req.body)
 	newCartItem.save(function(err, item){
 		if(err){
 			res.json(err);

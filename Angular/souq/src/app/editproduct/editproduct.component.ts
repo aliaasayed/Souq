@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router'
 import {NgForm} from '@angular/forms';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-editproduct',
@@ -13,8 +14,15 @@ export class EditProductComponent implements OnInit
   product={};
   image;
   id;
-  constructor(private ProductService: ProductService,private route : ActivatedRoute)
+  categories;
+  subcategories;
+  constructor(private ProductService: ProductService,
+    private route : ActivatedRoute,private categoriesService: CategoriesService)
   {
+    this.categoriesService.getCategories().subscribe((res)=>{
+      this.categories=res
+      console.log(res)
+    });
     this.route.params.subscribe((params) => {this.id=params['id']
     console.log(params)});
     this.ProductService.getUpdateData(this.id).subscribe((res)=>{
@@ -46,5 +54,9 @@ fileUpload(files)
 
   ngOnInit() {
   }
+  getsubCategory(name){
+    this.categoriesService.getsubCategory(name).subscribe((res)=>{
+      this.subcategories=res.subcategories
 
-}
+    });
+}}

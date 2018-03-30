@@ -1,4 +1,3 @@
-
 <div class="order" *ngFor="let order of sellerOrders,let i=index">
       <div class="panel panel-default">
           <div class="panel-body">
@@ -15,17 +14,9 @@
                       <h4>{{ order.prodId.price}} EGP</h4>
                       <p> Avaliable <span class="badge">{{ order.prodId.stock}}</span></p>
                       <a class="btn btn-primary" [routerLink]="['/orderDetails',order._id]">View Order Details</a>
-                      
+
                     </div>
                 </div>
           </div>
       </div>
     </div>
-
-
-
-
-  
-
-
-

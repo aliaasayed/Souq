@@ -29,14 +29,19 @@
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="description" class="form-control" [(ngModel)]= "product.description" required><br>
             </div><br>
-            <div class="input-group margT25">
+						<div class="input-group margT25">
               <span class="input-group-addon"><i class="fa fa-at"></i></span>
-              <input type="text" name="category" class="form-control" [(ngModel)]= "product.category" required><br>
-            </div><br>
+							<select [(ngModel)]= "product.category" class="form-control" name="category" (click)="getsubCategory($event.target.value)">
+								<!-- <option value="" selected disabled hidden>{{product.category}}</option> -->
+								<option *ngFor="let category of categories , let i=index">{{category.Name}}</option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-              <input type="text" name="subcategory" class="form-control" [(ngModel)]= "product.subcategory" required><br>
-            </div><br>
+							<select [(ngModel)]= "product.subcategory" class="form-control" name="subcategory">
+								<option *ngFor="let subcategory of subcategories, let i=index" value="{{subcategory}}">{{subcategory}}</option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="specifications" class="form-control" [(ngModel)]= "product.specifications" required><br>

@@ -3,6 +3,9 @@ import { OnInit } from '@angular/core';
 import {config} from './config';
 import { LoginService } from './login.service';
 import { CategoriesService } from './categories.service';
+import {GlobalDataService} from './global-data.service'
+import { Router } from '@angular/router';
+
 
 declare var jquery:any;
 declare var $ :any;
@@ -19,25 +22,33 @@ export class AppComponent implements OnInit{
   title = 'app';
   url;
   configData=config;
-  logedUser={};
-
+  logedUser={ _id:null,email:"",image:"",name:"",hasNatId:false}
+   cartCount=0;
 
 
   ngOnInit(): void {
 
   }
-  constructor(private categoriesService: CategoriesService,private loginService: LoginService){
-    this.configData.login=localStorage.getItem('Souqlogin');
-    let logU = JSON.parse(localStorage.getItem('SouqloginUser'));
-    if(logU!=null)
-     this.logedUser=logU;
-    console.log("ctor",this.configData);
+  constructor(private categoriesService: CategoriesService,private loginService: LoginService,private route:Router,private globalDataService:GlobalDataService){
 
+
+      //verify if he previous loged
+         this.checklogging()
+
+    //get global data from global storage
+        this.globalDataService.currentuser.subscribe((res)=>{
+              if(res.hasOwnProperty('name'))
+              {
+               this.logedUser._id =res['_id'];
+               this.logedUser.name =res['name'];
+               this.logedUser.image =res['image'];
+                if(res['nationalID'])
+                     this.logedUser.hasNatId=true;
+              }
+        });
 
       this.categoriesService.getCategories().subscribe((res)=>{
-        this.categories=res;
-        // console.log(res);
-        // console.log(this.categories);
+        this.categories=res
       });
 
 
@@ -59,9 +70,26 @@ export class AppComponent implements OnInit{
     $('.dropdown-menu').show();
   }
 
+  checklogging(){
+    if(localStorage.getItem('SouqtokenKey')){
+
+            this.loginService.verifyToken().subscribe((res)=>{
+              if(res['success']){
+                this.globalDataService.setUserData(res['data'].userdata);
+                  if(!res['data'].nationalID)
+                     this.route.navigate([])
+                  else
+                   this.route.navigate(['/sellerHome'])
+
+              }
+
+            });
+    }
+  }
+
   logout(){
      localStorage.clear();
-     this.configData.login="false"
+     this.logedUser={ _id:null,email:"",image:"",name:"",hasNatId:false}
     }
 
 

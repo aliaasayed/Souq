@@ -9,11 +9,11 @@
    <div class="clientInfo">
 	<div class="well col-sm-10 ">
 		<div class="col-sm-1"></div>
-			
+
 			    <div class="col-sm-3" >
 			    	<h3>{{productData.name}}</h3>
 			    	<img src="{{productData.image}}" />
-				  
+
 				</div>
 
 			    <div class="col-sm-4" >
@@ -32,9 +32,9 @@
 			    				<td> <label> Address </label> </td>
 			    				<td>{{userInfo.address}}</td>
 			    			</tr>
-			    		
+
 			    	</table>
-						
+
 			    </div>
 
 			    <div class="col-sm-3" style="text-align: right;">
@@ -47,7 +47,7 @@
 					<br><br><br><br>
   				</div>
   					<div id="msg" style="display: none; text-align: left" >
-  						<h4>Are you sure you want to set this item as Received?</h4> 
+  						<h4>Are you sure you want to set this item as Received?</h4>
   						<h4 style="color: red">This Action can't be reversed</h4>
   						<button (click)="hideMsg()" type="button" class="btn btn-primary" > No</button>
   						<button (click)="deliver()" type="button" class="btn btn-danger" > Yes</button>
