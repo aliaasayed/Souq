@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { ProductDetailsComponent }   from './product-details/product-details.component';
 
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {MyOrdersComponent} from './my-orders/my-orders.component';
+
 
 const routes: Routes = [
   //{path: '', component: AppComponent},
@@ -49,6 +51,7 @@ const routes: Routes = [
 
   { path: 'AllCategories', component: AllCategoriesComponent},
   { path: 'sellerOrders', component: SellerOrdersComponent},
+  { path: 'myOrders', component: MyOrdersComponent},
 
   { path: 'orderDetails/:id', component: OrderDetailsComponent},
   { path: '404', component : ErrorPageComponent},

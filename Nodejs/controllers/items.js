@@ -45,6 +45,50 @@ router.get("/show",function(req,res){
     });
   });
 
+
+/**************** Show my Orders *********************
+** Return client orders not in cart (Ordered or Delivered) **/
+router.get("/cOrders/:cId/:page",function(req,res){
+  ItemModel.find(
+    {clientId:req.params.cId, state: {$in: ['Ordered', 'Delivered']} },
+     function(err,result){
+        prodIds = [];
+        stateArr = [];
+        for (i in result){
+          prodIds.push(result[i].prodId);
+          stateArr.push(result[i].state);
+        } 
+            
+        ProductsModel.paginate(
+          {_id: {$in: prodIds} },
+          {page:req.params.page,limit:3},
+          function(err,product){
+            if (product) {
+              product = product.docs;
+            } 
+            else {
+                res.send("Error: No product Found!");
+            }
+
+            final = [];
+            for(p in product){
+              cPro={trate: Math.round(product[p].rating.T),
+                    name: product[p].name,
+                    description: product[p].description,
+                    image: product[p].image,
+                    stock: product[p].stock,
+                    price: product[p].price,
+                    state: stateArr[p]
+                   }
+              final.push(cPro);
+            }
+
+            res.json(final);
+          });
+    });
+  });
+
+
 /**************** Show Seller Ordered Items *******************
 ****** Take seller ID and return orders of his products *****
 ***** if itemID is given it will return item (select item) ***/

@@ -33,6 +33,8 @@ import {OrderDetailsService} from './order-details.service';
 
 import { ErrorPageComponent } from './error-page/error-page.component';
 
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import {MyOrdersService} from './my-orders.service';
 
 import {
     SocialLoginModule,
@@ -95,7 +97,9 @@ export function getAuthServiceConfigs() {
 
     ErrorPageComponent,
 
-    ProductDetailsComponent
+    ProductDetailsComponent,
+
+    MyOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +120,8 @@ export function getAuthServiceConfigs() {
       SellerProductsService,
       CategoriesService,
       SellerOrdersService,
-      OrderDetailsService
+      OrderDetailsService,
+      MyOrdersService
   ],
   bootstrap: [AppComponent]
 })
