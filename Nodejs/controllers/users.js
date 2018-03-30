@@ -29,6 +29,15 @@ function verifyJWToken(req,res,next){
 }
 
 
+/******** Enable Front-End Access*******/
+router.use(function(req,res,next){
+  res.header("Access-Control-Allow-Origin","*");
+  res.header("Access-Control-Allow-Headers","Content-Type");
+  res.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE")
+  next();
+});
+
+
 router.get("/list",function(req,resp){
   UserModel.find({},function(err,result){
     resp.render("users/list",{users:result});
@@ -80,4 +89,17 @@ else{
   });
 }
 });
+
+
+
+///////// Get user Info knowing his ID///////////////
+router.get("/usrInfo/:uId",function(req,resp){
+  UserModel.find({'_id': req.params.uId},function(err,result){
+    resp.send(result);
+    // resp.send(result[0].name)
+  });
+});
+///////////////////
+
+
 module.exports = router;

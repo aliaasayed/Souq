@@ -28,8 +28,12 @@ export class LoginSouqComponent implements OnInit {
         this.loginPage=true;
         console.log("else")
       }
+    else{
+       this.route.navigate(['/'])
     }
-    public socialSignIn(socialPlatform : string) {
+  }
+
+  public socialSignIn(socialPlatform : string) {
         let socialPlatformProvider;
         if(socialPlatform == "facebook"){
           socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;

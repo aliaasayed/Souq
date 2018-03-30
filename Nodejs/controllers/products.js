@@ -89,10 +89,10 @@ else{
 });
 /////////
 
-router.get("/Plist/:page?",function(req,res){
+router.get("/Plist/:subCatName/:page?",function(req,res){
   var page = req.params.page ? req.params.page:1;
    // res.json("kk");
-  ProductsModel.paginate({},{page:page,limit:2},function(err,result){
+  ProductsModel.paginate({subcategory: req.params.subCatName},{page:page,limit:2},function(err,result){
   res.json({productsData:result});
   });
 });
@@ -139,8 +139,37 @@ router.get("/seller/:sellerId/:page",function(request,response)
   });
 });
 
+/*************Get products (paginated) by subcategory *************
+****** Take subCat ID and return orders of his products *****
+*if productId is given it will return product (select product) ***/
+router.get("/showSubProducts/:subCatName/:page?",function(req,res){
+  ProductsModel.paginate({subcategory: req.params.subCatName},{page:req.params.page,limit:5}, function(err,products){
+    if (products) {
+          res.json(products);
+      }
+      else {
+          res.send("Error: No product Found!");
+      }
 
-/****************** Rate Product*********************/
+  });
+});
+
+/************* get product by ID  *************/
+router.get("/showProduct/:pId",function(request,response)
+{
+  ProductsModel.find({_id: request.params.pId},function(err,product){
+      if (product) {
+          response.json(product);
+      }
+      else {
+          response.send("Error: No product Found!");
+      }
+  });
+});
+
+
+/****************** Rate Product *********************/
+/*** ++ calculate total-rating and send along with data ***/
 router.post("/rate",urlEncodedMid,function(request,response)
 {
     ProductsModel.findById(request.body.Id, function (err, product) {
@@ -173,7 +202,7 @@ router.post("/rate",urlEncodedMid,function(request,response)
                             product.rating[5]
                           );
 
-      product.rating.T = Math.round(product.rating.T*10)/10;
+      product.rating.T = Math.round(product.rating.T);
 
 
 

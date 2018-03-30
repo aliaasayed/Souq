@@ -34,3 +34,10 @@ button{
     background-color: #D3D3D3;
     cursor: pointer;
 }
+
+#rcorners2 {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px; 
+    width: 200px;    
+}

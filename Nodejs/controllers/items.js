@@ -43,24 +43,81 @@ router.get("/show",function(req,res){
     });
   });
 
+
+/**************** Show my Orders *********************
+** Return client orders not in cart (Ordered or Delivered) **/
+router.get("/cOrders/:cId/:page",function(req,res){
+  ItemModel.find(
+    {clientId:req.params.cId, state: {$in: ['Ordered', 'Delivered']} },
+     function(err,result){
+        prodIds = [];
+        stateArr = [];
+        for (i in result){
+          prodIds.push(result[i].prodId);
+          stateArr.push(result[i].state);
+        } 
+            
+        ProductsModel.paginate(
+          {_id: {$in: prodIds} },
+          {page:req.params.page,limit:3},
+          function(err,product){
+            if (product) {
+              product = product.docs;
+            } 
+            else {
+                res.send("Error: No product Found!");
+            }
+
+            final = [];
+            for(p in product){
+              cPro={trate: Math.round(product[p].rating.T),
+                    name: product[p].name,
+                    description: product[p].description,
+                    image: product[p].image,
+                    stock: product[p].stock,
+                    price: product[p].price,
+                    state: stateArr[p]
+                   }
+              final.push(cPro);
+            }
+
+            res.json(final);
+          });
+    });
+  });
+
+
 /**************** Show Seller Ordered Items *******************
-****** Take seller ID and return orders of his products ****/
-router.get("/sellerOrders/:sID",function(req,res){
+****** Take seller ID and return orders of his products *****
+***** if itemID is given it will return item (select item) ***/
+router.get("/sellerOrders/:sID/:OID?",function(req,res){
   ItemModel.find({state:'Ordered'}).
   populate('prodId').
   exec(function(err,orders){
-  	if (err) return handleError(err);
+    if (err) return handleError(err);
     ordersArr=[]
     for (i in orders){
-    	if(orders[i].prodId.SellerID == req.params.sID){
-    		ordersArr.push(orders[i]);
-    	}
+      if(orders[i].prodId.SellerID == req.params.sID){
+        ordersArr.push(orders[i]);
+      }
+    } 
+
+    if(req.params.OID){       //if orderId was given
+      for(j = 0; j < ordersArr.length; j++){
+        if(ordersArr[j]._id == req.params.OID){
+          res.json(ordersArr[j]);
+          console.log("An order selected");
+          break;
+        }
+      }
     }
-    res.json(ordersArr);
-    console.log("Seller orders retrieved");
+    else{
+      res.json(ordersArr);
+      console.log("Seller orders retrieved");
+    }
+
   });
 });
-
 
 ///****************8 my update////////////////////////
  router.get("/mycartCount",verifyJWToken,function(req,res){
