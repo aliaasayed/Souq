@@ -259,5 +259,38 @@ router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 
 });
 
+// ----------------------offers without limit------------------------------
+router.get("/offers",function(request,response)
+{
+    var filter = { offer: { $exists : true } };
+    var fields = {};
+    var options = {sort:{ DateOfEntry: -1 }};
+
+    ProductsModel.find(filter, fields, options, function(err, results){
+        if (!err) {
+          console.log(results);
+          response.json(results)
+        }
+      })
+
+});
+// ----------------------offers with limit------------------------------
+router.get("/limitoffers",function(request,response)
+{
+    var filter = { offer: { $exists : true } };
+    var fields = {};
+    var options = {sort:{ DateOfEntry: -1 },limit: 10};
+
+    ProductsModel.find(filter, fields, options, function(err, results){
+        if (!err) {
+          console.log(results);
+          response.json(results)
+        }
+      })
+
+});
+
+
+
 
 module.exports = router;
