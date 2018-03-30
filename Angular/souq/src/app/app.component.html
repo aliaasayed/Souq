@@ -38,8 +38,22 @@
                       </ul>
                     </div>
                   </nav>
-
-                  <ol class="breadcrumb" style="text-align:center">
+                  
+                  <div class="bar">
+                    <li class="dropdown"><a class="btn dropbtn" routerLink="/AllCategories">All Categories</a></li>
+                     <li class="dropdown" *ngFor="let category of categories , let i=index">
+                        <a  class="btn dropbtn" data-toggle="dropdown"  data-delay="3000" data-close-others="false">
+                            {{ category.Name }} 
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let subcategory of category.subcategories , let i=index">
+                                <a routerLink="/souq/product/{{subcategory}}"> {{ subcategory }} </a>
+                            </li>
+                        </ul>
+                     </li>
+                    </div> 
+                  <br><br><br>
+                  <!-- <ol class="breadcrumb" style="text-align:center">
                         <li><a routerLink="/AllCategories">All Categories</a></li>
                         <li *ngFor="let category of categories , let i=index">
                           <a href="#menu{{i}}" data-toggle="collapse" aria-expanded="false"> {{ category.Name }} </a>
@@ -49,7 +63,7 @@
                               </li>
                           </ul>
                         </li>
-                  </ol>
+                  </ol> -->
                 </div>
                 <div id="mySidenav" class="sidenav">
                   <button class="closebtn" (click)="HideSideMenu()">&times;</button>
@@ -83,3 +97,7 @@
 
 
     </div>
+<script>
+$('.dropdown-toggle').dropdownHover(options);
+
+</script>

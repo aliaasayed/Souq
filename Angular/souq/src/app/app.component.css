@@ -96,19 +96,19 @@ div {
 {
     transition: all .5s;
 }
-a[data-toggle="collapse"] {
+.sidenav a[data-toggle="collapse"] {
     position: relative;
 } 
 
- a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+.sidenav a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
     content: '\e259';
     display: block;
     position: absolute;
-    right: 20px;
+    right: 10px;
     font-family: 'Glyphicons Halflings';
     font-size: 0.6em;
 }
-a[aria-expanded="true"]::before {
+.sidenav a[aria-expanded="true"]::before {
     content: '\e260';
 }
 #catSubmenu a {
@@ -153,3 +153,51 @@ label
     display: block;
     transition: all 0.3s;
 }
+ 
+ li.dropdown:hover > ul.dropdown-menu {
+     /* position: absolute; */
+      display: block;
+      z-index: 2;
+    }
+
+    .dropbtn {
+        background-color: #6d7fc1;
+        color: white;
+        font-size: 16px;
+        border: none;
+        margin: 0;
+    }
+
+  .dropdown
+  {
+      display: inline;
+  } 
+  .dropdown-menu
+  {
+    position: absolute;
+    z-index: 1;
+  } 
+  .bar {
+    text-align:center;
+    padding: 7px;
+    background-color: #6d7fc1;
+}
+.bar a:hover{
+    
+    color:#6d7fc1;
+    background-color: rgb(243, 241, 241);
+}
+.bar ul
+{
+    padding:12px;
+}
+/* .bar li.a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+} */
+
+
