@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
-<<<<<<< HEAD
-import {GlobalDataService} from '../global-data.service'
-=======
 import { ActivatedRoute } from '@angular/router'
->>>>>>> 8a1bfba206a9fb190e0303e902af988a539c4bce
 
 @Component({
   selector: 'app-product-souq',
@@ -18,14 +14,10 @@ export class ProductSouqComponent implements OnInit {
   productsData= { docs:[], total:" ", limit:"", page: "", pages: "" };
   pages;
   i=1;
-
-  constructor(private productService: ProductService,private loginService: LoginService,private globalDataService:GlobalDataService) {
-
   subCatName;
   constructor(private productService: ProductService,
     private loginService: LoginService,private route : ActivatedRoute) {
    this.route.params.subscribe((params) => {this.subCatName=params['subCatName']
-
    this.getFProductPage();
    console.log(params)});
    }
@@ -45,6 +37,9 @@ export class ProductSouqComponent implements OnInit {
       console.log(this.productsData);
     });
   }
+
+
+
 }
 
 

@@ -15,7 +15,6 @@ import { AddProductComponent }   from './addproduct/addproduct.component';
 import { EditProductComponent } from './editproduct/editproduct.component';
 import { AllCategoriesComponent }   from './all-categories/all-categories.component';
 import { SouqSearchComponent }   from './souq-search/souq-search.component';
-import { AppComponent } from './app.component';
 import { SellerOrdersComponent }   from './seller-orders/seller-orders.component';
 import { OrderDetailsComponent }   from './order-details/order-details.component';
 import { AppComponent } from './app.component';

@@ -26,12 +26,8 @@ import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
-<<<<<<< HEAD
 import { GlobalDataService } from './global-data.service';
-=======
 import { SellerOrdersService } from './seller-orders.service';
->>>>>>> 8a1bfba206a9fb190e0303e902af988a539c4bce
-
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {OrderDetailsService} from './order-details.service';
 
@@ -120,7 +116,7 @@ export function getAuthServiceConfigs() {
       SellerProductsService,
       CategoriesService,
       SouqSearchService,
-      GlobalDataService
+      GlobalDataService,
       SellerOrdersService,
       OrderDetailsService,
       MyOrdersService
