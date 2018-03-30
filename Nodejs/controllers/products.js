@@ -202,7 +202,7 @@ router.post("/rate",urlEncodedMid,function(request,response)
                             product.rating[5]
                           );
 
-      product.rating.T = Math.round(product.rating.T*10)/10;
+      product.rating.T = Math.round(product.rating.T);
 
 
 
@@ -223,5 +223,40 @@ router.post("/rate",urlEncodedMid,function(request,response)
 });
 
 //---------------------------------------------------------------------
+
+router.get("/search/:key?/:cat?/:page?",function(req,res)
+{
+
+  var key = req.params.key ? req.params.key:'';
+  var page = req.params.page ? req.params.page:1;
+  var cat;
+
+  if(req.params.cat)
+    cat =req.params.cat.split('+');
+
+  var regexValue='\.*'+key+'\.';
+  console.log(key)
+  console.log(cat.length)
+  if(cat.length>1){
+     console.log(1)
+        ProductsModel.paginate(
+          {
+            $and:[{name:new RegExp(regexValue, 'i')}
+            ,{subcategory:{$in:cat}} ]
+          },{page:page,limit:2},function(err,result){
+        res.json({productsData:result});
+        });
+  }
+
+  else{
+     console.log(2)
+    ProductsModel.paginate(
+      {name:new RegExp(regexValue, 'i')},{page:page,limit:2},function(err,result){
+    res.json({productsData:result});
+    });
+  }
+});
+
+//{name:new RegExp(/lack/, 'i'),subcategory:{$in:["shoes"," "]}}
 
 module.exports = router;

@@ -27,9 +27,11 @@
             </div><br>
 						<div class="form-group margT10">
 						<!-- Button -->
+						  <img  width="100px" height="100px" src="{{image}}" alt="upload image">
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
                base-sixty-four-input/>
-              <input type="submit" class="btn btn-block btn-success" [disabled]="!loginForm.form.valid">
+
+							<input type="submit" class="btn btn-block btn-success" [disabled]="!loginForm.form.valid">
 						</div>
 					</form>
 				</div>

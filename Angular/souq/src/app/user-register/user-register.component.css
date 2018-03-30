@@ -15,6 +15,16 @@
     color: rgb(153, 66, 149);
 
 }
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
 /* input[type=file]
 {
     display: none;

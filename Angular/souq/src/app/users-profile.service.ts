@@ -15,15 +15,13 @@ export class UsersProfileService {
     return this.http.get<any>("https://localhost:9090/users/profile",
        {headers: headers});
   }
-  updateUser(update):Observable<any>
-  {
+  updateUser(update):Observable<any>{
    console.log(update)
    const headers = new HttpHeaders()
          .set('Content-Type', 'application/json');
 
        return this.http.post('https://localhost:9090/users/edit/'+
        JSON.parse(localStorage.getItem('SouqloginUser'))._id,update,
-       {headers: headers}
-);
+       {headers: headers});
   }
 }

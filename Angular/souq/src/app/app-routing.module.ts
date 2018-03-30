@@ -13,12 +13,15 @@ import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 import { AddProductComponent }   from './addproduct/addproduct.component';
 import { EditProductComponent } from './editproduct/editproduct.component';
 import { AllCategoriesComponent }   from './all-categories/all-categories.component';
+import { SouqSearchComponent }   from './souq-search/souq-search.component';
 import { SellerOrdersComponent }   from './seller-orders/seller-orders.component';
 import { OrderDetailsComponent }   from './order-details/order-details.component';
 import { AppComponent } from './app.component';
 import { ProductDetailsComponent }   from './product-details/product-details.component';
 
 import {ErrorPageComponent} from './error-page/error-page.component';
+import {MyOrdersComponent} from './my-orders/my-orders.component';
+
 
 const routes: Routes = [
   //{path: '', component: AppComponent},
@@ -37,6 +40,7 @@ const routes: Routes = [
   { path: 'sellerHome', component: SellerProComponent},
 
   { path: 'souq/myCart', component: MycartDetailComponent},
+  { path: 'souq/search', component: SouqSearchComponent},
 
   { path: 'addproduct', component: AddProductComponent},
 
@@ -47,6 +51,7 @@ const routes: Routes = [
 
   { path: 'AllCategories', component: AllCategoriesComponent},
   { path: 'sellerOrders', component: SellerOrdersComponent},
+  { path: 'myOrders', component: MyOrdersComponent},
 
   { path: 'orderDetails/:id', component: OrderDetailsComponent},
   { path: '404', component : ErrorPageComponent},

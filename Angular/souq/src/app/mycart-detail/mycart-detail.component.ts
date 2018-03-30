@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
+import {GlobalDataService} from '../global-data.service'
 
 @Component({
   selector: 'app-mycart-detail',
@@ -16,7 +17,7 @@ removeItem=false;
 futurelist=false;
 selectedItem;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,private globalDataService:GlobalDataService) {
     this.getmyCartProductcount();
     this.getmyCartProductsFp();
    }
@@ -28,6 +29,7 @@ selectedItem;
     this.productService.getmyCartProductcount().subscribe((res)=>{
       console.log(res);
       this.CartProductCount=res;
+      this.globalDataService.setUserCart(res);
 
     });
   }

@@ -25,13 +25,15 @@ import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
+import { GlobalDataService } from './global-data.service';
 import { SellerOrdersService } from './seller-orders.service';
-
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {OrderDetailsService} from './order-details.service';
 
 import { ErrorPageComponent } from './error-page/error-page.component';
 
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import {MyOrdersService} from './my-orders.service';
 
 import {
     SocialLoginModule,
@@ -43,12 +45,12 @@ import {
 import { SellerOrdersComponent } from './seller-orders/seller-orders.component';
 import { CategoriesService } from './categories.service';
 import { AllCategoriesComponent } from './all-categories/all-categories.component';
-
-
 import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
-
 import { AddProductComponent } from './addproduct/addproduct.component';
+import { SouqSearchComponent } from './souq-search/souq-search.component';
+import { SouqSearchService } from './souq-search.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+
 
 
 
@@ -83,17 +85,15 @@ export function getAuthServiceConfigs() {
     SellerProComponent,
     SellerOrdersComponent,
     AllCategoriesComponent,
-
     MycartDetailComponent,
-
     AddProductComponent,
     EditProductComponent,
-
+    SouqSearchComponent,
     OrderDetailsComponent,
-
     ErrorPageComponent,
+    ProductDetailsComponent,
+    MyOrdersComponent
 
-    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -113,8 +113,11 @@ export function getAuthServiceConfigs() {
       ProductService,
       SellerProductsService,
       CategoriesService,
+      SouqSearchService,
+      GlobalDataService,
       SellerOrdersService,
-      OrderDetailsService
+      OrderDetailsService,
+      MyOrdersService
   ],
   bootstrap: [AppComponent]
 })

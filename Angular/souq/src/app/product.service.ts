@@ -33,8 +33,7 @@ addProductTocaret(prodID:any):Observable<any> {
          .set('Content-Type', 'application/json')
          .set('authorization', localStorage.getItem('SouqtokenKey'));
 
-     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-     var body = {"clientId": uid,"prodId":prodID};
+     var body = {"prodId":prodID};
     return this.http.post<any>('https://localhost:9090/items/addToCart',body,{
       headers: headers
     });

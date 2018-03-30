@@ -70,7 +70,7 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
   UserModel.findOne({email:req.body.email,password:req.body.password},function(err,data){
    if(data != null && !err)
    {
-     const payload = {email: data.email,Id:data._id};
+     const payload = {'userdata':data};
      const token=jwt.sign(payload,'myscret');
      resp.json({
           success: true,
@@ -91,7 +91,7 @@ router.post("/userlogin",urlEncodedMid,function(req,resp){
 router.get('/verify',verifyJWToken,function(req,res){
   jwt.verify(req.token,'myscret',(err,data)=>{
     if(!err)
-      res.json({"success":"valid"});
+      res.json({"success":"valid",'data':data});
     else
     res.json({"error":"invalid"})
   });
@@ -159,14 +159,5 @@ router.get("/logout",function(req,resp){
   resp.redirect("/auth/login");
 });
 
-// function refreshTokenGmail(tokens){
-//   oauth2Client.setCredentials(tokens);
-//   //regresh token
-//   oauth2Client.refreshAccessToken(function(err,tokens) {
-//     // your access_token is now refreshed and stored in oauth2Client
-//     // store these new tokens in a safe place (e.g. database)
-//   });
-// }
-//
 
 module.exports = router;

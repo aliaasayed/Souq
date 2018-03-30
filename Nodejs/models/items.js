@@ -1,5 +1,6 @@
 var mongoose = require ("mongoose");
 var Schema = mongoose.Schema;
+var mongoose_paginate= require("mongoose-paginate");
 
 
 //******** Building Schema*******
@@ -16,6 +17,6 @@ var items = new Schema({
 
 });
 
-
+items.plugin(mongoose_paginate);
 //******** Registering *******
 mongoose.model("items", items);
