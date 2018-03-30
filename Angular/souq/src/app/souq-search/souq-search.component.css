@@ -1,11 +1,22 @@
 .leftdiv{
-  width:20%;
-  height: 100%;
+
    background-color:#d5d9e0;
    float:left;
 
 }
+.num{
+  font-size: 20px;
+  color: black;
+  z-index: -10px;
+  left: -12px;
+}
+.Offer{
 
+  background-color:yellow;
+  color: black;
+  font-size:16px;
+
+}
 .rightdiv{
   width:80%;
    float:left;
