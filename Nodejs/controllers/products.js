@@ -437,13 +437,16 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 })
 
 // ---------------------Top Trending---------------------------------
-router.post("/toptrending",urlEncodedMid,function(request,response)
+router.get("/toptrending",function(request,response)
 {
-    ProductsModel.findOne({_id:request.body.Id},function(err,data){
-   // response.product = data;
-   
-   console.log(data.rating["T"])
-    response.json(data.rating["T"]);
+    var filter = { rating: { T: { $ne : 0 } } };
+    var fields = {};
+    // var options = {sort:{rating: { T: -1 }}};
+    var options = {sort:{ T: -1 }};
+    
+    ProductsModel.find(filter, fields, options,function(err,data){
+   console.log(data)
+    response.json(data);
 });
 })
 
