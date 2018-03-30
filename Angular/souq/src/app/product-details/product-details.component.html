@@ -38,8 +38,8 @@
 
         <div class="col-sm-3">
         <div class="dropdown">
-          <div class="dropdown-content">
-            <button (click)="addTocart()" type="button"  class="btn btn-success" > Add to cart</button>
+          <div *ngIf="logedUser.nationalID==null" class="dropdown-content">
+            <button  (click)="addTocart()" type="button"  class="btn btn-success" > Add to cart</button>
           </div>
         <br><br><br><br>
         </div>
