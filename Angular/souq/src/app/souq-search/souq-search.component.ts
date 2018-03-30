@@ -10,6 +10,7 @@ import { CategoriesService } from '../categories.service';
 export class SouqSearchComponent implements OnInit {
 
   serachRes;
+  checked=false;
   pages;
   reslen;
   SearchWord="";
@@ -26,10 +27,27 @@ export class SouqSearchComponent implements OnInit {
 
   constructor(private souqSearchService: SouqSearchService,private categoriesService: CategoriesService) {
 
+    this.categoriesService.getCategories().subscribe((res)=>{
+      this.categories=res;
+      console.log(this.categories.length);
+     
+    });
+   
+  
 
+    // for(var i=0;i<this.categories.length;i++)
+    // {
+    //   for(var j=0;i<this.categories[i].subcategories.length;j++)
+    //   var subcategory=this.categories[i].subcategories;
+    //   this.options.push({name:subcategory,value:subcategory,checked:false});
+    // }
+    // console.log(this.options) 
+   
    }
 
+
   ngOnInit() {
+    console.log(this.categories) 
   }
 //check boxes
 
@@ -44,7 +62,8 @@ get selectedOptions() { // right now: ['1','3']
 
   clickcheck(){
 
-    console.log("click")
+    console.log("subcategory")
+    // this.options.push(subcategory)
      this.liveSearch()
   }
 
