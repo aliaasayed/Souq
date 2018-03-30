@@ -202,7 +202,7 @@ router.post("/rate",urlEncodedMid,function(request,response)
                             product.rating[5]
                           );
 
-      product.rating.T = Math.round(product.rating.T*10)/10;
+      product.rating.T = Math.round(product.rating.T);
 
 
 
