@@ -1,3 +1,11 @@
+<div style="text-align: center;" *ngIf="sellerOrders.length == 0">
+<h3> Sorry but you don't have any Orders yet </h3>
+<button type="button" class="btn btn-secondary" routerLink= "/sellerHome"> Return Home</button>   
+</div>
+
+
+
+<h2 *ngIf="sellerOrders.length != 0">My Orders</h2>
 <div class="order" *ngFor="let order of sellerOrders,let i=index">
       <div class="panel panel-default">
           <div class="panel-body">
