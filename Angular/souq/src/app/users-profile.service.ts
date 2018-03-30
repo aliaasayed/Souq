@@ -7,7 +7,9 @@ export class UsersProfileService {
 
 //for get and update user profile
   constructor(private http:HttpClient) { }
-
+  getOffers(): Observable<any> {
+    return this.http.get<any>("https://localhost:9090/products/offers")
+  }
   getUserProfile(): Observable<any> {
     const headers = new HttpHeaders()
         .set('authorization', localStorage.getItem('SouqtokenKey'))

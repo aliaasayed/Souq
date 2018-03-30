@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import {NgForm} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -10,12 +11,14 @@ import {NgForm} from '@angular/forms';
 
 export class UserRegisterComponent implements OnInit {
   image; /* property of File type */
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService,private route:Router) {}
   submitIt(form) {
     console.log(form.valid);
     form.value.image=this.image;
     this.loginService.register(form.value).subscribe((res)=>{
     console.log(res);
+    this.route.navigate(['/souq/login'])
+
   });
 }
 fileUpload(files)

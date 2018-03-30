@@ -2,12 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { LoginService } from './login.service';
+import {GlobalDataService} from './global-data.service'
 
 @Injectable()
 export class ProductService {
   product:any;
-  constructor(private http:HttpClient) { }
-
+  sellId;
+	constructor(private http: HttpClient,private globalDataService: GlobalDataService) {
+	this.globalDataService.currentuser.subscribe((res)=>{
+		this.sellId = res['_id'];
+		console.log("loged user",res)
+	});
+}
   getProducts(name,page:Number): Observable<any> {
 
   console.log(`https://localhost:9090/products/Plist/${page}`);
@@ -95,7 +101,7 @@ addProductTocaret(prodID:any):Observable<any> {
   addproduct(form):Observable<any>{
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
-  form.SellerID = JSON.parse(localStorage.getItem('SouqloginUser'))._id;
+  form.SellerID = this.sellId
   console.log(form);
 
   return this.http.post<any>('https://localhost:9090/products/add', form,

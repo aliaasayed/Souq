@@ -47,6 +47,11 @@ router.get("/listSub/:catId",function(req,res){
   // res.send("haaay");
 });
 
-
+router.get("/sub/:name",function(req,res){
+  CatModel.find({Name:req.params.name},function(err,result){
+    console.log(result[0]);
+    res.json(result[0]);
+  });
+});
 
 module.exports = router;

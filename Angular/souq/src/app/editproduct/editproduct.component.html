@@ -5,49 +5,62 @@
 				<div class="panel-title"> Update Product</div>
 			</div>
 			<div class="panel-body panel-pad">
+				<div class="media-left">
+						<img width="200px" class="media-object" style="width:150px" src="{{product.image}}" alt="">
+				</div>
 				<!-- <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> -->
-        <form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
+				<div class="media-body">
+				<form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
 						<div class="input-group margT25">
 							<span class="input-group-addon">
 								<i class="glyphicon glyphicon-user"></i>
 							</span>
-              <input type="text" name="name" class="form-control" [(ngModel)]= "product.name" required><br>
+              <input type="text" name="name" placeholder="name" class="form-control" [(ngModel)]= "product.name" required><br>
 						</div><br>
 						<div class="input-group margT25">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input type="number" name="price" class="form-control" [(ngModel)]= "product.price" required><br>
+              <input type="number" name="price" placeholder="price" class="form-control" [(ngModel)]= "product.price" required><br>
 						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="fa fa-at"></i></span>
-              <input type="number" name="stock" class="form-control" [(ngModel)]= "product.stock" required><br>
+              <input type="number" name="stock" placeholder="stock" class="form-control" [(ngModel)]= "product.stock" required><br>
             </div><br>
 						<div class="input-group margT25">
 							<span class="input-group-addon"><i class="fa fa-at"></i></span>
-              <input type="number" name="offer" class="form-control" [(ngModel)]= "product.offer" required><br>
+              <input type="number" name="offer" placeholder="offer" class="form-control" [(ngModel)]= "product.offer" required><br>
 						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-              <input type="text" name="description" class="form-control" [(ngModel)]= "product.description" required><br>
+              <input type="text" name="description" placeholder="description" class="form-control" [(ngModel)]= "product.description" required><br>
             </div><br>
-            <div class="input-group margT25">
+						<div class="input-group margT25">
               <span class="input-group-addon"><i class="fa fa-at"></i></span>
-              <input type="text" name="category" class="form-control" [(ngModel)]= "product.category" required><br>
-            </div><br>
+							<select [(ngModel)]= "product.category" class="form-control" name="category" (click)="getsubCategory($event.target.value)">
+								<!-- <option value="" selected disabled hidden>{{product.category}}</option> -->
+								<option *ngFor="let category of categories , let i=index">{{category.Name}}</option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-              <input type="text" name="subcategory" class="form-control" [(ngModel)]= "product.subcategory" required><br>
-            </div><br>
+							<select [(ngModel)]= "product.subcategory" class="form-control" name="subcategory" >
+								<option value="" selected disabled hidden>Sub Category</option>
+								<option *ngFor="let subcategory of subcategories, let i=index" value="{{subcategory}}">{{subcategory}}  </option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-              <input type="text" name="specifications" class="form-control" [(ngModel)]= "product.specifications" required><br>
+              <input type="text" name="specifications" placeholder="sepecification" class="form-control" [(ngModel)]= "product.specifications" required><br>
             </div><br>
 						<div class="form-group margT10">
 						<!-- Button -->
+						<img  width="100px" height="100px" src="{{image}}" alt="upload image">
+
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
                base-sixty-four-input/>
               <input type="submit" class="btn btn-block btn-success">
 						</div>
 					</form>
+				</div>
 				</div>
 			</div>
 		</div>

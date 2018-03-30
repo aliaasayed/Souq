@@ -31,18 +31,26 @@
             </div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="fa fa-at"></i></span>
-              <input type="text" name="category" class="form-control" ngModel required placeholder="category"><br>
-            </div><br>
+							<select ngModel class="form-control" name="category" (click)="getsubCategory($event.target.value)">
+								<option value="" selected disabled hidden>Category</option>
+								<option *ngFor="let category of categories , let i=index">{{category.Name}}</option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-              <input type="text" name="subcategory" class="form-control" ngModel required placeholder="subcategory"><br>
-            </div><br>
+							<select ngModel class="form-control" name="subcategory" placeholder="Subcategory">
+								<option value="" selected disabled hidden>Sub Category</option>
+								<option *ngFor="let subcategory of subcategories, let i=index" value="{{subcategory}}">{{subcategory}}</option>
+							</select>
+						</div><br>
             <div class="input-group margT25">
               <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
               <input type="text" name="specifications" class="form-control" ngModel required placeholder="specifications"><br>
             </div><br>
 						<div class="form-group margT10">
 						<!-- Button -->
+						<img  width="100px" height="100px" src="{{image}}" alt="upload image">
+
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
                base-sixty-four-input/>
               <input type="submit" class="btn btn-block btn-success">

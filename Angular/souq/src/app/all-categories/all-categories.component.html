@@ -6,9 +6,10 @@
         </div>
       <div class="panel-body">
               <ul>
-                  <li *ngFor="let subcategory of category.subcategories ,let i=index">
-                      <a> {{ subcategory }}</a>
+                  <li *ngFor="let subcategory of category.subcategories ,let i=index" >
+                      <a  routerLink="/souq/product/{{subcategory}}"> {{ subcategory }}</a>
                   </li>
+                  
   
                 </ul>
       </div>

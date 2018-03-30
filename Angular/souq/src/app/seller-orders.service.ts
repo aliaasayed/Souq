@@ -5,10 +5,10 @@ import {GlobalDataService} from './global-data.service'
 
 @Injectable()
 export class SellerOrdersService {
-  uid;
+  sellerId;
     constructor(private http: HttpClient,private globalDataService: GlobalDataService) {
     this.globalDataService.currentuser.subscribe((res)=>{
-      this.uid = res['_id'];
+      this.sellerId = res['_id'];
       console.log("loged user",res)
     });
   }
@@ -17,7 +17,7 @@ export class SellerOrdersService {
 
     const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
-    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.uid}`);
+    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.sellerId}`);
   }
 
   getSellerOrderDetails(orderID):Observable<any> {
