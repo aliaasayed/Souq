@@ -14,14 +14,12 @@ console.log("Iam INNNN");
 
 //*****************veifyToken***********************//
 function verifyJWToken(req,res,next){
-  console.log("ddddddddd")
   const authHeader=req.headers['authorization'];
   if( typeof authHeader!=="undefined"){
      req.token=authHeader;
      jwt.verify(req.token,'myscret',(err,data)=>{
         if(!err){
-        req.uid=data.Id;
-        console.log("item verify token ",req.uid);
+        req.uid=data.userdata._id;
         next();
       }
       });
@@ -123,11 +121,10 @@ router.get("/myCart/:cId",function(req,res){
 router.post("/addToCart",[verifyJWToken,bodyParser.json()], function(req, res){
 	var newCartItem = new ItemModel();
 	newCartItem._id = new mongoose.Types.ObjectId;
-	newCartItem.clientId = req.body.clientId;
+	newCartItem.clientId = req.uid;
 	newCartItem.prodId = req.body.prodId;
 	newCartItem.quantity = 1;
 	newCartItem.state = 'Cart';
-    console.log("ssmmmmmmmmmmmms",req.body)
 	newCartItem.save(function(err, item){
 		if(err){
 			res.json(err);

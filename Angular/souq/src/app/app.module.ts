@@ -27,6 +27,7 @@ import { ProductService } from './product.service';
 import { ProductSouqComponent } from './product-souq/product-souq.component';
 import { SellerProComponent } from './seller-pro/seller-pro.component';
 import { SellerProductsService } from './seller-products.service';
+import { GlobalDataService } from './global-data.service';
 
 
 
@@ -44,6 +45,8 @@ import { AllCategoriesComponent } from './all-categories/all-categories.componen
 import { MycartDetailComponent } from './mycart-detail/mycart-detail.component';
 
 import { AddProductComponent } from './addproduct/addproduct.component';
+import { SouqSearchComponent } from './souq-search/souq-search.component';
+import { SouqSearchService } from './souq-search.service';
 
 
 
@@ -85,6 +88,7 @@ export function getAuthServiceConfigs() {
 
     AddProductComponent,
     EditProductComponent,
+    SouqSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,9 @@ export function getAuthServiceConfigs() {
       UsersProfileService,
       ProductService,
       SellerProductsService,
-      CategoriesService
+      CategoriesService,
+      SouqSearchService,
+      GlobalDataService
   ],
   bootstrap: [AppComponent]
 })

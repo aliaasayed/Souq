@@ -14,8 +14,8 @@
 
                             <i class="fas fa-bars fa-lg"></i>
                             </button></li>
-                        <li> <a *ngIf="!logedUser.nationalID && configData.login" class="navbar-brand" routerLink="/userhome"> My Cart <i class="fab fa-opencart"></i></a></li>
-                        <li> <a *ngIf="logedUser.nationalID && configData.login" class="navbar-brand" routerLink="/sellerHome"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li> <a *ngIf="!logedUser.nationalID && logedUser" class="navbar-brand" routerLink="/userhome"> My Cart <i class="fab fa-opencart"></i></a></li>
+                        <li> <a *ngIf="logedUser.nationalID && logedUser" class="navbar-brand" routerLink="/sellerHome"> My Cart <i class="fab fa-opencart"></i></a></li>
                         <li> <a *ngIf="!configData.login" class="navbar-brand"> My Cart <i class="fab fa-opencart"></i></a></li>
                         <li *ngIf="!logedUser.nationalID && configData.login">
                           <form class="navbar-form " method="POST" action="">
@@ -33,12 +33,12 @@
 
 
                       <ul class="nav navbar-nav navbar-right">
-                          <li *ngIf="!configData.login"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
-                          <li *ngIf="!configData.login"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
-                          <li *ngIf="configData.login"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
-                          <li *ngIf="configData.login"><a routerLink="/souq/home/profile">{{logedUser.name}}</a></li>
-                          <li *ngIf="!logedUser.nationalID && configData.login"><a routerLink="/souq/myCart"><i class="fas fa-shopping-cart fa-2x icon"><p class="badge1" data-badge="6"></p></i></a></li>
-                          <li *ngIf="configData.login" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-out icon" ></span> Logout</a></li>
+                          <li *ngIf="logedUser._id==null"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
+                          <li *ngIf="logedUser._id==null"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
+                          <li *ngIf="logedUser.image"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
+                          <li *ngIf="logedUser.name"><a routerLink="/souq/home/profile">{{logedUser.name}}</a></li>
+                          <!-- <li *ngIf="logedUser._id"><a routerLink="/souq/myCart"><i class="fas fa-shopping-cart fa-2x icon"><p class="badge1" data-badge="`{{cartCount}}`">{{cartCount}}</p></i></a></li> -->
+                          <li *ngIf="logedUser.image" (click)="logout()"><a href="#"><span class="glyphicon glyphicon-log-out icon" ></span> Logout</a></li>
                       </ul>
                     </div>
                   </nav>

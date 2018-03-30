@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
+import {GlobalDataService} from '../global-data.service'
 
 @Component({
   selector: 'app-product-souq',
@@ -18,7 +19,7 @@ export class ProductSouqComponent implements OnInit {
   IsAdded=false;
   Isexist=false;
   i=1;
-  constructor(private productService: ProductService,private loginService: LoginService) {
+  constructor(private productService: ProductService,private loginService: LoginService,private globalDataService:GlobalDataService) {
    this.getFProductPage();
 
    }
@@ -55,12 +56,10 @@ export class ProductSouqComponent implements OnInit {
     if(localStorage.getItem('SouqtokenKey')){
 
       this.loginService.verifyToken().subscribe((res)=>{
-        console.log(res);
           if(res['success']='valid'){
                   this.productService.checkProductExistInCart(this.selectedItem._id).subscribe((exist_res)=>{
                       if(exist_res.mes=="notexist"){
                             this.productService.addProductTocaret(this.selectedItem._id).subscribe((add_res)=>{
-                              console.log("sssssssssss",add_res);
                               if(add_res['success']){
                                 console.log("item added to caret successfulyy")
                                 this.IsAdded=true;

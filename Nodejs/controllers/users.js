@@ -16,7 +16,8 @@ function verifyJWToken(req,res,next){
   if( typeof authHeader!=="undefined"){
     jwt.verify(authHeader,'myscret',(err,data)=>{
       if(!err){
-        req.data=data;
+        
+        req.data=data.userdata;
         next();
       }
       else
