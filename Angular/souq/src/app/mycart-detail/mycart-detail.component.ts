@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import {GlobalDataService} from '../global-data.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mycart-detail',
@@ -17,7 +18,8 @@ removeItem=false;
 futurelist=false;
 selectedItem;
 
-  constructor(private productService: ProductService,private globalDataService:GlobalDataService) {
+  constructor(private productService: ProductService
+    ,private globalDataService:GlobalDataService,private route:Router) {
     this.getmyCartProductcount();
     this.getmyCartProductsFp();
    }
@@ -100,6 +102,8 @@ selectedItem;
           console.log("update result ",res)
           this.getmyCartProductcount();
           this.getmyCartProductsFp();//reload data again after deleting
+          this.route.navigate(['/myOrders'])
+
      });
  }
 }

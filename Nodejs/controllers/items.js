@@ -90,7 +90,7 @@ router.get("/cOrders/:cId/:page",function(req,res){
 /**************** Show Seller Ordered Items *******************
 ****** Take seller ID and return orders of his products *****
 ***** if itemID is given it will return item (select item) ***/
-router.get("/sellerOrders/:sID/:OID?",function(req,res){
+router.get("/sellerOrders/:sID/:page/:OID?",function(req,res){
   ItemModel.find({state:'Ordered'}).
   populate('prodId').
   exec(function(err,orders){
@@ -112,7 +112,9 @@ router.get("/sellerOrders/:sID/:OID?",function(req,res){
       }
     }
     else{
-      res.json(ordersArr);
+      p = req.params.page;
+      final=[ordersArr.length, ordersArr.slice(p*3-3, p*3)];
+      res.json(final);
       console.log("Seller orders retrieved");
     }
 

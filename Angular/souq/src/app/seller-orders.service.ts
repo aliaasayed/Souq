@@ -13,11 +13,11 @@ export class SellerOrdersService {
     });
   }
 
-  getSellerOrders():Observable<any> {
+  getSellerOrders(page):Observable<any> {
 
     const headers = new HttpHeaders()
         .set('Content-Type', 'application/json');
-    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.sellerId}`);
+    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.sellerId}/${page}`);
   }
 
   getSellerOrderDetails(orderID):Observable<any> {
@@ -26,7 +26,7 @@ export class SellerOrdersService {
         .set('Content-Type', 'application/json');
 
     var uid=JSON.parse(localStorage.getItem('SouqloginUser'))._id;
-    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${uid}/${orderID}`);
+    return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${uid}/1/${orderID}`);
   }
 
 }

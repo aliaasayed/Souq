@@ -89,7 +89,7 @@
 
 }
 .searchbox{
-  width:80%;
+  width:70%;
   height:20%;
 }
 #imaginary_container{
@@ -208,3 +208,7 @@ a{
     -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
 
     }
+.glyphicon-search
+{
+  color:#6d7fc1;
+}

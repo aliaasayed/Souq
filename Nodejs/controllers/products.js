@@ -236,7 +236,7 @@ router.post("/rating",urlEncodedMid,function(request,response)
 
 
     RatingsModel.find({ $and: [ { product_id: { $eq: productID } }, { user_id: { $eq: userID } } ] } , function(error, results) {
-        if (results != "") 
+        if (results != "")
         {
             // console.log(results);
             var oldRating = results.rating
@@ -251,7 +251,7 @@ router.post("/rating",urlEncodedMid,function(request,response)
                     return error;
                   }
                 else
-                  {  
+                  {
                     product.rating.oldRating = product.rating[oldRating]--;
                     product.rating.newrate = product.rating[newrate]++;
                     product.rating.T = (
@@ -269,11 +269,11 @@ router.post("/rating",urlEncodedMid,function(request,response)
                       product.rating[5]
                     );
                     product.rating.T = Math.round(product.rating.T*10)/10;
-                    product.save(function (err, updatedProduct) 
+                    product.save(function (err, updatedProduct)
                     {
                         if (err)
                           {
-                            console.log(product); 
+                            console.log(product);
                             console.log(err);
                             response.send(err)
                           }
@@ -290,14 +290,14 @@ router.post("/rating",urlEncodedMid,function(request,response)
             {
               response.send("no update to record");
             }
-          
-        }    
+
+        }
         else
         {
           var rating = new RatingsModel({
           product_id: productID,
           user_id: userID,
-          rating: newrate,  
+          rating: newrate,
           });
 
           rating.save(function(err,doc){})
@@ -332,7 +332,7 @@ router.post("/rating",urlEncodedMid,function(request,response)
                               );
 
           product.rating.T = Math.round(product.rating.T*10)/10;
-          product.save(function (err, updatedProduct) 
+          product.save(function (err, updatedProduct)
           {
               if (err)
                 {
@@ -346,12 +346,12 @@ router.post("/rating",urlEncodedMid,function(request,response)
                 }
           });
 
-        
-        });
-      }            
-     
 
-    
+        });
+      }
+
+
+
 });
 });
 
@@ -430,7 +430,7 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 {
     ProductsModel.findOne({_id:request.body.Id},function(err,data){
    // response.product = data;
-   
+
    console.log(data.rating["T"])
     response.json(data.rating["T"]);
 });
@@ -439,6 +439,7 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 // ---------------------Top Trending---------------------------------
 router.get("/toptrending",function(request,response)
 {
+
     var filter = { rating: { T: { $ne : 0 } } };
     var fields = {};
     // var options = {sort:{rating: { T: -1 }}};
@@ -447,6 +448,8 @@ router.get("/toptrending",function(request,response)
     ProductsModel.find(filter, fields, options,function(err,data){
    console.log(data)
     response.json(data);
+
+    
 });
 })
 
