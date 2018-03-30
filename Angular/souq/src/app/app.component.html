@@ -42,7 +42,7 @@
                   <div class="bar">
                     <li class="dropdown"><a class="btn dropbtn" routerLink="/AllCategories">All Categories</a></li>
                      <li class="dropdown" *ngFor="let category of categories , let i=index">
-                        <a  class="btn dropbtn" data-toggle="dropdown"  data-delay="3000" data-close-others="false">
+                        <a  id="myLink" class="btn dropbtn" data-delay="3000" data-close-others="false">
                             {{ category.Name }} 
                         </a>
                         <ul class="dropdown-menu">
