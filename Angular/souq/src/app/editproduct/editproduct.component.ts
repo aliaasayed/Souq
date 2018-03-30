@@ -3,6 +3,7 @@ import { ProductService } from '../product.service';
 import { ActivatedRoute } from '@angular/router'
 import {NgForm} from '@angular/forms';
 import { CategoriesService } from '../categories.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-editproduct',
@@ -17,7 +18,8 @@ export class EditProductComponent implements OnInit
   categories;
   subcategories;
   constructor(private ProductService: ProductService,
-    private route : ActivatedRoute,private categoriesService: CategoriesService)
+    private route : ActivatedRoute,
+    private categoriesService: CategoriesService  ,private rou:Router)
   {
     this.categoriesService.getCategories().subscribe((res)=>{
       this.categories=res
@@ -38,6 +40,7 @@ export class EditProductComponent implements OnInit
 
     this.ProductService.updateproduct(form.value,this.id).subscribe((res)=>{
     console.log(res);
+    this.rou.navigate(['/sellerHome'])
   });
 }
 fileUpload(files)

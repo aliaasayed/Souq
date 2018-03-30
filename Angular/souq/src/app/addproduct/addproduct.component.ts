@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import {NgForm} from '@angular/forms';
 import { CategoriesService } from '../categories.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addproduct',
@@ -14,7 +15,9 @@ export class AddProductComponent implements OnInit
   image;
   categories;
   subcategories;
-  constructor(private ProductService: ProductService,private categoriesService: CategoriesService) {
+  constructor(private ProductService: ProductService,
+    private categoriesService: CategoriesService
+  ,private route:Router) {
     this.categoriesService.getCategories().subscribe((res)=>{
       this.categories=res
       console.log(res)
@@ -29,6 +32,8 @@ export class AddProductComponent implements OnInit
 
     this.ProductService.addproduct(form.value).subscribe((res)=>{
     console.log(res);
+    this.route.navigate(['/sellerHome'])
+
   });
 }
 fileUpload(files)

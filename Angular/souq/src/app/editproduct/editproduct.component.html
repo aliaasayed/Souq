@@ -5,8 +5,12 @@
 				<div class="panel-title"> Update Product</div>
 			</div>
 			<div class="panel-body panel-pad">
+				<div class="media-left">
+						<img width="200px" class="media-object" style="width:150px" src="{{product.image}}" alt="">
+				</div>
 				<!-- <div id="login-alert" class="alert alert-danger col-sm-12 login-alert"></div> -->
-        <form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
+				<div class="media-body">
+				<form (ngSubmit)="update(updateproductForm)" #updateproductForm="ngForm">
 						<div class="input-group margT25">
 							<span class="input-group-addon">
 								<i class="glyphicon glyphicon-user"></i>
@@ -48,11 +52,14 @@
             </div><br>
 						<div class="form-group margT10">
 						<!-- Button -->
+						<img  width="100px" height="100px" src="{{image}}" alt="upload image">
+
               <input type="file" class="btn btn-block btn-success" #fileupload ngModel name="image" (change)="fileUpload(fileupload.files)"
                base-sixty-four-input/>
               <input type="submit" class="btn btn-block btn-success">
 						</div>
 					</form>
+				</div>
 				</div>
 			</div>
 		</div>
