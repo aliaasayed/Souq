@@ -12,7 +12,6 @@ export class UserProfileDetailComponent implements OnInit {
   image;
  user={};
   constructor(private usersProfileService:UsersProfileService) {
-
     if(localStorage.getItem('SouqtokenKey')){//there token exist in localS
       this.usersProfileService.getUserProfile().subscribe((res)=>{
        console.log(res.user);

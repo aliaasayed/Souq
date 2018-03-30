@@ -18,7 +18,6 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 import { LoginSouqComponent } from './login-souq/login-souq.component';
 import { SellerRegisterComponent } from './seller-register/seller-register.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { UserProfileDetailComponent } from './user-profile-detail/user-profile-detail.component';
 
@@ -76,7 +75,6 @@ export function getAuthServiceConfigs() {
 
     UserRegisterComponent,
     LoginSouqComponent,
-    SellerHomeComponent,
     ForgetPasswordComponent,
     SellerRegisterComponent,
 

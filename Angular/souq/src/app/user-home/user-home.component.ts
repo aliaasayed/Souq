@@ -8,7 +8,8 @@ export class UserHomeComponent implements OnInit {
   max: number = 5;
   rate: number = 2;
   isReadonly: boolean = true;
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
   }
