@@ -47,7 +47,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let subcategory of category.subcategories , let i=index">
-                                <a href="#"> {{ subcategory }} </a>
+                                <a routerLink="/souq/product/{{subcategory}}"> {{ subcategory }} </a>
                             </li>
                         </ul>
                      </li>
