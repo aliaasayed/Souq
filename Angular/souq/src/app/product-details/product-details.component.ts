@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { LoginService } from '../login.service';
 import { ActivatedRoute } from '@angular/router'
+import {GlobalDataService} from '../global-data.service'
 
 @Component({
   selector: 'app-product-details',
@@ -16,8 +17,16 @@ export class ProductDetailsComponent implements OnInit {
   Isexist=false;
   product_id;
   product={};
+  logedUser;
   constructor(private productService: ProductService,
-    private loginService: LoginService,private route : ActivatedRoute) {
+    private loginService: LoginService,
+    private route : ActivatedRoute,
+  private globalDataService:GlobalDataService) {
+      this.globalDataService.currentuser.subscribe((res)=>{
+        this.logedUser=res
+        console.log(res)
+
+      })
       this.route.params.subscribe((params) => {this.product_id=params['id']
       console.log(params)});
       this.productService.getUpdateData(this.product_id).subscribe((res)=>{

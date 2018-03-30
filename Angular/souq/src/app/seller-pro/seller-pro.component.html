@@ -1,5 +1,3 @@
-
-
 <div class="container-fluid " >
 	<div class="row" *ngFor = "let product of products.docs">
 		<div class="col-sm-2"></div>
@@ -23,7 +21,7 @@
 						<span *ngIf="product.rating.T < 3" class="fa fa-star "></span>
 						<span *ngIf="product.rating.T < 4" class="fa fa-star "></span>
 						<span *ngIf="product.rating.T < 5" class="fa fa-star "></span>
-						
+
 						<span id="rate">({{product.rating.T}}/5)</span>
 					<p id="desc">{{product.description}}</p>
 			    </div>

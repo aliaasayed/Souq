@@ -11,15 +11,13 @@ import {Router,ActivatedRoute, ParamMap} from '@angular/router';
 
 
 export class OrderDetailsComponent implements OnInit {
-	
 	productData = {name: "", image:""};
 	userInfo = {name:"", email:"", address: ""};
-	OId;	
+	OId;
 
 	constructor(private orderDetailsService: OrderDetailsService,
 				private router: Router,private activatedRoute: ActivatedRoute
 				) {
-						
 				}
 
 	getUserInfo(uId){
@@ -34,9 +32,9 @@ export class OrderDetailsComponent implements OnInit {
 		.subscribe(orderData => {
 			this.productData = orderData.prodId;
 			this.getUserInfo(orderData.clientId);
-			 
+
 		});
-		
+
 	}
 
 
@@ -62,8 +60,8 @@ export class OrderDetailsComponent implements OnInit {
 
 	ngOnInit() {
 		this.OId = this.activatedRoute.snapshot.paramMap.get('id');
-		this.checkOrder(this.OId);   
-		
+		this.checkOrder(this.OId);
+
 	}
 
 }

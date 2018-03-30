@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {GlobalDataService} from './global-data.service'
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -9,8 +10,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class SellerProductsService {
 	///to change after megrge-----
-	sellId=JSON.parse(localStorage.getItem('SouqloginUser'))._id
 
+	sellId;
+	constructor(private http: HttpClient,private globalDataService: GlobalDataService) {
+	this.globalDataService.currentuser.subscribe((res)=>{
+		this.sellId = res['_id'];
+		console.log("loged user",res)
+	});
+}
 	getProducts(page): Observable<any>{
 		return this.http.get<any>(`https://localhost:9090/products/seller/${this.sellId}/${page}`)
 		.pipe(
@@ -18,7 +25,6 @@ export class SellerProductsService {
 			);
 	}
 
-	constructor(private http: HttpClient) { }
 
 
 	/**

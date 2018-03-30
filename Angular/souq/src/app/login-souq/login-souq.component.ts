@@ -21,7 +21,9 @@ export class LoginSouqComponent implements OnInit {
   user={email:"",password:""};
   loginPage=false;
 
-  constructor(private loginService: LoginService,private socialAuthService: AuthService,private route:Router,private globalDataService:GlobalDataService){
+  constructor(private loginService: LoginService,
+    private socialAuthService: AuthService,
+    private route:Router,private globalDataService:GlobalDataService){
 
   //web servic take token then retrieve it's rule and info needed
     if(!localStorage.getItem('SouqtokenKey')){//user isnot logged
@@ -48,7 +50,7 @@ export class LoginSouqComponent implements OnInit {
             console.log(res);
             if(res=="true" || res=="user email exist")
             {
-               this.route.navigate(['/userhome'])
+               this.route.navigate(['/souq/home'])
             }else{}
           });
           }
@@ -66,18 +68,15 @@ export class LoginSouqComponent implements OnInit {
         localStorage.setItem('SouqtokenKey', res.token);
 
         this.globalDataService.setUserData(res.user);
-
-        localStorage.setItem('Souqlogin', "true");
-        localStorage.setItem('SouqloginUser', JSON.stringify(res.user));
-
         this.globalDataService.currentuser.subscribe((res)=>{
           this.logedUser=res;
           console.log("loged user",this.logedUser)
         });
 
-
+        if(this.logedUser.nationalID!=null)
+        this.route.navigate(['/sellerHome'])
+        else
         this.route.navigate(['/souq/home'])
-
        }
       else
       console.log(res);
