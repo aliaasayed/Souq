@@ -29,7 +29,7 @@
 			    </div>
 
 
-			
+
 
 			<div>
 					<h3>price range :</h3>
@@ -49,6 +49,7 @@
 		</div>
 
 		<div class="order" *ngFor="let item of serachRes" >
+
  	       <div class="panel panel-default">
  	           <div class="panel-body">
  	               <div class="media">
@@ -56,11 +57,13 @@
  	                     <img src="{{ item.image }}" class="media-object">
  	                   </div>
  	                   <div class="media-body">
+
  	                     <h3 class="media-heading">{{ item.name}}</h3>
  	                     <rating [max]="max" [(ngModel)]="rate"  [readonly]="isReadonly"></rating>
  	                     <p>{{ item.description}}</p>
  	                   </div>
  	                   <div class="media-right" style="width:15%">
+											   <!-- <b> offer <span class="Offer">{{ item.offer}}</span></b> -->
  	                       <h4>{{ item.price}} EGP</h4>
  	                       <p> Avaliable <span class="badge">{{ item.stock}}</span></p>
  	                       <a class="btn btn-primary" routerLink="/productdetails/{{item._id}}">View Details</a>

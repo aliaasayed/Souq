@@ -242,7 +242,7 @@ router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
      console.log("1kkkkkkkkkkkkkkkkkkkkkkkkkkk")
         ProductsModel.paginate({
            name:new RegExp(regexValue, 'i'),
-            subcategory:{"$in":cat},price:{ "$gt" : pricelow},price:{ "$lte" : pricehigh},
+            subcategory:{"$in":cat},price:{ "$gt" : pricelow, "$lt" : pricehigh},
           },{page:page,limit:2},function(err,result){
         res.json({productsData:result});
         });
@@ -251,7 +251,7 @@ router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
   else{
      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     ProductsModel.paginate({name:new RegExp(regexValue, 'i')
-   ,price:{ "$gt" : pricelow},price:{ "$lt" : pricehigh}
+   ,price:{ "$gt" : pricelow, "$lt" : pricehigh}
   },{page:page,limit:2},function(err,result){
     res.json({productsData:result});
     });
