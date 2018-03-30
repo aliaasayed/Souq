@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import {NgForm} from '@angular/forms';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-addproduct',
@@ -11,7 +12,15 @@ import {NgForm} from '@angular/forms';
 export class AddProductComponent implements OnInit
 {
   image;
-  constructor(private ProductService: ProductService) {}
+  categories;
+  subcategories;
+  constructor(private ProductService: ProductService,private categoriesService: CategoriesService) {
+    this.categoriesService.getCategories().subscribe((res)=>{
+      this.categories=res
+      console.log(res)
+    });
+
+  }
 
   submitted(form) {
     console.log(form.valid);
@@ -37,4 +46,10 @@ fileUpload(files)
   ngOnInit() {
   }
 
+getsubCategory(name){
+  this.categoriesService.getsubCategory(name).subscribe((res)=>{
+    this.subcategories=res.subcategories
+
+  });
+}
 }

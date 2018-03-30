@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit(): void {
+
   }
   constructor(private categoriesService: CategoriesService,private loginService: LoginService,private route:Router,private globalDataService:GlobalDataService){
 
@@ -63,6 +64,10 @@ export class AppComponent implements OnInit{
     $('.header').css('margin-left',"0px");
     $('#content').css('margin-left',"0px");
 
+  }
+  showOptions()
+  {
+    $('.dropdown-menu').show();
   }
 
   checklogging(){

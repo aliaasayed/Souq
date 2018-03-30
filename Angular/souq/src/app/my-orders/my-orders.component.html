@@ -1,6 +1,6 @@
 <div style="text-align: center;" *ngIf="products.length == 0">
 <h3> Sorry but you don't have any orders yet </h3>
-<button type="button" class="btn btn-success" routerLink= "/souq/home"> back to Home</button> 	
+<button type="button" class="btn btn-success" routerLink= "/souq/home"> back to Home</button>
 </div>
 
 
@@ -9,10 +9,10 @@
 	<div class="row" *ngFor = "let product of products">
 		<div class="col-sm-2"></div>
 			<div class="well well-lg col-sm-8">
-				
+
 			    <div class="col-sm-3" >
 			    	<img src="{{product.image}}" />
-				  
+
 				</div>
 
 			    <div class="col-sm-6" >
@@ -29,7 +29,7 @@
 						<span *ngIf="product.trate < 4" class="fa fa-star "></span>
 						<span *ngIf="product.trate < 5" class="fa fa-star "></span>
 
-						
+
 
 
 						<span id="rate">({{product.trate}}/5)</span>
@@ -46,7 +46,7 @@
 		<div class="col-sm-2"></div>
 	</div>
 
-		
+
 </div>
 
 <div class="divCenter">
