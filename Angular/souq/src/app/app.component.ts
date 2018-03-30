@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   title = 'app';
   url;
   configData=config;
-  logedUser={ _id:null,email:"",image:"",name:"",hasNatId:false}
+  logedUser={ _id:null,email:null,image:"",name:"",hasNatId:false}
    cartCount=0;
 
 
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit{
 
   logout(){
      localStorage.clear();
-     this.logedUser={ _id:null,email:"",image:"",name:"",hasNatId:false}
+     this.logedUser={ _id:null,email:null,image:"",name:"",hasNatId:false}
     }
 
 

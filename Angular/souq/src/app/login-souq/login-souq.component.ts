@@ -45,13 +45,26 @@ export class LoginSouqComponent implements OnInit {
 
         this.socialAuthService.signIn(socialPlatformProvider).then(
           (userData) => {
-            console.log(socialPlatform+" sign in data : " , userData);
+            // console.log(socialPlatform+" sign in data : " , userData);
+
+
+            this.globalDataService.setUserData(userData);
+            this.globalDataService.currentuser.subscribe((res)=>{
+              this.logedUser=res;
+              console.log("loged userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",this.logedUser)
+            });
+
+
             this.loginService.socialLogin(userData).subscribe((res)=>{
             console.log(res);
             if(res=="true" || res=="user email exist")
             {
+
                this.route.navigate(['/souq/home'])
             }else{}
+
+
+
           });
           }
         );

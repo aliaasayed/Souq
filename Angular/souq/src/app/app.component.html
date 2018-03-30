@@ -29,11 +29,13 @@
 
 
                       <ul class="nav navbar-nav navbar-right">
-                          <li *ngIf="logedUser._id==null"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
-                          <li *ngIf="logedUser._id==null"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
+                        {{logedUser.email}}
+                        {{logedUser.name}}
+                          <li *ngIf="logedUser.email==null"><a routerLink="/souq/userRegister"><span class="glyphicon glyphicon-user icon"></span> Sign Up</a></li>
+                          <li *ngIf="logedUser.email==null"><a routerLink="/souq/login"><span class="glyphicon glyphicon-log-in icon" ></span> Login</a></li>
                           <li *ngIf="logedUser.image"><img class="img-responsive img-circle" src={{logedUser.image}} width="50px"></li>
                           <li *ngIf="logedUser.name"><a routerLink="/souq/home/profile">{{logedUser.name}}</a></li>
-                          <li *ngIf="!logedUser.hasNatId && logedUser._id"><a routerLink="/souq/myCart"><i class="fas fa-shopping-cart fa-2x icon"><p class="badge1" data-badge="">{{cartCount}}</p></i></a></li>
+                          <li *ngIf="!logedUser.hasNatId && logedUser.email"><a routerLink="/souq/myCart"><i class="fas fa-shopping-cart fa-2x icon"><p class="badge1" data-badge="">{{cartCount}}</p></i></a></li>
                           <li *ngIf="logedUser.name" (click)="logout()"><a routerLink="/souq/home"><span class="glyphicon glyphicon-log-out icon" ></span> Logout</a></li>
                       </ul>
                     </div>
