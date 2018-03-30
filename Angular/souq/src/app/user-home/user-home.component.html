@@ -1,29 +1,14 @@
-
-
+<div class="" style="margin-left:5%;width:90%">
 <carousel>
-    <slide>
-      <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="First slide" style="display: block; width: 100%;">
+    <slide *ngFor="let product of products , let i=index">
+      <a routerLink="/productdetails/{{product._id}}"><img src="{{product.image}}" alt="First slide" style="display: block; width: 100%;"></a>
       <div class="carousel-caption d-none d-md-block">
-        <h3>First slide label</h3>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </div>
-    </slide>
-    <slide>
-      <img src="" alt="Second slide" style="display: block; width: 100%;">
-      <div class="carousel-caption d-none d-md-block">
-        <h3>Second slide label</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </slide>
-    <slide>
-      <img src="" alt="Third slide" style="display: block; width: 100%;">
-      <div class="carousel-caption d-none d-md-block">
-        <h3>Third slide label</h3>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        <h3>{{product.name}}</h3>
+        <p>Offer : {{product.offer}} %</p>
       </div>
     </slide>
   </carousel>
-
+</div>
 <br>
 <br>
 <hr>

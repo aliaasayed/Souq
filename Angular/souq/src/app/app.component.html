@@ -54,9 +54,11 @@
                   <button class="closebtn" (click)="HideSideMenu()">&times;</button>
                   <a *ngIf="!logedUser.hasNatId && configData.login" routerLink="/souq/home">Home</a>
                   <a *ngIf="logedUser.hasNatId && configData.login" routerLink="/sellerHome">Home</a>
-                  <a *ngIf="configData.login" routerLink="/souq/home/profile">My Account</a>
-                  <a *ngIf="!logedUser.hasNatId && configData.login" routerLink="/myOrders">My Orders</a>
+                  <a *ngIf="logedUser._id" routerLink="/souq/home/profile">My Account</a>
+                  <a *ngIf="logedUser._id && !logedUser.hasNatId && configData.login" routerLink="/myOrders">My Orders</a>
                   <a *ngIf="logedUser.hasNatId && configData.login" routerLink="/sellerOrders">My Orders</a>
+                  <a *ngIf="logedUser.hasNatId && configData.login" routerLink="/addproduct">Add product</a>
+
                     <label>Categories</label>
                     <ul class="list-unstyled">
                       <li *ngFor="let category of categories , let j=index">

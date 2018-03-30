@@ -381,7 +381,7 @@ router.post("/rating",urlEncodedMid,function(request,response)
 });
 });
 
-// ------------------------top offers--------------------------------
+// ------------------------top trending--------------------------------
 
 router.get("/top",function(request,response)
 {
@@ -397,5 +397,11 @@ router.get("/top",function(request,response)
       })
 
 });
+
+
+
+
+
+//{name:new RegExp(/lack/, 'i'),subcategory:{$in:["shoes"," "]}}
 
 module.exports = router;

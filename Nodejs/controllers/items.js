@@ -55,15 +55,15 @@ router.get("/cOrders/:cId/:page",function(req,res){
         for (i in result){
           prodIds.push(result[i].prodId);
           stateArr.push(result[i].state);
-        } 
-            
+        }
+
         ProductsModel.paginate(
           {_id: {$in: prodIds} },
           {page:req.params.page,limit:3},
           function(err,product){
             if (product) {
               product = product.docs;
-            } 
+            }
             else {
                 res.send("Error: No product Found!");
             }
@@ -100,7 +100,7 @@ router.get("/sellerOrders/:sID/:OID?",function(req,res){
       if(orders[i].prodId.SellerID == req.params.sID){
         ordersArr.push(orders[i]);
       }
-    } 
+    }
 
     if(req.params.OID){       //if orderId was given
       for(j = 0; j < ordersArr.length; j++){
