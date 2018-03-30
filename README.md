@@ -15,7 +15,7 @@ An online Shopping Web Application built with MEAN
 Inside the project directory run:
 ```
 		mongorestore --db Souq toImport
-		cd Nodejs; npm install; mongod; cd ..
+		cd Nodejs; npm install; mongod; nodemon app; cd ..
 		cd Angular/souq; npm install; ng serve -ssl -o
 
 ```
