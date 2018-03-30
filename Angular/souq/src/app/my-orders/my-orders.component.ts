@@ -22,6 +22,9 @@ export class MyOrdersComponent implements OnInit {
 			this.products = products;
 			this.pagesNo = Math.ceil(this.products.length/3);
 			this.pagesArr = new Array <Number>(parseInt(this.pagesNo));
+			// console.log("ffdf");
+			// console.log(this.pagesNo);
+			// console.log(this.pagesArr);
 		});
 
 	}

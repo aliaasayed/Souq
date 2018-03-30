@@ -41,3 +41,7 @@ button{
     padding: 20px; 
     width: 200px;    
 }
+
+.divCenter{
+    text-align: center;
+}
