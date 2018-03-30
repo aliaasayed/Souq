@@ -62,3 +62,10 @@ button{
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+
+.btn.btn-secondary{
+    width: auto;
+    color: blue;
+}

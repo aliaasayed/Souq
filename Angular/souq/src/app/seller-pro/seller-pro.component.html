@@ -1,3 +1,11 @@
+<div style="text-align: center;" *ngIf="products.docs.length == 0">
+<h3> Sorry but you don't have any products yet </h3>
+<button type="button" class="btn btn-secondary" routerLink= "/addproduct"> Start adding products</button> 	
+</div>
+
+
+
+
 <div class="container-fluid " >
 	<div class="row" *ngFor = "let product of products.docs">
 		<div class="col-sm-2"></div>

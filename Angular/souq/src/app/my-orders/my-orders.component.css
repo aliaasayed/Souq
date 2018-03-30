@@ -45,3 +45,8 @@ button{
 .divCenter{
     text-align: center;
 }
+
+
+.btn.btn-success{
+    width: auto;
+}
