@@ -7,13 +7,13 @@
                   </div>
                   <div class="media-body">
                     <h3 class="media-heading">{{ order.prodId.name}}</h3>
-                    <rating [max]="max" [(ngModel)]="rate"  [readonly]="isReadonly"></rating>
+                    <rating [max]="max" [(ngModel)]="order.prodId.rating.T"  [readonly]="isReadonly"></rating>
                     <p>{{ order.prodId.description}}</p>
                   </div>
                   <div class="media-right" style="width:15%">
                       <h4>{{ order.prodId.price}} EGP</h4>
                       <p> Avaliable <span class="badge">{{ order.prodId.stock}}</span></p>
-                      <a class="btn btn-primary" [routerLink]="['/orderDetails',order._id]">View Order Details</a>
+                      <a class="btn btn-primary" [routerLink]="['/orderDetails',order._id,selectedPage]">View Order Details</a>
 
                     </div>
                 </div>

@@ -126,5 +126,19 @@ addProductTocaret(prodID:any):Observable<any> {
    });
 
   }
+  updateProductRate(pId,myRating):Observable<any>
+  {
+    console.log("prodID"+pId);
+    console.log("newrate"+myRating);
+    var body={"pId":pId,"uId":this.sellId,"myRating":myRating};
+    
+    console.log("body"+JSON.stringify(body));
+    const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+     console.log("UpdateRate");
+  return this.http.put<any>("https://localhost:9090/products/rating",body,{headers: headers
+   });
 
+
+  }
 }

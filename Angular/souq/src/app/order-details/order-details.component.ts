@@ -14,7 +14,7 @@ export class OrderDetailsComponent implements OnInit {
 	productData = {name: "", image:""};
 	userInfo = {name:"", email:"", address: ""};
 	OId;
-
+    page;
 	constructor(private orderDetailsService: OrderDetailsService,
 				private router: Router,private activatedRoute: ActivatedRoute
 				) {
@@ -27,16 +27,16 @@ export class OrderDetailsComponent implements OnInit {
 		});
 	}
 
-	checkOrder(OId){
-		this.orderDetailsService.checkOrder(OId)
+	checkOrder(OId,page){
+		this.orderDetailsService.checkOrder(OId,page)
 		.subscribe(orderData => {
 			this.productData = orderData.prodId;
+			console.log("pageNum",this.page)
+			
 			this.getUserInfo(orderData.clientId);
 
 		});
-
 	}
-
 
 	showMsg(){
 		document.getElementById("msg").style.display="";
@@ -60,7 +60,8 @@ export class OrderDetailsComponent implements OnInit {
 
 	ngOnInit() {
 		this.OId = this.activatedRoute.snapshot.paramMap.get('id');
-		this.checkOrder(this.OId);
+		this.page = this.activatedRoute.snapshot.paramMap.get('page');
+		this.checkOrder(this.OId,this.page);
 
 	}
 

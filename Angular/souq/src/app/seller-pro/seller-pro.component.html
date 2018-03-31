@@ -18,7 +18,7 @@
 
 			    <div class="col-sm-6" >
 			    	<h3>{{product.name}}</h3>
-						<span *ngIf="product.rating.T >= 1" class="fa fa-star checked"></span>
+						<!-- <span *ngIf="product.rating.T >= 1" class="fa fa-star checked"></span>
 						<span *ngIf="product.rating.T >= 2" class="fa fa-star checked"></span>
 						<span *ngIf="product.rating.T >= 3" class="fa fa-star checked"></span>
 						<span *ngIf="product.rating.T >= 4" class="fa fa-star checked"></span>
@@ -28,16 +28,15 @@
 						<span *ngIf="product.rating.T < 2" class="fa fa-star "></span>
 						<span *ngIf="product.rating.T < 3" class="fa fa-star "></span>
 						<span *ngIf="product.rating.T < 4" class="fa fa-star "></span>
-						<span *ngIf="product.rating.T < 5" class="fa fa-star "></span>
-
-						<span id="rate">({{product.rating.T}}/5)</span>
+						<span *ngIf="product.rating.T < 5" class="fa fa-star "></span> -->
+                        <rating [max]="max" [(ngModel)]="product.rating.T"  [readonly]="isReadonly"></rating>
 					<p id="desc">{{product.description}}</p>
 			    </div>
 
 			    <div class="col-sm-3" >
-			    	<h3>{{product.price}} LE</h3><br>
-					<h4>{{product.stock}} avaialable</h4><br><br>
-					<a routerLink="/editproduct/{{product._id}}" type="" class="btn btn-success">Edit</a>
+			    	<h3>{{product.price}} LE</h3>
+					<p> Avaliable <span class="badge">{{product.stock}}</span></p>
+					<a routerLink="/editproduct/{{product._id}}" type="" class="btn btn-success">Edit Product</a>
 			    </div>
 			</div>
 
