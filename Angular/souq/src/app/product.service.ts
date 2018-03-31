@@ -136,7 +136,7 @@ addProductTocaret(prodID:any):Observable<any> {
     const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
      console.log("UpdateRate");
-  return this.http.put<any>("https://localhost:9090/products/rating",body,{headers: headers
+  return this.http.post<any>("https://localhost:9090/products/rating",body,{headers: headers
    });
 
 
