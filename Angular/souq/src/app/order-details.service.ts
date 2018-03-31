@@ -23,10 +23,10 @@ export class OrderDetailsService {
 	}
 
 
-	checkOrder(OId): Observable<any>{
+	checkOrder(OId,page): Observable<any>{
 		const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json');
-		return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.sellerId}/${OId}`);
+		.set('Content-Type', 'application/json');
+		return this.http.get<any>(`https://localhost:9090/items/sellerOrders/${this.sellerId}/${page}/${OId}`);
 	}
 
 

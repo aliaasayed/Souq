@@ -8,7 +8,7 @@ import { OrderDetailsComponent } from '../order-details/order-details.component'
 })
 export class SellerOrdersComponent implements OnInit {
   sellerOrders;
-  orderDetails;
+  selectedPage;
   pagesArr=[];
   max: number = 5;
   rate: number = 2;
@@ -17,14 +17,16 @@ export class SellerOrdersComponent implements OnInit {
 
   getSellerOrders(p){
      this.sellerOrdersService.getSellerOrders(p).subscribe((res)=>{
+     
      this.sellerOrders=res[1];
+     this.selectedPage=p;
      this.pagesArr = new Array <Number>(Math.ceil(res[0]/3));
-     console.log(res[0])
       });
   }
 
   ngOnInit() {
     this.getSellerOrders(1);
+   
   }
-
+  
 }

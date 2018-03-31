@@ -72,6 +72,7 @@ router.get("/cOrders/:cId/:page",function(req,res){
             for(p in product){
               cPro={trate: Math.round(product[p].rating.T),
                     name: product[p].name,
+                    id:product[p]._id,
                     description: product[p].description,
                     image: product[p].image,
                     stock: product[p].stock,

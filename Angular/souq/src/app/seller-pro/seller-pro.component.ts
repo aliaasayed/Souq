@@ -7,6 +7,9 @@ import {SellerProductsService} from '../seller-products.service'
   styleUrls: ['./seller-pro.component.css']
 })
 export class SellerProComponent implements OnInit {
+	max: number = 5;
+	rate: number = 2;
+	isReadonly: boolean = true;
 	products = { docs:[], total:" ", limit:"", page: "", pages: "" };
 	pagesArr;
 	constructor(private sellerProductService: SellerProductsService) {

@@ -53,7 +53,7 @@ const routes: Routes = [
   { path: 'sellerOrders', component: SellerOrdersComponent},
   { path: 'myOrders', component: MyOrdersComponent},
 
-  { path: 'orderDetails/:id', component: OrderDetailsComponent},
+  { path: 'orderDetails/:id/:page', component: OrderDetailsComponent},
   { path: '404', component : ErrorPageComponent},
   { path: '', redirectTo: '/souq/home', pathMatch: 'full' },
   { path: '**', redirectTo: '/404', pathMatch: 'full'}

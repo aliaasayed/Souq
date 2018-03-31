@@ -1,16 +1,30 @@
-# Souq
+# My Cart
 
-To load Categories in your Database:
-run inside Master directory: 
+An online Shopping Web Application built with MEAN
+
+## Prerequisites (Used Technologies)
+
+* Node.js
+* Express
+* MongoDB
+* Angular 5 
+
+
+## Installing
+
+Inside the project directory run:
+```
+		mongorestore --db Souq toImport
+		cd Nodejs; npm install; mongod; nodemon app; cd ..
+		cd Angular/souq; npm install; ng serve -ssl -o
 
 ```
-mongorestore --db Souq toImport
-```
 
-and for testing import these samples:
 
-```
-mongoimport --db Souq --collection users --drop --file users.json
+## Authors
 
-mongoimport --db Souq --collection products --drop --file products.json
-```
+* [AhmedAbd-Allah](https://github.com/AhmedAbd-Allah)
+* [alaahayba](https://github.com/alaahayba)
+* [aliaasayed](https://github.com/aliaasayed)
+* [Amr-Elnemr](https://github.com/Amr-Elnemr)
+* [SarahHeshamNadrin](https://github.com/SarahHeshamNadrin) 

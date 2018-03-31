@@ -15,11 +15,11 @@ export class UserHomeComponent implements OnInit {
   constructor(private globalDataService:GlobalDataService,
   private usersProfileService:UsersProfileService) {
 
-    this.globalDataService.currentuser.subscribe((res)=>{
-      console.log("global service ",res)
-    });
+    // this.globalDataService.currentuser.subscribe((res)=>{
+    //   console.log("global oooooooooooooooooooooooservice ",res)
+    // });
     this.usersProfileService.getOffers().subscribe((res)=>{
-      console.log(res)
+      // console.log(res)
       this.products=res;
     });
 

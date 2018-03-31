@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MyOrdersService } from '../my-orders.service'
-
+import { MyOrdersService } from '../my-orders.service';
+import { ProductService } from '../product.service';
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
@@ -11,9 +11,12 @@ export class MyOrdersComponent implements OnInit {
 	products = [];
 	pagesNo;
 	pagesArr;
+	max: number = 5;
+	rate: number = 2;
+	isReadonly: boolean = false;
 	colArr=['s1','s2','s3','s4','s5'];
 	i=0;
-	constructor(private myOrdersService: MyOrdersService) {
+	constructor(private myOrdersService: MyOrdersService,private productService: ProductService) {
 	}
 
 	getMyOrders(p){
@@ -22,17 +25,20 @@ export class MyOrdersComponent implements OnInit {
 			this.products = products;
 			this.pagesNo = Math.ceil(this.products.length/3);
 			this.pagesArr = new Array <Number>(parseInt(this.pagesNo));
-			// console.log("ffdf");
-			// console.log(this.pagesNo);
-			// console.log(this.pagesArr);
+			console.log("qqqq",p);
+			console.log(this.pagesNo);
+			console.log(this.pagesArr);
 		});
 
 	}
-
+	UpdateRate(id,newrate:number)
+	{
+	  this.productService.updateProductRate(id,newrate);
+	}
 
 	ngOnInit() {
 		this.getMyOrders(1);
-		
+
 	}
 
 }

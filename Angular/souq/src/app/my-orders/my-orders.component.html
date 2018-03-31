@@ -17,7 +17,7 @@
 
 			    <div class="col-sm-6" >
 			    	<h3>{{product.name}}</h3>
-						<span *ngIf="product.trate >= 1" class="fa fa-star checked"></span>
+						<!-- <span *ngIf="product.trate >= 1" class="fa fa-star checked"></span>
 						<span *ngIf="product.trate >= 2" class="fa fa-star checked"></span>
 						<span *ngIf="product.trate >= 3" class="fa fa-star checked"></span>
 						<span *ngIf="product.trate >= 4" class="fa fa-star checked"></span>
@@ -27,11 +27,11 @@
 						<span *ngIf="product.trate < 2" class="fa fa-star "></span>
 						<span *ngIf="product.trate < 3" class="fa fa-star "></span>
 						<span *ngIf="product.trate < 4" class="fa fa-star "></span>
-						<span *ngIf="product.trate < 5" class="fa fa-star "></span>
+						<span *ngIf="product.trate < 5" class="fa fa-star "></span> -->
 
 
 
-
+                        <rating [max]="max" (click)="UpdateRate(product.id,product.trate)" [(ngModel)]="product.trate"  [readonly]="isReadonly"></rating>
 						<span id="rate">({{product.trate}}/5)</span>
 					<p id="desc">{{product.description}}</p>
 			    </div>
@@ -39,7 +39,8 @@
 			    <div class="col-sm-3" >
 			    	<h3>{{product.price}} LE</h3><br>
 					<h4>{{product.stock}} avaialable</h4><br><br>
-					<h3 id="rcorners2">State: {{product.state}}</h3>
+					
+					<h3 id="rcorners2">State: <b>{{product.state}}</b></h3>
 			    </div>
 			</div>
 

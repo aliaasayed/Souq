@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import {GlobalDataService} from './global-data.service'
 
 @Injectable()
 export class UsersProfileService {
 
 //for get and update user profile
-  constructor(private http:HttpClient) { }
+
+  logedUser;
+  constructor(private http:HttpClient,private globalDataService:GlobalDataService) {
+
+  this.globalDataService.currentuser.subscribe((res)=>{
+    this.logedUser=res;
+   console.log("xxxxxxxxxxxxxxxxxxxxxx",res)
+  });
+}
   getOffers(): Observable<any> {
     return this.http.get<any>("https://localhost:9090/products/offers")
   }
@@ -18,12 +27,18 @@ export class UsersProfileService {
        {headers: headers});
   }
   updateUser(update):Observable<any>{
-   console.log(update)
-   const headers = new HttpHeaders()
-         .set('Content-Type', 'application/json');
+    if(!this.logedUser.sociallogin){
+         console.log(update)
+         const headers = new HttpHeaders()
+              .set('Content-Type', 'application/json');
 
-       return this.http.post('https://localhost:9090/users/edit/'+
-       JSON.parse(localStorage.getItem('SouqloginUser'))._id,update,
-       {headers: headers});
+
+             return this.http.post('https://localhost:9090/users/edit/'+
+             this.logedUser._id,update,
+             {headers: headers});
+     }
+
   }
+
+
 }
