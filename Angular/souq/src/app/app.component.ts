@@ -58,15 +58,20 @@ export class AppComponent implements OnInit{
                      this.logedUser.hasNatId=true;
               }
 
-              this.productService.getmyCartProductcount().subscribe((res)=>{
-                this.globalDataService.setUserCart(res);
-              });
-
               this.globalDataService.currentuserCart.subscribe((res)=>{
                 this.cartCount=JSON.stringify(res);
-                console.log("ddddddddddddddddddddddddddddddddddddddddddddd",res)
               });
+
         });
+
+
+        // this.productService.getmyCartProductcount().subscribe((res)=>{
+        //   this.globalDataService.setUserCart(res);
+        // });
+
+        // this.globalDataService.currentuserCart.subscribe((res)=>{
+        //   this.cartCount=JSON.stringify(res);
+        // });
 
       this.categoriesService.getCategories().subscribe((res)=>{
         this.categories=res
@@ -109,8 +114,16 @@ export class AppComponent implements OnInit{
   }
 
   logout(){
-     localStorage.clear();
+
+     console.log("dddddddddddddddclear")
      this.logedUser={ _id:null,email:null,image:"",name:"",hasNatId:false}
+     this.globalDataService.setUserData( this.logedUser);
+     localStorage.clear();
+
+
+     // this.globalDataService.currentuserCart.subscribe((res)=>{
+     //   this.cartCount=JSON.stringify(res);
+     // });
     }
 
 

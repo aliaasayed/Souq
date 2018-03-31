@@ -19,7 +19,7 @@ export class UserHomeComponent implements OnInit {
     //   console.log("global oooooooooooooooooooooooservice ",res)
     // });
     this.usersProfileService.getOffers().subscribe((res)=>{
-      console.log(res)
+      // console.log(res)
       this.products=res;
     });
 
