@@ -32,7 +32,7 @@ selectedItem;
       console.log(res);
       this.CartProductCount=res;
       this.globalDataService.setUserCart(res);
-
+      // this.globalDataService.setUserCart(res);
     });
   }
 

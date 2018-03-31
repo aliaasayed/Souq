@@ -51,7 +51,7 @@ export class OrderDetailsComponent implements OnInit {
 		this.orderDetailsService.setAsReceived(this.OId)
 		.subscribe((res)=>console.log(res));
 		console.log('delivered');
-		this.router.navigate(['']);
+		this.router.navigate(['sellerOrders']);
 	}
 
 

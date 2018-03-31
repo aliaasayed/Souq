@@ -4,10 +4,12 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Headers,RequestOptions } from '@angular/http';
 import {GlobalDataService} from './global-data.service'
 
+
 @Injectable()
 export class LoginService {
   user:any;
   constructor(private http:HttpClient,private globalDataService:GlobalDataService) { }
+
 
   getUserLoginToken(email:String,password:String):Observable<any>{
 
@@ -17,6 +19,18 @@ export class LoginService {
    this.globalDataService.setUserData(this.user);
    return this.user;
 
+  }
+  getUserLoginTokenforSocial(email:String):Observable<any>{
+
+    console.log("ddddddddddddddddddd")
+
+    const headers = new HttpHeaders()
+        .set('Content-Type', 'application/json');
+    var body = {"email": email};
+
+    return  this.user=this.http.post<any>('https://localhost:9090/auth/userloginSocailmedia', body,{
+        headers: headers
+      });
   }
 
   accessProtected(){

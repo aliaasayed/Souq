@@ -45,21 +45,32 @@ export class LoginSouqComponent implements OnInit {
 
         this.socialAuthService.signIn(socialPlatformProvider).then(
           (userData) => {
-            console.log(socialPlatform+" sign in data : " , userData);
-            this.loginService.socialLogin(userData).subscribe((res)=>{
-            console.log(res);
+            userData["sociallogin"]=true;
+            this.globalDataService.setUserData(userData);
+            this.globalDataService.currentuser.subscribe((res)=>{
+              this.logedUser=res;
+                this.getSocialToken(res);
+            });
+      this.loginService.socialLogin(userData).subscribe((res)=>{
             if(res=="true" || res=="user email exist")
-            {
-               this.route.navigate(['/souq/home'])
+            { this.route.navigate(['/souq/home'])
             }else{}
           });
-          }
-        );
+
+          });
       }
   ngOnInit(): void {
     console.log("init")
   }
 
+getSocialToken(user):void{
+
+    this.loginService.getUserLoginTokenforSocial(user.email).subscribe((res)=>{
+      localStorage.setItem('SouqtokenKey', res.token);
+        localStorage.setItem('Souqtokenlogin', 'social');
+
+    });
+}
   getToken(): void {
     this.loginService.getUserLoginToken(this.user.email,this.user.password).subscribe((res)=>{
       console.log("login service",res);
@@ -83,12 +94,4 @@ export class LoginSouqComponent implements OnInit {
     });
   }
 
-
-  access():void{
-    console.log("clicccc");
-    this.loginService.accessProtected().subscribe((res)=>{
-      console.log(res)
-    });
-
-  }
 }

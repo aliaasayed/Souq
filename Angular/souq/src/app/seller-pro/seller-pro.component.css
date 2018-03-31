@@ -46,7 +46,7 @@ button{
 
 .pagination a {
     color: black;
-    float: left;
+    /*float: left;*/
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color .3s;

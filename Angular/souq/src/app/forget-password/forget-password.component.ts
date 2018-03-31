@@ -10,7 +10,7 @@ export class ForgetPasswordComponent implements OnInit {
   displayForgetPw=false
   userEmail="";
   constructor(private loginService: LoginService) {
-   if(!localStorage.getItem('Souqlogin')){
+   if(!localStorage.getItem('Souqloginkey')){
    this.displayForgetPw=true;
    }
 

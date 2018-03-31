@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersProfileService } from '../users-profile.service';
+import {GlobalDataService} from '../global-data.service'
 
 @Component({
   selector: 'app-user-profile-detail',
@@ -11,7 +12,7 @@ export class UserProfileDetailComponent implements OnInit {
   infohidden = false;
   image;
  user={};
-  constructor(private usersProfileService:UsersProfileService) {
+  constructor(private usersProfileService:UsersProfileService,private globalDataService:GlobalDataService) {
     if(localStorage.getItem('SouqtokenKey')){//there token exist in localS
       this.usersProfileService.getUserProfile().subscribe((res)=>{
         this.user=res.user;
@@ -27,20 +28,19 @@ export class UserProfileDetailComponent implements OnInit {
     console.log(form.valid);
     form.value.image=this.image;
     console.log(form.value)
-    this.usersProfileService.updateUser(form.value).subscribe((res)=>{
-    console.log(res);
-  });
+  //   this.usersProfileService.updateUser(form.value).subscribe((res)=>{
+  //      // this.globalDataService.setUserData(this.user);
+  //   console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",res);
+  // });
   }
-  fileUpload(files)
-  {
-  //console.log(files[0]);
-  this.image = files[0];
-  var myReader:FileReader = new FileReader();
-  myReader.readAsDataURL(this.image);
-  myReader.onloadend = (e) => {
-    this.image = myReader.result;
-    //console.log(this.image)
-  }
+  fileUpload(files){
+
+      this.image = files[0];
+      var myReader:FileReader = new FileReader();
+      myReader.readAsDataURL(this.image);
+      myReader.onloadend = (e) => {
+        this.image = myReader.result;
+      }
   }
   ngOnInit() {
   }
