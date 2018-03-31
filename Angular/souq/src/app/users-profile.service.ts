@@ -27,15 +27,17 @@ export class UsersProfileService {
        {headers: headers});
   }
   updateUser(update):Observable<any>{
-   console.log(update)
-   const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json');
+    if(!this.logedUser.sociallogin){
+         console.log(update)
+         const headers = new HttpHeaders()
+              .set('Content-Type', 'application/json');
 
 
-       return this.http.post('https://localhost:9090/users/edit/'+
-       this.logedUser._id,update,
-       {headers: headers});
-       
+             return this.http.post('https://localhost:9090/users/edit/'+
+             this.logedUser._id,update,
+             {headers: headers});
+     }
+
   }
 
 

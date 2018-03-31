@@ -4,6 +4,7 @@ import {config} from './config';
 import { LoginService } from './login.service';
 import { CategoriesService } from './categories.service';
 import {GlobalDataService} from './global-data.service'
+import { ProductService } from './product.service';
 import { Router } from '@angular/router';
 
 
@@ -19,19 +20,20 @@ declare var $ :any;
 
 export class AppComponent implements OnInit{
   categories;
-  title = 'app';
   url;
   configData=config;
   logedUser={ _id:null,email:null,image:"",name:"",hasNatId:false}
-   cartCount=0;
+  cartCount:String="0";
 
 
   ngOnInit(): void {
 
-   
+
 
   }
-  constructor(private categoriesService: CategoriesService,private loginService: LoginService,private route:Router,private globalDataService:GlobalDataService){
+  constructor(private categoriesService: CategoriesService,private loginService: LoginService
+    ,private productService: ProductService
+    ,private route:Router,private globalDataService:GlobalDataService){
 
 
       //verify if he previous loged
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit{
             this.logedUser.image =res['image'];
               this.logedUser.email =res['email'];
           }
-              if(res.hasOwnProperty('name'))
+          else if(res.hasOwnProperty('name'))
               {
                this.logedUser._id =res['_id'];
                this.logedUser.name =res['name'];
@@ -55,12 +57,23 @@ export class AppComponent implements OnInit{
                 if(res['nationalID'])
                      this.logedUser.hasNatId=true;
               }
+
+              this.productService.getmyCartProductcount().subscribe((res)=>{
+                this.globalDataService.setUserCart(res);
+              });
+
+              this.globalDataService.currentuserCart.subscribe((res)=>{
+                this.cartCount=JSON.stringify(res);
+                console.log("ddddddddddddddddddddddddddddddddddddddddddddd",res)
+              });
         });
 
       this.categoriesService.getCategories().subscribe((res)=>{
         this.categories=res
+
+
       });
-     
+
       // $('#myLink').bind('click', false);
       $("#myLink").attr('disabled', true);
   }

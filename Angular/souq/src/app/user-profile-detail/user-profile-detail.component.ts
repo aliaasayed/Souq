@@ -28,21 +28,19 @@ export class UserProfileDetailComponent implements OnInit {
     console.log(form.valid);
     form.value.image=this.image;
     console.log(form.value)
-    this.usersProfileService.updateUser(form.value).subscribe((res)=>{
-       this.globalDataService.setUserData(this.user);
-    console.log(res);
-  });
+  //   this.usersProfileService.updateUser(form.value).subscribe((res)=>{
+  //      // this.globalDataService.setUserData(this.user);
+  //   console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",res);
+  // });
   }
-  fileUpload(files)
-  {
-  //console.log(files[0]);
-  this.image = files[0];
-  var myReader:FileReader = new FileReader();
-  myReader.readAsDataURL(this.image);
-  myReader.onloadend = (e) => {
-    this.image = myReader.result;
-    //console.log(this.image)
-  }
+  fileUpload(files){
+
+      this.image = files[0];
+      var myReader:FileReader = new FileReader();
+      myReader.readAsDataURL(this.image);
+      myReader.onloadend = (e) => {
+        this.image = myReader.result;
+      }
   }
   ngOnInit() {
   }
