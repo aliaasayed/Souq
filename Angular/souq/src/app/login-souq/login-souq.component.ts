@@ -13,6 +13,7 @@ import {
   templateUrl: './login-souq.component.html',
   styleUrls: ['./login-souq.component.css']
 })
+
 export class LoginSouqComponent implements OnInit {
   FbookUrl:any;
   GmailUrl:any;
@@ -66,8 +67,11 @@ export class LoginSouqComponent implements OnInit {
 getSocialToken(user):void{
 
     this.loginService.getUserLoginTokenforSocial(user.email).subscribe((res)=>{
+      console.log("again",  this.logedUser)
       localStorage.setItem('SouqtokenKey', res.token);
         localStorage.setItem('Souqtokenlogin', 'social');
+        // this.globalDataService.setUserData( this.logedUser);
+
 
     });
 }
