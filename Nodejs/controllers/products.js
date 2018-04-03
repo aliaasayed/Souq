@@ -316,15 +316,20 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 router.get("/toptrending",function(request,response)
 {
 
-    var filter = { rating: { T: { $ne : 0 } } };
+    var filter = {};
     var fields = {};
-    // var options = {sort:{rating: { T: -1 }}};
-    var options = {sort:{ T: -1 }, limit: 6};
-
+    var options = {sort:{ "rating.T": -1 }, limit:6};
     ProductsModel.find(filter, fields, options,function(err,data){
-   console.log(data)
+      if(err)
+      {
+   console.log(err)
+    response.json(err);
+      }
+      else
+      {
+        console.log(data[0])
     response.json(data);
-
+      }
 
 });
 })
