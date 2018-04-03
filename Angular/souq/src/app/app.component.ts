@@ -119,6 +119,7 @@ export class AppComponent implements OnInit{
      this.logedUser={ _id:null,email:null,image:"",name:"",hasNatId:false}
      this.globalDataService.setUserData( this.logedUser);
      localStorage.clear();
+      this.route.navigate(["/"])
 
 
      // this.globalDataService.currentuserCart.subscribe((res)=>{

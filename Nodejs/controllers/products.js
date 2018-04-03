@@ -172,218 +172,94 @@ router.get("/showProduct/:pId",function(request,response)
 
 
 /****************** Rate Product *********************/
-/*** ++ calculate total-rating and send along with data ***/
-router.post("/rate",urlEncodedMid,function(request,response)
-{
-    ProductsModel.findById(request.body.Id, function (err, product) {
-        if (err)
-        {
-           var error = console.log("error here");
-           return error;
-        }
 
+function chn_product_rating(productID,newrRval,oldVal)
+ {
+    var oldRatingObj;
+     ProductsModel.findOne({_id: productID},function(err,data){
+       oldRatingObj=data.rating;
 
-        var myrate = request.body.myRating
+       if(oldRatingObj[oldVal]!=0)
+         oldRatingObj[oldVal]--;
+         oldRatingObj[newrRval]++;
 
-        console.log(product.rating[myrate]);
+        var newAve=(oldRatingObj[1]+oldRatingObj[2]*2+oldRatingObj[3]*3+oldRatingObj[4]*4+oldRatingObj[5]*5)
+        /(oldRatingObj[1]+oldRatingObj[2]+oldRatingObj[3]+oldRatingObj[4]+oldRatingObj[5]);
+        oldRatingObj['T']=newAve;
+            oldRatingObj['1']='0';
 
-       product.rating.myrate = product.rating[myrate]++;
-
-       //calculate total rating:
-       product.rating.T = (
-                            product.rating[1] * 1 +
-                            product.rating[2] * 2 +
-                            product.rating[3] * 3 +
-                            product.rating[4] * 4 +
-                            product.rating[5] * 5
-                          )/
-                          (
-                            product.rating[1] +
-                            product.rating[2] +
-                            product.rating[3] +
-                            product.rating[4] +
-                            product.rating[5]
-                          );
-
-      product.rating.T = Math.round(product.rating.T);
-
-
-
-        product.save(function (err, updatedProduct) {
-          if (err)
-          {
-            console.log("error here2");
-            // return error2;
-            response.send("er")
-          }
-          else
-          {
-          console.log("update success");
-          response.send("update success");
+       ProductsModel.update({_id: productID},{"$set":{rating:oldRatingObj }},function(err,data){
+          if(!err){
+              console.log("new rating object",oldRatingObj)
+            console.log("updateddddddddddddd",data)
           }
         });
-      });
-});
+  });
+}
 
-// ----------------------new rating------------------------------------
-router.post("/rating",urlEncodedMid,function(request,response)
-{
+router.post("/rating",urlEncodedMid,function(request,response){
+
+  // var productID = "5ab6bd1375e42642b9102130"//request.body.pId;
+  // var userID = "5abe5d4f16dfd12d529eec3a"//request.body.uId;
+  // var newrate = 2;//request.body.myRating
+
     var productID = request.body.pId;
-    var userID = request.body.uId;
-    var newrate = request.body.myRating
-    // console.log(typeof newrate)
-    // console.log(product.rating[myrate]);
+    var userID =request.body.uId;
+    var newrate = request.body.myRating;
 
+    RatingsModel.findOne({product_id: productID,user_id:userID},function(err,data){
 
-    RatingsModel.find({ $and: [ { product_id: { $eq: productID } }, { user_id: { $eq: userID } } ] } , function(error, results) {
-        if (results != "")
-        {
-            // console.log(results);
-            var oldRating = results.rating
-            // console.log(typeof oldRating)
-            if (oldRating != newrate)
-            {
-              results.rating = newrate;
-              ProductsModel.findById(request.body.pId, function (err, product) {
-                if (err)
-                  {
-                    var error = console.log("error here");
-                    return error;
-                  }
-                else
-                  {
-                    product.rating.oldRating = product.rating[oldRating]--;
-                    product.rating.newrate = product.rating[newrate]++;
-                    product.rating.T = (
-                      product.rating[1] * 1 +
-                      product.rating[2] * 2 +
-                      product.rating[3] * 3 +
-                      product.rating[4] * 4 +
-                      product.rating[5] * 5
-                    )/
-                    (
-                      product.rating[1] +
-                      product.rating[2] +
-                      product.rating[3] +
-                      product.rating[4] +
-                      product.rating[5]
-                    );
-                    product.rating.T = Math.round(product.rating.T*10)/10;
-                    product.save(function (err, updatedProduct)
-                    {
-                        if (err)
-                          {
-                            console.log(product);
-                            console.log(err);
-                            response.send(err)
-                          }
-                        else
-                          {
-                          console.log("update success");
-                          response.send("update success");
-                          }
-                    });
-                  }
-              });
-            }
-            else
-            {
-              response.send("no update to record");
-            }
-
+      if(data==''){
+                var rating = new RatingsModel({
+                 product_id: productID,
+                 user_id:userID,
+                 rating:newrate
+                });
+              rating.save(function(err,doc){
+              if(!err){
+                   chn_product_rating(productID,newrate,0)
+                  response.json("added");
+              }
+            });
+          }
+      else{//update last rate
+            RatingsModel.update({product_id: productID,user_id:userID},{"$set":{
+              rating:newrate
+            }},function(err,d){
+            if(!err){
+              if(data.rating!=newrate){
+                chn_product_rating(productID,newrate,data.rating)
+              }
+              response.json("done update");
+              }
+          });
         }
-        else
-        {
-          var rating = new RatingsModel({
-          product_id: productID,
-          user_id: userID,
-          rating: newrate,
-          });
-
-          rating.save(function(err,doc){})
-
-          ProductsModel.findById(productID, function (err, product) {
-            if (err)
-              {
-                var error = console.log("error here");
-                return error;
-              }
-            else
-              {
-                console.log(productID)
-                console.log(product)
-                product.rating.newrate = product.rating[newrate]++;
-              }
-
-            //calculate total rating:
-          product.rating.T = (
-                                product.rating[1] * 1 +
-                                product.rating[2] * 2 +
-                                product.rating[3] * 3 +
-                                product.rating[4] * 4 +
-                                product.rating[5] * 5
-                              )/
-                              (
-                                product.rating[1] +
-                                product.rating[2] +
-                                product.rating[3] +
-                                product.rating[4] +
-                                product.rating[5]
-                              );
-
-          product.rating.T = Math.round(product.rating.T*10)/10;
-          product.save(function (err, updatedProduct)
-          {
-              if (err)
-                {
-                  console.log(err);
-                  response.send(err)
-                }
-              else
-                {
-                console.log("update success");
-                response.send("update success");
-                }
-          });
-
-
-        });
-      }
-
-
-
-});
-});
+      });
+    });
 
 
 //---------------------------------------------------------------------
 //pric 0:100
 router.get("/search/:key?/:cat?/:price?/:page?",function(req,res)
 {
-
   var key = req.params.key ? req.params.key:'';
   var page = req.params.page ? req.params.page:1;
   var pricelow = req.params.price ? req.params.price.split(":")[0]:0;
   var pricehigh = req.params.price ? req.params.price.split(":")[1]:10000000;
-  console.log(req.params.price,"ccccccccccc",pricelow,pricehigh)
   var cat;
 
   if(req.params.cat)
     cat =req.params.cat.trim().split(',');
   var regexValue='\.*'+key+'\.';
-  console.log("cat",cat)
   if(cat.length>=1&&cat[0].trim()!=''){
-     console.log("1kkkkkkkkkkkkkkkkkkkkkkkkkkk")
         ProductsModel.paginate({
-           name:new RegExp(regexValue, 'i'),
-            subcategory:{"$in":cat},price:{ "$gt" : pricelow, "$lt" : pricehigh},
+           name:new RegExp(regexValue, 'i'),subcategory:{"$in":cat},price:{ "$gt" : pricelow, "$lt" : pricehigh},
           },{page:page,limit:2},function(err,result){
         res.json({productsData:result});
         });
   }
 
   else{
-     console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     ProductsModel.paginate({name:new RegExp(regexValue, 'i')
    ,price:{ "$gt" : pricelow, "$lt" : pricehigh}
   },{page:page,limit:2},function(err,result){
@@ -440,16 +316,21 @@ router.post("/avgrating",urlEncodedMid,function(request,response)
 router.get("/toptrending",function(request,response)
 {
 
-    var filter = { rating: { T: { $ne : 0 } } };
+    var filter = {};
     var fields = {};
-    // var options = {sort:{rating: { T: -1 }}};
-    var options = {sort:{ T: -1 }, limit: 6};
-    
+    var options = {sort:{ "rating.T": -1 }, limit:6};
     ProductsModel.find(filter, fields, options,function(err,data){
-   console.log(data)
+      if(err)
+      {
+   console.log(err)
+    response.json(err);
+      }
+      else
+      {
+        console.log(data[0])
     response.json(data);
+      }
 
-    
 });
 })
 
