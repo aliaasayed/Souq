@@ -3,8 +3,9 @@ slide {
 }
 .img-fluid
 {
-  width:100%;
-  position: relative;
+  width:180px;
+  height: 150px;
+  /* position: relative; */
 }
 
 .card-title

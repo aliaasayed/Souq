@@ -1,15 +1,16 @@
 <div class="clientInfo">
-<div class="well col-sm-10 ">
-  <div class="col-sm-1"></div>
+<div class="col-sm-2"></div>
+<div class="well col-sm-9">
 
         <div class="col-sm-4" >
-          <h3>{{product.name}}</h3>
-          <img height="300px" width="200px" src="{{product.image}}" />
+          <h2>{{product.name}}</h2>
+          <img width="80%" src="{{product.image}}" />
 
       </div>
 
         <div class="col-sm-7" >
           <table class="table table-condensed">
+            
               <tr>
                 <td><label>Price </label> </td>
                 <td>{{product.price}}</td>
@@ -30,34 +31,30 @@
                 <td><label>Avialable </label> </td>
                 <td>{{product.stock}}</td>
               </tr>
-
+             
+                  <div class="dropdown">
+                      <div *ngIf="logedUser.nationalID==null" class="dropdown-content">
+                        <button  (click)="addTocart()" type="button"  class="btn btn-success" > Add to cart</button>
+                      </div>
+                    <br><br><br><br>
+                    </div>
+                    <div class="popUpaction" *ngIf="IsAdded" >
+                          <h4>{{product.name}} is added to your cart</h4>
+                        <button (click)="hideMsg()" type="button" class="btn btn-primary" > ok</button>
+                      </div>
+                      <div class="popUpaction" *ngIf="Isexist">
+                        <h4>{{product.name}} is already exist in your card your cart</h4>
+                        <button (click)="hideMsg()" type="button" class="btn btn-primary" > ok</button>
+                      </div>
+                      <div class="popUpaction" *ngIf="alert">
+                        <h4>You must login first</h4>
+                        <a routerLink='/souq/login' class="btn btn-primary" > Login</a>
+                        <button (click)="hideMsg()" type="button" class="btn btn-primary" > cancel</button>
+            
+                      </div>
 
           </table>
 
         </div>
-
-        <div class="col-sm-3">
-        <div class="dropdown">
-          <div *ngIf="logedUser.nationalID==null" class="dropdown-content">
-            <button  (click)="addTocart()" type="button"  class="btn btn-success" > Add to cart</button>
-          </div>
-        <br><br><br><br>
-        </div>
-        <div class="popUpaction" *ngIf="IsAdded" >
-              <h4>{{product.name}} is added to your cart</h4>
-            <button (click)="hideMsg()" type="button" class="btn btn-primary" > ok</button>
-          </div>
-          <div class="popUpaction" *ngIf="Isexist">
-            <h4>{{product.name}} is already exist in your card your cart</h4>
-            <button (click)="hideMsg()" type="button" class="btn btn-primary" > ok</button>
-          </div>
-          <div class="popUpaction" *ngIf="alert">
-            <h4>You must login first</h4>
-            <a routerLink='/souq/login' class="btn btn-primary" > Login</a>
-            <button (click)="hideMsg()" type="button" class="btn btn-primary" > cancel</button>
-
-          </div>
-
-
 
 </div>

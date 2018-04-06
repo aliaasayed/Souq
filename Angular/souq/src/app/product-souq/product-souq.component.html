@@ -14,7 +14,9 @@
                   </div>
                   <div class="media-body">
                     <h3 class="media-heading">{{ item.name}}</h3>
-                    <rating [max]="max" [(ngModel)]="rate"  [readonly]="isReadonly"></rating>
+                    <rating *ngIf="loggedUser.nationalID || loggedUser.email==null" [max]="max" [(ngModel)]="item.rating.T"  [readonly]="ReadOnly"></rating>
+                     <rating *ngIf="!loggedUser.nationalID && loggedUser.email" [max]="max" (click)="UpdateRating(item.id,item.rating.T)" [(ngModel)]="item.rating.T"  [readonly]="isModified"></rating>
+                    <!-- <rating [max]="max" [(ngModel)]="item.rating.T"  [readonly]="ReadOnly"></rating> -->
                     <p>{{ item.description}}</p>
                   </div>
                   <div class="media-right" style="width:15%">

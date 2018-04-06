@@ -33,7 +33,7 @@ export class MyOrdersComponent implements OnInit {
 	}
 	UpdateRate(id,newrate:number)
 	{
-	  this.productService.updateProductRate(id,newrate);
+	  this.productService.updateProductRate(id,newrate).subscribe( res => console.log("result" + res));
 	}
 
 	ngOnInit() {

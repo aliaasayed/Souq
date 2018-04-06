@@ -128,15 +128,16 @@ addProductTocaret(prodID:any):Observable<any> {
   }
   updateProductRate(pId,myRating):Observable<any>
   {
-    console.log("prodID"+pId);
-    console.log("newrate"+myRating);
+    // console.log("prodID"+pId);
+    // console.log("newrate"+myRating);
     var body={"pId":pId,"uId":this.sellId,"myRating":myRating};
     
-    console.log("body"+JSON.stringify(body));
+    // console.log("body"+JSON.stringify(body));
     const headers = new HttpHeaders()
-           .set('Content-Type', 'application/json');
-     console.log("UpdateRate");
-  return this.http.post<any>("https://localhost:9090/products/rating",body,{headers: headers
+           .set('Content-Type', 'application/json')
+           .set('authorization', localStorage.getItem('SouqtokenKey'));
+    // console.log("UpdateRate");
+  return this.http.post<any>('https://localhost:9090/products/updaterating',body,{headers: headers
    });
   }
  getTopTrendingProducts():Observable<any>
