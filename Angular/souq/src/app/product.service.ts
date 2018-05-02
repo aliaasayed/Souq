@@ -143,7 +143,6 @@ addProductTocaret(prodID:any):Observable<any> {
  getTopTrendingProducts():Observable<any>
  {
   const headers = new HttpHeaders()
-  .set('authorization', localStorage.getItem('SouqtokenKey'))
   .set('Content-Type', 'application/json');
       console.log("Top Trending Service");
       return this.http.get<any>('https://localhost:9090/products/toptrending',{headers: headers});

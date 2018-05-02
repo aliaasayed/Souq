@@ -157,7 +157,7 @@ label
  li.dropdown:hover > ul.dropdown-menu {
      /* position: absolute; */
       display: block;
-      z-index: 2;
+      z-index: 5;
     }
 
     .dropbtn {
